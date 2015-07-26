@@ -1,5 +1,7 @@
-package sorry.no.domain.test_project;
+package sorry.no.domain.test_project.ui;
 
+import sorry.no.domain.test_project.Game;
+import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.util.SystemUiHider;
 
 import android.annotation.TargetApi;
@@ -17,7 +19,7 @@ import android.view.View;
  *
  * @see SystemUiHider
  */
-public class FullscreenActivity extends Activity {
+public class MainMenuActivity extends Activity {
     /**
      * Whether or not the system UI should be auto-hidden after
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
@@ -134,6 +136,7 @@ public class FullscreenActivity extends Activity {
     View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
+            Game.init();
             if (AUTO_HIDE) {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
