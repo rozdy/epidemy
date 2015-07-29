@@ -1,10 +1,18 @@
 package sorry.no.domain.test_project.ui;
 
+import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.GridView;
+import android.widget.ListAdapter;
 
+import sorry.no.domain.test_project.BoardImageAdapter;
+import sorry.no.domain.test_project.Game;
 import sorry.no.domain.test_project.R;
 
 public class GameBoardActivity extends ActionBarActivity {
@@ -13,6 +21,10 @@ public class GameBoardActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_board);
+
+        GridView gridview = (GridView) findViewById(R.id.gridview);
+        gridview.setNumColumns(Game.getInstance().getBoard().getWidth() + 1);
+        gridview.setAdapter(new BoardImageAdapter(this));
     }
 
     @Override

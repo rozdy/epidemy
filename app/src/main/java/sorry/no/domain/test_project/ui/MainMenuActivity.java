@@ -6,6 +6,7 @@ import sorry.no.domain.test_project.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -114,7 +115,8 @@ public class MainMenuActivity extends Activity {
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
-        findViewById(R.id.start_game_button).setOnTouchListener(mDelayHideTouchListener);
+
+//        findViewById(R.id.start_game_button).setOnTouchListener(mDelayHideTouchListener);
     }
 
     @Override
@@ -136,7 +138,7 @@ public class MainMenuActivity extends Activity {
     View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
-            Game.init();
+//            Game.init();
             if (AUTO_HIDE) {
                 delayedHide(AUTO_HIDE_DELAY_MILLIS);
             }
@@ -159,5 +161,11 @@ public class MainMenuActivity extends Activity {
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    }
+
+    public void startGame(View view) {
+        Game.init();
+        Intent intent = new Intent(this, GameBoardActivity.class);
+        startActivity(intent);
     }
 }
