@@ -21,6 +21,9 @@
         <activity
             android:name=".ui.GameBoardActivity"
             android:label="@string/title_activity_game_board" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainMenuActivity" />
         </activity>
     </application>
 
