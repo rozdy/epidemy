@@ -24,4 +24,12 @@ public class Board {
                 cells[i][j] = new Cell();
             }
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }
