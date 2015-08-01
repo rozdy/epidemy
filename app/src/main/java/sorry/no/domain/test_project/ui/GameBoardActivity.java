@@ -2,6 +2,7 @@ package sorry.no.domain.test_project.ui;
 
 import android.database.DataSetObserver;
 import android.graphics.Color;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -45,9 +46,19 @@ public class GameBoardActivity extends ActionBarActivity {
             case R.id.action_settings:
                 return true;
             case R.id.action_surrender:
+                Game.finish();
+
+                showFinalStats();
+
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showFinalStats() {
+        FragmentManager fm = getSupportFragmentManager();
+        FinalStatsDialog finalStatsDialog = new FinalStatsDialog();
+        finalStatsDialog.show(fm, "final stats dialog");
     }
 }

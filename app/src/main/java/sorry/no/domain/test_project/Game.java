@@ -18,6 +18,17 @@ public class Game {
     public static final int DEFAULT_MOVES_NUMBER = 3;
     public static final int DEFAULT_PLAYERS_NUMBER = 2;
 
+    public static final int GAME_STATE_NOT_STARTED = 0;
+    public static final int GAME_STATE_STARTED = 1;
+    public static final int GAME_STATE_FINISHED = 2;
+
+    private int gameState;
+    private GameStats stats;
+
+    {
+        gameState = GAME_STATE_NOT_STARTED;
+    }
+
     private List<Player> players;
     private Board board;
 
@@ -31,6 +42,7 @@ public class Game {
         }
         activePlayer = 0;
         numberOfMoves = DEFAULT_MOVES_NUMBER;
+        gameState = GAME_STATE_STARTED;
     }
 
     public static Game getInstance() {
@@ -48,6 +60,10 @@ public class Game {
         return players;
     }
 
+    public Player getPlayer(int number) {
+        return players.get(number);
+    }
+
     public Board getBoard() {
         return board;
     }
@@ -58,5 +74,15 @@ public class Game {
 
     public int getNumberOfMoves() {
         return numberOfMoves;
+    }
+
+    public static void finish() {
+        Game.instance.stats = new GameStats(Game.instance);
+        Game.instance.gameState = GAME_STATE_FINISHED;
+        Player.resetIdCounter();
+    }
+
+    public GameStats getStats() {
+        return stats;
     }
 }
