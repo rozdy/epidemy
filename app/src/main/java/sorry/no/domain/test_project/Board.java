@@ -1,7 +1,5 @@
 package sorry.no.domain.test_project;
 
-import android.util.Size;
-
 /**
  * Created by hex on 7/22/2015.
  */
@@ -10,7 +8,7 @@ public class Board {
     public static final int DEFAULT_WIDTH = 10;
     public static final int DEFAULT_HEIGHT = 10;
 
-    private int width,height;
+    private int width, height;
     private Cell[][] cells;
 
     public Board() {

@@ -1,18 +1,12 @@
 package sorry.no.domain.test_project.ui;
 
-import sorry.no.domain.test_project.Game;
-import sorry.no.domain.test_project.R;
-import sorry.no.domain.test_project.util.SystemUiHider;
-
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
-import android.view.MotionEvent;
 import android.view.View;
+
+import sorry.no.domain.test_project.Game;
+import sorry.no.domain.test_project.R;
 
 
 public class MainMenuActivity extends Activity {
