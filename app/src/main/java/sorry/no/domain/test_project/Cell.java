@@ -11,10 +11,14 @@ public class Cell {
 
     private int state;
     private int ownerId;
+    private int x;
+    private int y;
 
-    public Cell() {
+    public Cell(int x, int y) {
         state = EMPTY_CELL;
         ownerId = -1;
+        this.x = x;
+        this.y = y;
     }
 
     public boolean isEmpty() {
@@ -53,4 +57,64 @@ public class Cell {
 
     }
 
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cell)) return false;
+
+        Cell cell = (Cell) o;
+
+        if (getState() != cell.getState()) return false;
+        if (getOwnerId() != cell.getOwnerId()) return false;
+        if (getX() != cell.getX()) return false;
+        return getY() == cell.getY();
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getState();
+        result = 31 * result + getOwnerId();
+        result = 31 * result + getX();
+        result = 31 * result + getY();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "state=" + state +
+                ", ownerId=" + ownerId +
+                ", x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }

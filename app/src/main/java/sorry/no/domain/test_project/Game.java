@@ -20,6 +20,7 @@ public class Game {
 
     private List<Player> players;
     private Board board;
+    private int currentTurn;
 
     private int activePlayer, numberOfMoves;
 
@@ -31,6 +32,7 @@ public class Game {
         }
         activePlayer = 0;
         numberOfMoves = DEFAULT_MOVES_NUMBER;
+        currentTurn = 0;
     }
 
     public static Game getInstance() {
@@ -58,5 +60,18 @@ public class Game {
 
     public int getNumberOfMoves() {
         return numberOfMoves;
+    }
+
+    public int getCurrentTurn() {
+        return currentTurn;
+    }
+
+    public void makeAMove(int activePlayer, int x, int y) throws InvalidMoveException {
+        if (activePlayer != this.activePlayer) {
+            throw new InvalidMoveException(activePlayer, x, y, "wrong Active Player, the correct one is " + this.activePlayer);
+        }
+        if (numberOfMoves <= 0) {
+            throw new InvalidMoveException(activePlayer, x, y, "Active Player is out of moves and the turn wasn't passed forward.");
+        }
     }
 }
