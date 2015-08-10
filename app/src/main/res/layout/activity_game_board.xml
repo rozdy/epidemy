@@ -13,11 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/black_overlay"
-        android:columnWidth="20dp"
+        android:columnWidth="@dimen/cell_width"
         android:gravity="center"
-        android:horizontalSpacing="2pt"
+        android:horizontalSpacing="@dimen/cell_spacing"
         android:numColumns="auto_fit"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="2pt" />
+        android:stretchMode="none"
+        android:verticalSpacing="@dimen/cell_spacing" />
 
 </RelativeLayout>

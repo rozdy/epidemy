@@ -37,11 +37,13 @@ public class BoardImageAdapter extends BaseAdapter {
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        int cellWidth = (int) mContext.getResources().getDimension(R.dimen.cell_width);
+
         // Top-left corner: blank cell
         if (position == 0) {
             TextView textView = new TextView(mContext);
-            textView.setLayoutParams(new GridView.LayoutParams(40, 40));
-            textView.setPadding(2, 2, 2, 2);
+            textView.setLayoutParams(new GridView.LayoutParams(cellWidth, cellWidth));
+            textView.setPadding(0, 0, 0, 0);
             textView.setBackgroundColor(Color.WHITE);
             textView.setText("");
             return textView;
@@ -50,8 +52,8 @@ public class BoardImageAdapter extends BaseAdapter {
         // Top row: a, b, c ...
         if (position > 0 && position <= Game.getInstance().getBoard().getWidth()) {
             TextView textView = new TextView(mContext);
-            textView.setLayoutParams(new GridView.LayoutParams(40, 40));
-            textView.setPadding(2, 2, 2, 2);
+            textView.setLayoutParams(new GridView.LayoutParams(cellWidth, cellWidth));
+            textView.setPadding(0, 0, 0, 0);
             textView.setBackgroundColor(Color.WHITE);
             textView.setText("" + (char) ((int) 'a' + position - 1));
             return textView;
@@ -60,8 +62,8 @@ public class BoardImageAdapter extends BaseAdapter {
         // left column: 1, 2 ,3 ...
         if (position % (Game.getInstance().getBoard().getWidth() + 1) == 0) {
             TextView textView = new TextView(mContext);
-            textView.setLayoutParams(new GridView.LayoutParams(40, 40));
-            textView.setPadding(2, 2, 2, 2);
+            textView.setLayoutParams(new GridView.LayoutParams(cellWidth, cellWidth));
+            textView.setPadding(0, 0, 0, 0);
             textView.setBackgroundColor(Color.WHITE);
             textView.setText("" + position / (Game.getInstance().getBoard().getWidth() + 1));
             return textView;
@@ -69,9 +71,9 @@ public class BoardImageAdapter extends BaseAdapter {
 
         // Board cells
         ImageView imageView = new ImageView(mContext);
-        imageView.setLayoutParams(new GridView.LayoutParams(40, 40));
+        imageView.setLayoutParams(new GridView.LayoutParams(cellWidth, cellWidth));
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        imageView.setPadding(2, 2, 2, 2);
+        imageView.setPadding(0, 0, 0, 0);
         imageView.setBackgroundColor(Color.WHITE);
         imageView.setImageResource(R.drawable.empty);
         return imageView;
