@@ -22,6 +22,8 @@ public class Game {
     public static final int GAME_STATE_STARTED = 1;
     public static final int GAME_STATE_FINISHED = 2;
 
+    public static final int GAME_FINISH_SURRENDER = 0;
+
     private int gameState;
     private GameStats stats;
 
@@ -76,8 +78,8 @@ public class Game {
         return numberOfMoves;
     }
 
-    public static void finish() {
-        Game.instance.stats = new GameStats(Game.instance);
+    public static void finish(int reason) {
+        Game.instance.stats = new GameStats(Game.getInstance(), reason);
         Game.instance.gameState = GAME_STATE_FINISHED;
         Player.resetIdCounter();
     }
