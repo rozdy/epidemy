@@ -78,11 +78,11 @@ public class Board {
 
     public int[][] buildMovesMap(int player) {
         List<Cell> activeCells = getMarksList(player);
-        List<Cell> newActiveCells = null;
+        List<Cell> newActiveCells;
         int[][] movesMap = getMovesMapTemplate();
         do {
             newActiveCells = new ArrayList<>();
-            for (Cell activeCell : activeCells) { //todo get rid of concurrent modification exception
+            for (Cell activeCell : activeCells) {
                 for (int i = activeCell.getX() - 1; i <= activeCell.getX() + 1; i++) {
                     for (int j = activeCell.getY() - 1; j <= activeCell.getY() + 1; j++) {
                         if (i < 0 || i >= width || j < 0 || j >= width) {
@@ -119,6 +119,18 @@ public class Board {
             }
             activeCells = newActiveCells;
         } while (!newActiveCells.isEmpty());
+        //Modify moves map for the first move
+        if (Game.getInstance().getCurrentTurn() == 0 &&
+                Game.getInstance().getNumberOfMoves() == Game.DEFAULT_MOVES_NUMBER) {
+            switch (Game.getInstance().getActivePlayer()) {
+                case 0:
+                    movesMap[0][0] = MARK_AVAILABLE;
+                    break;
+                case 1:
+                    movesMap[width][height] = MARK_AVAILABLE;
+                    break;
+            }
+        }
         return movesMap;
     }
 
