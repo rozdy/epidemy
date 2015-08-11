@@ -31,14 +31,11 @@ public class BoardTest {
         int[][] actual = board.buildMovesMap(1);
         int[][] expected = board.getMovesMapTemplate();
         expected[0][0] = Board.OWN_CROSS_HIT;
-        expected[0][1] = Board.MARK_AVAILABLE;
-        expected[1][1] = Board.OWN_WALL_HIT;
+        expected[0][1] = Board.OWN_WALL_HIT;
+        expected[1][1] = Board.MARK_AVAILABLE;
         expected[1][0] = Board.MARK_AVAILABLE;
         expected[0][2] = Board.MARK_AVAILABLE;
         expected[1][2] = Board.MARK_AVAILABLE;
-        expected[2][2] = Board.MARK_AVAILABLE;
-        expected[2][1] = Board.MARK_AVAILABLE;
-        expected[2][0] = Board.MARK_AVAILABLE;
 
         assertEquals(actual, expected);
     }

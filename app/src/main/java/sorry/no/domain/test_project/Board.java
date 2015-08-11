@@ -77,41 +77,48 @@ public class Board {
     }
 
     public int[][] buildMovesMap(int player) {
-        List<Cell> marks = getMarksList(player);
+        List<Cell> activeCells = getMarksList(player);
+        List<Cell> newActiveCells = null;
         int[][] movesMap = getMovesMapTemplate();
-        for (Cell mark : marks) { //todo get rid of concurrent modification exception
-            for (int i = mark.getX() - 1; i <= mark.getX() + 1; i++) {
-                for (int j = mark.getY() - 1; j <= mark.getY() + 1; j++) {
-                    if (i < 0 || i >= width || j < 0 || j >= width) {
-                        continue; //border marks
-                    }
-                    Cell neighbour = getCells()[i][j];
-                    switch (neighbour.getState()) {
-                        case Cell.WALL_CELL: {
-                            if (mark.getOwnerId() == player) {
-                                marks.add(neighbour);
-                                movesMap[i][j] = OWN_WALL_HIT;
-                            } else {
-                                movesMap[i][j] = ENEMY_WALL_HIT;
-                            }
-                            break;
+        do {
+            newActiveCells = new ArrayList<>();
+            for (Cell activeCell : activeCells) { //todo get rid of concurrent modification exception
+                for (int i = activeCell.getX() - 1; i <= activeCell.getX() + 1; i++) {
+                    for (int j = activeCell.getY() - 1; j <= activeCell.getY() + 1; j++) {
+                        if (i < 0 || i >= width || j < 0 || j >= width) {
+                            continue; //border marks
                         }
-                        case Cell.MARK_CELL: {
-                            if (mark.getOwnerId() == player) {
-                                movesMap[i][j] = OWN_CROSS_HIT;
-                            } else {
-                                movesMap[i][j] = WALL_AVAILABLE;
+                        Cell neighbour = getCells()[i][j];
+                        if (movesMap[i][j] == UNREACHABLE_CELL) {
+                            switch (neighbour.getState()) {
+                                case Cell.WALL_CELL: {
+                                    if (neighbour.getOwnerId() == player) {
+                                        newActiveCells.add(neighbour);
+                                        movesMap[i][j] = OWN_WALL_HIT;
+                                    } else {
+                                        movesMap[i][j] = ENEMY_WALL_HIT;
+                                    }
+                                    break;
+                                }
+                                case Cell.MARK_CELL: {
+                                    if (neighbour.getOwnerId() == player) {
+                                        movesMap[i][j] = OWN_CROSS_HIT;
+                                    } else {
+                                        movesMap[i][j] = WALL_AVAILABLE;
+                                    }
+                                    break;
+                                }
+                                case Cell.EMPTY_CELL: {
+                                    movesMap[i][j] = MARK_AVAILABLE;
+                                    break;
+                                }
                             }
-                            break;
-                        }
-                        case Cell.EMPTY_CELL: {
-                            movesMap[i][j] = MARK_AVAILABLE;
-                            break;
                         }
                     }
                 }
             }
-        }
+            activeCells = newActiveCells;
+        } while (!newActiveCells.isEmpty());
         return movesMap;
     }
 
