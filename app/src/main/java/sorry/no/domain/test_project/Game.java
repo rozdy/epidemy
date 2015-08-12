@@ -18,6 +18,19 @@ public class Game {
     public static final int DEFAULT_MOVES_NUMBER = 3;
     public static final int DEFAULT_PLAYERS_NUMBER = 2;
 
+    public static final int GAME_STATE_NOT_STARTED = 0;
+    public static final int GAME_STATE_STARTED = 1;
+    public static final int GAME_STATE_FINISHED = 2;
+
+    public static final int GAME_FINISH_SURRENDER = 0;
+
+    private int gameState;
+    private GameStats stats;
+
+    {
+        gameState = GAME_STATE_NOT_STARTED;
+    }
+
     private List<Player> players;
     private Board board;
     private int currentTurn;
@@ -33,6 +46,7 @@ public class Game {
         activePlayer = 0;
         numberOfMoves = DEFAULT_MOVES_NUMBER;
         currentTurn = 0;
+        gameState = GAME_STATE_STARTED;
     }
 
     public static Game getInstance() {
@@ -48,6 +62,10 @@ public class Game {
 
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public Player getPlayer(int number) {
+        return players.get(number);
     }
 
     public Board getBoard() {
@@ -73,5 +91,15 @@ public class Game {
         if (numberOfMoves <= 0) {
             throw new InvalidMoveException(activePlayer, x, y, "Active Player is out of moves and the turn wasn't passed forward.");
         }
+    }
+
+    public static void finish(int reason) {
+        Game.instance.stats = new GameStats(Game.getInstance(), reason);
+        Game.instance.gameState = GAME_STATE_FINISHED;
+        Player.resetIdCounter();
+    }
+
+    public GameStats getStats() {
+        return stats;
     }
 }

@@ -16,4 +16,12 @@ public class Player {
         name = "Player " + (id + 1);
         this.color = color;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public static void resetIdCounter() {
+        nextId = 0;
+    }
 }
