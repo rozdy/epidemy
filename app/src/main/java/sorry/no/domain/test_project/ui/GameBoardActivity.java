@@ -2,6 +2,7 @@ package sorry.no.domain.test_project.ui;
 
 import android.database.DataSetObserver;
 import android.graphics.Color;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -39,13 +40,22 @@ public class GameBoardActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                return true;
+            case R.id.action_surrender:
+                Game.finish(Game.GAME_FINISH_SURRENDER);
+                showFinalStats();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showFinalStats() {
+        FragmentManager fm = getSupportFragmentManager();
+        FinalStatsDialog finalStatsDialog = new FinalStatsDialog();
+        finalStatsDialog.show(fm, "final stats dialog");
     }
 }
