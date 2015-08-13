@@ -24,4 +24,8 @@ public class Player {
     public static void resetIdCounter() {
         nextId = 0;
     }
+
+    public int getColor() {
+        return color;
+    }
 }
