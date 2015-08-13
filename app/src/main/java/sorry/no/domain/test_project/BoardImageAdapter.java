@@ -70,14 +70,46 @@ public class BoardImageAdapter extends BaseAdapter {
         }
 
         // Board cells
-        ImageView imageView = new ImageView(mContext);
-        imageView.setLayoutParams(new GridView.LayoutParams(cellWidth, cellWidth));
-        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        imageView.setPadding(0, 0, 0, 0);
-        imageView.setBackgroundColor(Color.WHITE);
-        imageView.setImageResource(R.drawable.empty);
-        return imageView;
+        CellView cellView = new CellView(mContext);
+        cellView.setLayoutParams(new GridView.LayoutParams(cellWidth, cellWidth));
+        cellView.setPadding(0, 0, 0, 0);
+        cellView.setBackgroundColor(Color.WHITE);
+        try {
+            int x = getXByPosition(position);
+            int y = getYByPosition(position);
+            Cell cell = Game.getInstance().getBoard().getCells()[x][y];
+            cellView.setState(cell.getState());
+            if (!cell.isEmpty())
+                cellView.setColor(Game.getInstance().getPlayer(cell.getOwnerId()).getColor());
+            else
+                cellView.setColor(Color.BLACK);
+        } catch (InvalidPositionException e) {
+            cellView.setState(Cell.ERROR_CELL);
+        }
+        return cellView;
+    }
 
+    private boolean isPositionOnBoard(int position) {
+        if (position < (Game.getInstance().getBoard().getWidth() + 1) ||
+                position % (Game.getInstance().getBoard().getWidth() + 1) == 0 ||
+                position > getCount())
+            return false;
+        else
+            return true;
+    }
+
+    private int getXByPosition(int position) throws InvalidPositionException {
+        if (isPositionOnBoard(position)) {
+            return position / (Game.getInstance().getBoard().getWidth() + 1) - 1;
+        } else
+            throw new InvalidPositionException(position);
+    }
+
+    private int getYByPosition(int position) throws InvalidPositionException {
+        if (isPositionOnBoard(position)) {
+            return position % (Game.getInstance().getBoard().getWidth() + 1) - 1;
+        } else
+            throw new InvalidPositionException(position);
     }
 
 

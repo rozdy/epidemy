@@ -5,6 +5,7 @@ package sorry.no.domain.test_project;
  */
 public class Cell {
 
+    public static final int ERROR_CELL = -1;
     public static final int EMPTY_CELL = 0;
     public static final int MARK_CELL = 1;
     public static final int WALL_CELL = 2;
