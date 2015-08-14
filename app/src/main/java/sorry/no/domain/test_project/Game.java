@@ -123,7 +123,8 @@ public class Game {
         if (activePlayer != this.activePlayer) {
             throw new InvalidMoveException(activePlayer, x, y, "wrong Active Player, the correct one is " + this.activePlayer);
         }
-        switch (getBoard().markCell(activePlayer, x, y)) {
+        int moveState = getBoard().markCell(activePlayer, x, y);
+        switch (moveState) {
             case Board.MARK_PLACED:
                 decNumberOfMoves();
                 checkGameFinish();
@@ -138,10 +139,8 @@ public class Game {
                     nextActivePlayer();
                 }
                 return Board.WALL_PLACED;
-            case Board.CANT_MOVE:
-                return Board.CANT_MOVE;
             default:
-                throw new InvalidMoveException(activePlayer, x, y, "Can't process cell marking.");
+                return moveState;
         }
     }
 

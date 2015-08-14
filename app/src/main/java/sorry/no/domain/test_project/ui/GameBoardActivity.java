@@ -41,7 +41,10 @@ public class GameBoardActivity extends ActionBarActivity {
                             adapter.notifyDataSetChanged();
                             parent.invalidate();
                             break;
-                        case Board.CANT_MOVE:
+                        case Board.UNREACHABLE_CELL:
+                        case Board.ENEMY_WALL_HIT:
+                        case Board.OWN_CROSS_HIT:
+                        case Board.OWN_WALL_HIT:
                             //Todo alert user about invalid move
                     }
                 } catch (InvalidPositionException e) {

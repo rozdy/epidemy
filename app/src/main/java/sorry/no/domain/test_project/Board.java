@@ -12,7 +12,6 @@ public class Board {
     public static final int WALL_AVAILABLE = 101;
     public static final int MARK_PLACED = 200;
     public static final int WALL_PLACED = 201;
-    public static final int CANT_MOVE = 202;
     public static final int UNREACHABLE_CELL = 400;
     public static final int ENEMY_WALL_HIT = 401;
     public static final int OWN_CROSS_HIT = 402;
@@ -61,15 +60,9 @@ public class Board {
             case WALL_AVAILABLE:
                 cell.wall(player);
                 return WALL_PLACED;
-            case UNREACHABLE_CELL:
-            case ENEMY_WALL_HIT:
-            case OWN_CROSS_HIT:
-            case OWN_WALL_HIT:
-            case WALL_NOT_CONNECTED:
-                return CANT_MOVE;
+            default:
+                return movesMap[x][y];
         }
-
-        throw new InvalidCellException(cell, "Wasn't able to process cell with player " + player);
     }
 
     public int[][] buildMovesMap(int player) {
