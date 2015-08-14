@@ -14,7 +14,8 @@ public class GameTest {
         Game.getInstance().makeAMove(0, 0, 0);
         Board actual = Game.getInstance().getBoard();
         Board expected = new Board();
-        expected.markCell(0, 0, 0);
+        expected.getCells()[0][0].setState(Cell.MARK_CELL);
+        expected.getCells()[0][0].setOwnerId(0);
         Game.stop();
 
         assertEquals(actual, expected);
