@@ -12,6 +12,7 @@ public class Board {
     public static final int WALL_AVAILABLE = 101;
     public static final int MARK_PLACED = 200;
     public static final int WALL_PLACED = 201;
+    public static final int CANT_MOVE = 202;
     public static final int UNREACHABLE_CELL = 400;
     public static final int ENEMY_WALL_HIT = 401;
     public static final int OWN_CROSS_HIT = 402;
@@ -52,27 +53,22 @@ public class Board {
 
     public int markCell(int player, int x, int y) throws InvalidCellException {
         Cell cell = getCells()[x][y];
-        switch (cell.getState()) {
-            case Cell.WALL_CELL: {
-                if (cell.getOwnerId() == player) {
-                    return OWN_WALL_HIT;
-                } else {
-                    return ENEMY_WALL_HIT;
-                }
-            }
-            case Cell.MARK_CELL: {
-                if (cell.getOwnerId() == player) {
-                    return OWN_CROSS_HIT;
-                } else {
-                    cell.wall(player);
-                    return WALL_PLACED;
-                }
-            }
-            case Cell.EMPTY_CELL: {
+        int[][] movesMap = buildMovesMap(player);
+        switch (movesMap[x][y]) {
+            case MARK_AVAILABLE:
                 cell.mark(player);
                 return MARK_PLACED;
-            }
+            case WALL_AVAILABLE:
+                cell.wall(player);
+                return WALL_PLACED;
+            case UNREACHABLE_CELL:
+            case ENEMY_WALL_HIT:
+            case OWN_CROSS_HIT:
+            case OWN_WALL_HIT:
+            case WALL_NOT_CONNECTED:
+                return CANT_MOVE;
         }
+
         throw new InvalidCellException(cell, "Wasn't able to process cell with player " + player);
     }
 
