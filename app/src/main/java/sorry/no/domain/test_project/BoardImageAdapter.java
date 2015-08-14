@@ -100,7 +100,7 @@ public class BoardImageAdapter extends BaseAdapter {
         }
     }
 
-    private int getXByPosition(int position) throws InvalidPositionException {
+    public int getXByPosition(int position) throws InvalidPositionException {
         if (isPositionOnBoard(position)) {
             return position / (Game.getInstance().getBoard().getWidth() + 1) - 1;
         } else {
@@ -108,7 +108,7 @@ public class BoardImageAdapter extends BaseAdapter {
         }
     }
 
-    private int getYByPosition(int position) throws InvalidPositionException {
+    public int getYByPosition(int position) throws InvalidPositionException {
         if (isPositionOnBoard(position)) {
             return position % (Game.getInstance().getBoard().getWidth() + 1) - 1;
         } else {

@@ -7,10 +7,16 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
+import sorry.no.domain.test_project.Board;
 import sorry.no.domain.test_project.BoardImageAdapter;
 import sorry.no.domain.test_project.Game;
+import sorry.no.domain.test_project.InvalidCellException;
+import sorry.no.domain.test_project.InvalidMoveException;
+import sorry.no.domain.test_project.InvalidPositionException;
 import sorry.no.domain.test_project.R;
 
 public class GameBoardActivity extends ActionBarActivity {
@@ -23,6 +29,31 @@ public class GameBoardActivity extends ActionBarActivity {
         GridView gridview = (GridView) findViewById(R.id.gridview);
         gridview.setNumColumns(Game.getInstance().getBoard().getWidth() + 1);
         gridview.setAdapter(new BoardImageAdapter(this));
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BoardImageAdapter adapter = (BoardImageAdapter) parent.getAdapter();
+                try {
+                    switch (Game.getInstance().makeAMove(Game.getInstance().getActivePlayer(),
+                            adapter.getXByPosition(position), adapter.getYByPosition(position))) {
+                        case Board.MARK_PLACED:
+                        case Board.WALL_PLACED:
+                            adapter.notifyDataSetChanged();
+                            parent.invalidate();
+                            break;
+                        case Board.CANT_MOVE:
+                            //Todo alert user about invalid move
+                    }
+
+                } catch (InvalidPositionException e) {
+                    //Todo something here
+                } catch (InvalidCellException e) {
+                    //Todo something here
+                } catch (InvalidMoveException e) {
+                    //Todo something here
+                }
+            }
+        });
     }
 
     @Override

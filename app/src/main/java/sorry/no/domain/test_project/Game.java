@@ -119,18 +119,29 @@ public class Game {
         //Todo check is game can't be continued and run gameFinish if so.
     }
 
-    public void makeAMove(int activePlayer, int x, int y) throws InvalidMoveException, InvalidCellException {
+    public int makeAMove(int activePlayer, int x, int y) throws InvalidMoveException, InvalidCellException {
         if (activePlayer != this.activePlayer) {
             throw new InvalidMoveException(activePlayer, x, y, "wrong Active Player, the correct one is " + this.activePlayer);
         }
-        decNumberOfMoves();
         switch (getBoard().markCell(activePlayer, x, y)) {
+            case Board.MARK_PLACED:
+                decNumberOfMoves();
+                checkGameFinish();
+                if (getNumberOfMoves() == 0) {
+                    nextActivePlayer();
+                }
+                return Board.MARK_PLACED;
+            case Board.WALL_PLACED:
+                decNumberOfMoves();
+                checkGameFinish();
+                if (getNumberOfMoves() == 0) {
+                    nextActivePlayer();
+                }
+                return Board.WALL_PLACED;
             case Board.CANT_MOVE:
-                //Todo inform player about invalid move
-        }
-        checkGameFinish();
-        if (getNumberOfMoves() == 0) {
-            nextActivePlayer();
+                return Board.CANT_MOVE;
+            default:
+                throw new InvalidMoveException(activePlayer, x, y, "Can't process cell marking.");
         }
     }
 

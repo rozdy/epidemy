@@ -117,7 +117,7 @@ public class Board {
         } while (!newActiveCells.isEmpty());
         //Modify moves map for the first move
         if (Game.getInstance().getCurrentTurn() == 0 &&
-                Game.getInstance().getNumberOfMoves() == Game.DEFAULT_MOVES_NUMBER) {
+                Game.getInstance().getNumberOfMoves() == Game.getInstance().getMaxNumberOfMoves()) {
             switch (Game.getInstance().getActivePlayer()) {
                 case 0:
                     movesMap[0][0] = MARK_AVAILABLE;
