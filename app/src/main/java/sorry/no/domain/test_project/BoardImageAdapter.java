@@ -79,10 +79,11 @@ public class BoardImageAdapter extends BaseAdapter {
             int y = getYByPosition(position);
             Cell cell = Game.getInstance().getBoard().getCells()[x][y];
             cellView.setState(cell.getState());
-            if (!cell.isEmpty())
+            if (!cell.isEmpty()) {
                 cellView.setColor(Game.getInstance().getPlayer(cell.getOwnerId()).getColor());
-            else
+            } else {
                 cellView.setColor(Color.BLACK);
+            }
         } catch (InvalidPositionException e) {
             cellView.setState(Cell.ERROR_CELL);
         }
@@ -92,24 +93,27 @@ public class BoardImageAdapter extends BaseAdapter {
     private boolean isPositionOnBoard(int position) {
         if (position < (Game.getInstance().getBoard().getWidth() + 1) ||
                 position % (Game.getInstance().getBoard().getWidth() + 1) == 0 ||
-                position > getCount())
+                position > getCount()) {
             return false;
-        else
+        } else {
             return true;
+        }
     }
 
     private int getXByPosition(int position) throws InvalidPositionException {
         if (isPositionOnBoard(position)) {
             return position / (Game.getInstance().getBoard().getWidth() + 1) - 1;
-        } else
+        } else {
             throw new InvalidPositionException(position);
+        }
     }
 
     private int getYByPosition(int position) throws InvalidPositionException {
         if (isPositionOnBoard(position)) {
             return position % (Game.getInstance().getBoard().getWidth() + 1) - 1;
-        } else
+        } else {
             throw new InvalidPositionException(position);
+        }
     }
 
 
