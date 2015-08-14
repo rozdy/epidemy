@@ -44,7 +44,6 @@ public class GameBoardActivity extends ActionBarActivity {
                         case Board.CANT_MOVE:
                             //Todo alert user about invalid move
                     }
-
                 } catch (InvalidPositionException e) {
                     //Todo something here
                 } catch (InvalidCellException e) {
