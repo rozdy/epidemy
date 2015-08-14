@@ -10,6 +10,8 @@ import static org.testng.Assert.assertEquals;
 public class BoardTest {
     @Test
     public void testOneCross() throws InvalidCellException {
+        Game.init();
+        Game.getInstance().setCurrentTurn(5);
         Board board = new Board();
         board.getCells()[0][0].mark(1);
         int[][] actual = board.buildMovesMap(1);
@@ -18,12 +20,15 @@ public class BoardTest {
         expected[0][1] = Board.MARK_AVAILABLE;
         expected[1][1] = Board.MARK_AVAILABLE;
         expected[1][0] = Board.MARK_AVAILABLE;
+        Game.stop();
 
         assertEquals(actual, expected);
     }
 
     @Test
     public void testOneCrossAndWall() throws InvalidCellException {
+        Game.init();
+        Game.getInstance().setCurrentTurn(5);
         Board board = new Board();
         board.getCells()[0][0].mark(1);
         board.getCells()[0][1].setState(Cell.WALL_CELL);
@@ -36,6 +41,38 @@ public class BoardTest {
         expected[1][0] = Board.MARK_AVAILABLE;
         expected[0][2] = Board.MARK_AVAILABLE;
         expected[1][2] = Board.MARK_AVAILABLE;
+        Game.stop();
+
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    public void testMarkCell() throws InvalidCellException {
+        Board board = new Board();
+        board.markCell(0, 0, 0);
+        Cell actual = board.getCells()[0][0];
+        Cell expected = new Cell(0, 0);
+        expected.setState(Cell.MARK_CELL);
+        expected.setOwnerId(0);
+
+        assertEquals(actual, expected);
+    }
+
+    @Test
+    public void testMarkCellOnTheWall() throws InvalidCellException {
+        Game.init();
+        Game.getInstance().setCurrentTurn(5);
+        Board board = new Board();
+        board.getCells()[0][0].setState(Cell.MARK_CELL);
+        board.getCells()[0][0].setOwnerId(0);
+        board.getCells()[1][1].setState(Cell.MARK_CELL);
+        board.getCells()[1][1].setOwnerId(1);
+        board.markCell(0, 1, 1);
+        Cell actual = board.getCells()[1][1];
+        Cell expected = new Cell(1, 1);
+        expected.setState(Cell.WALL_CELL);
+        expected.setOwnerId(0);
+        Game.stop();
 
         assertEquals(actual, expected);
     }

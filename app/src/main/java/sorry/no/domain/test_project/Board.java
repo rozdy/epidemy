@@ -52,28 +52,17 @@ public class Board {
 
     public int markCell(int player, int x, int y) throws InvalidCellException {
         Cell cell = getCells()[x][y];
-        switch (cell.getState()) {
-            case Cell.WALL_CELL: {
-                if (cell.getOwnerId() == player) {
-                    return OWN_WALL_HIT;
-                } else {
-                    return ENEMY_WALL_HIT;
-                }
-            }
-            case Cell.MARK_CELL: {
-                if (cell.getOwnerId() == player) {
-                    return OWN_CROSS_HIT;
-                } else {
-                    cell.wall(player);
-                    return WALL_PLACED;
-                }
-            }
-            case Cell.EMPTY_CELL: {
+        int[][] movesMap = buildMovesMap(player);
+        switch (movesMap[x][y]) {
+            case MARK_AVAILABLE:
                 cell.mark(player);
                 return MARK_PLACED;
-            }
+            case WALL_AVAILABLE:
+                cell.wall(player);
+                return WALL_PLACED;
+            default:
+                return movesMap[x][y];
         }
-        throw new InvalidCellException(cell, "Wasn't able to process cell with player " + player);
     }
 
     public int[][] buildMovesMap(int player) {
@@ -121,7 +110,7 @@ public class Board {
         } while (!newActiveCells.isEmpty());
         //Modify moves map for the first move
         if (Game.getInstance().getCurrentTurn() == 0 &&
-                Game.getInstance().getNumberOfMoves() == Game.DEFAULT_MOVES_NUMBER) {
+                Game.getInstance().getNumberOfMoves() == Game.getInstance().getMaxNumberOfMoves()) {
             switch (Game.getInstance().getActivePlayer()) {
                 case 0:
                     movesMap[0][0] = MARK_AVAILABLE;

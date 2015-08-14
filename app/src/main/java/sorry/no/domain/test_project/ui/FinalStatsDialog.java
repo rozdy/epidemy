@@ -5,6 +5,10 @@ import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.GridLayout;
+import android.widget.GridView;
+
+import sorry.no.domain.test_project.BoardImageAdapter;
 import sorry.no.domain.test_project.Game;
 import sorry.no.domain.test_project.R;
 
@@ -29,6 +33,10 @@ public class FinalStatsDialog extends DialogFragment {
         builder.setNegativeButton(R.string.final_stats_revenge, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Game.init();
+                GridView gridview = (GridView) getActivity().findViewById(R.id.gridview);
+                BoardImageAdapter adapter = (BoardImageAdapter) gridview.getAdapter();
+                adapter.notifyDataSetChanged();
+                gridview.invalidate();
             }
         });
         return builder.create();

@@ -35,16 +35,18 @@ public class Game {
     private Board board;
     private int currentTurn;
 
-    private int activePlayer, numberOfMoves;
+    private int activePlayer, numberOfMoves, playersNumber, maxNumberOfMoves;
 
     private Game() {
         board = new Board();
         players = new ArrayList<>();
-        for (int i = 0; i < DEFAULT_PLAYERS_NUMBER; i++) {
+        playersNumber = DEFAULT_PLAYERS_NUMBER;
+        maxNumberOfMoves = DEFAULT_MOVES_NUMBER;
+        for (int i = 0; i < playersNumber; i++) {
             players.add(new Player(DEFAULT_PLAYER_COLORS[i % DEFAULT_PLAYER_COLORS.length]));
         }
         activePlayer = 0;
-        numberOfMoves = DEFAULT_MOVES_NUMBER;
+        refillNumberOfMoves();
         currentTurn = 0;
         gameState = GAME_STATE_STARTED;
     }
@@ -80,16 +82,65 @@ public class Game {
         return numberOfMoves;
     }
 
+    private void refillNumberOfMoves() {
+        numberOfMoves = maxNumberOfMoves;
+    }
+
     public int getCurrentTurn() {
         return currentTurn;
     }
 
-    public void makeAMove(int activePlayer, int x, int y) throws InvalidMoveException {
+    public void setCurrentTurn(int turn) {
+        currentTurn = turn;
+    }
+
+    public int getMaxNumberOfMoves() {
+        return maxNumberOfMoves;
+    }
+
+    public int getPlayersNumber() {
+        return playersNumber;
+    }
+
+    private void decNumberOfMoves() throws InvalidMoveException {
+        if (numberOfMoves > 0) {
+            numberOfMoves--;
+        } else {
+            throw new InvalidMoveException(Game.getInstance().getActivePlayer());
+        }
+    }
+
+    private void nextActivePlayer() {
+        activePlayer = ++activePlayer % playersNumber;
+        refillNumberOfMoves();
+    }
+
+    private void checkGameFinish() {
+        //Todo check is game can't be continued and run gameFinish if so.
+    }
+
+    public int makeAMove(int activePlayer, int x, int y) throws InvalidMoveException, InvalidCellException {
         if (activePlayer != this.activePlayer) {
             throw new InvalidMoveException(activePlayer, x, y, "wrong Active Player, the correct one is " + this.activePlayer);
         }
-        if (numberOfMoves <= 0) {
-            throw new InvalidMoveException(activePlayer, x, y, "Active Player is out of moves and the turn wasn't passed forward.");
+        int moveState = getBoard().markCell(activePlayer, x, y);
+        switch (moveState) {
+            case Board.MARK_PLACED:
+                decNumberOfMoves();
+                checkGameFinish();
+                if (getNumberOfMoves() == 0) {
+                    nextActivePlayer();
+                }
+                return Board.MARK_PLACED;
+            case Board.WALL_PLACED:
+                decNumberOfMoves();
+                checkGameFinish();
+                if (getNumberOfMoves() == 0) {
+                    nextActivePlayer();
+                }
+                return Board.WALL_PLACED;
+            default:
+                return moveState;
         }
     }
 
@@ -101,5 +152,9 @@ public class Game {
 
     public GameStats getStats() {
         return stats;
+    }
+
+    public static void stop() {
+        instance = null;
     }
 }
