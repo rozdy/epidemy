@@ -3,6 +3,7 @@ package sorry.no.domain.test_project;
 import android.graphics.Color;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,6 +24,7 @@ public class Game {
     public static final int GAME_STATE_FINISHED = 2;
 
     public static final int GAME_FINISH_SURRENDER = 0;
+    public static final int GAME_FINISH_NO_MOVES = 1;
 
     private int gameState;
     private GameStats stats;
@@ -111,12 +113,21 @@ public class Game {
     }
 
     private void nextActivePlayer() {
+        if (activePlayer == playersNumber - 1) {
+            currentTurn++;
+        }
         activePlayer = ++activePlayer % playersNumber;
         refillNumberOfMoves();
     }
 
-    private void checkGameFinish() {
-        //Todo check is game can't be continued and run gameFinish if so.
+    private boolean checkGameFinish() {
+        Integer[][] map = getBoard().buildMovesMap(activePlayer);
+        for (Integer[] row : map) {
+            if (Arrays.asList(row).contains(Board.MARK_AVAILABLE) || Arrays.asList(row).contains(Board.WALL_AVAILABLE)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public int makeAMove(int activePlayer, int x, int y) throws InvalidMoveException, InvalidCellException {
@@ -126,22 +137,28 @@ public class Game {
         int moveState = getBoard().markCell(activePlayer, x, y);
         switch (moveState) {
             case Board.MARK_PLACED:
-                decNumberOfMoves();
-                checkGameFinish();
-                if (getNumberOfMoves() == 0) {
-                    nextActivePlayer();
+                if (decNumberOfMovesAndCheckFinished()) {
+                    return Board.GAME_OVER;
+                } else {
+                    return Board.MARK_PLACED;
                 }
-                return Board.MARK_PLACED;
             case Board.WALL_PLACED:
-                decNumberOfMoves();
-                checkGameFinish();
-                if (getNumberOfMoves() == 0) {
-                    nextActivePlayer();
+                if (decNumberOfMovesAndCheckFinished()) {
+                    return Board.GAME_OVER;
+                } else {
+                    return Board.WALL_PLACED;
                 }
-                return Board.WALL_PLACED;
             default:
                 return moveState;
         }
+    }
+
+    private boolean decNumberOfMovesAndCheckFinished() throws InvalidMoveException {
+        decNumberOfMoves();
+        if (getNumberOfMoves() == 0) {
+            nextActivePlayer();
+        }
+        return checkGameFinish();
     }
 
     public static void finish(int reason) {

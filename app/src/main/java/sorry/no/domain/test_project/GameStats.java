@@ -7,13 +7,13 @@ public class GameStats {
     private Player winner, looser;
 
     public GameStats(Game instance, int reason) {
-        switch (reason) {
+        switch (reason) { //todo rethink
             case Game.GAME_FINISH_SURRENDER:
+            case Game.GAME_FINISH_NO_MOVES:
                 looser = instance.getPlayer(instance.getActivePlayer());
                 winner = instance.getPlayer((instance.getActivePlayer() + 1) % Game.DEFAULT_PLAYERS_NUMBER);
                 break;
         }
-
     }
 
     public Player getLooser() {

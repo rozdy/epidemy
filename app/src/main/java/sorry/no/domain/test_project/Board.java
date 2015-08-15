@@ -17,6 +17,7 @@ public class Board {
     public static final int OWN_CROSS_HIT = 402;
     public static final int OWN_WALL_HIT = 403;
     public static final int WALL_NOT_CONNECTED = 404;
+    public static final int GAME_OVER = 500;
 
 
     public static final int DEFAULT_WIDTH = 10;
@@ -52,7 +53,7 @@ public class Board {
 
     public int markCell(int player, int x, int y) throws InvalidCellException {
         Cell cell = getCells()[x][y];
-        int[][] movesMap = buildMovesMap(player);
+        Integer[][] movesMap = buildMovesMap(player);
         switch (movesMap[x][y]) {
             case MARK_AVAILABLE:
                 cell.mark(player);
@@ -65,10 +66,10 @@ public class Board {
         }
     }
 
-    public int[][] buildMovesMap(int player) {
+    public Integer[][] buildMovesMap(int player) {
         List<Cell> activeCells = getMarksList(player);
         List<Cell> newActiveCells;
-        int[][] movesMap = getMovesMapTemplate();
+        Integer[][] movesMap = getMovesMapTemplate();
         do {
             newActiveCells = new ArrayList<>();
             for (Cell activeCell : activeCells) {
@@ -123,8 +124,8 @@ public class Board {
         return movesMap;
     }
 
-    public int[][] getMovesMapTemplate() {
-        int[][] movesMap = new int[width][height];
+    public Integer[][] getMovesMapTemplate() {
+        Integer[][] movesMap = new Integer[width][height];
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 movesMap[i][j] = UNREACHABLE_CELL;
