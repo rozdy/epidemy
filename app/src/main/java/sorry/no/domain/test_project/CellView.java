@@ -15,7 +15,6 @@ import android.view.View;
 public class CellView extends View {
     private int color, state;
     Paint paint;
-    private Bitmap backgroundSrc;
     private Bitmap background;
 
     public CellView(Context context) {
@@ -23,7 +22,7 @@ public class CellView extends View {
         paint = new Paint();
         Resources resources = getResources();
         int width = (int) resources.getDimension(R.dimen.cell_width);
-        backgroundSrc = BitmapFactory.decodeResource(resources, R.drawable.empty);
+        Bitmap backgroundSrc = BitmapFactory.decodeResource(resources, R.drawable.empty);
         background = Bitmap.createScaledBitmap(backgroundSrc, width, width, false);
     }
 
