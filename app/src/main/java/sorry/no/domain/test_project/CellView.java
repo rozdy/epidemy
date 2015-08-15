@@ -15,10 +15,16 @@ import android.view.View;
 public class CellView extends View {
     private int color, state;
     Paint paint;
+    private Bitmap backgroundSrc;
+    private Bitmap background;
 
     public CellView(Context context) {
         super(context);
         paint = new Paint();
+        Resources resources = getResources();
+        int width = (int) resources.getDimension(R.dimen.cell_width);
+        backgroundSrc = BitmapFactory.decodeResource(resources, R.drawable.empty);
+        background = Bitmap.createScaledBitmap(backgroundSrc, width, width, false);
     }
 
     public int getColor() {
@@ -40,10 +46,6 @@ public class CellView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         paint.setColor(color);
-        Resources resources = getResources();
-        Bitmap backgroundSrc = BitmapFactory.decodeResource(resources, R.drawable.empty);
-        int width = (int) resources.getDimension(R.dimen.cell_width);
-        Bitmap background = Bitmap.createScaledBitmap(backgroundSrc, width, width, false);
         canvas.drawBitmap(background, 0, 0, paint);
         switch (state) {
             case Cell.EMPTY_CELL:
