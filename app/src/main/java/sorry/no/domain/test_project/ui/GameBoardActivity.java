@@ -39,7 +39,7 @@ public class GameBoardActivity extends ActionBarActivity {
                         case Board.MARK_PLACED:
                         case Board.WALL_PLACED:
                             adapter.notifyDataSetChanged();
-                            parent.invalidate();
+                            view.invalidate();
                             break;
                         case Board.UNREACHABLE_CELL:
                         case Board.ENEMY_WALL_HIT:
