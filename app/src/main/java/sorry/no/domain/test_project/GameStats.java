@@ -10,6 +10,7 @@ public class GameStats {
         switch (reason) { //todo rethink
             case Game.GAME_FINISH_SURRENDER:
             case Game.GAME_FINISH_NO_MOVES:
+            case Game.GAME_FINISH_NO_MARKS:
                 looser = instance.getPlayer(instance.getActivePlayer());
                 winner = instance.getPlayer((instance.getActivePlayer() + 1) % Game.DEFAULT_PLAYERS_NUMBER);
                 break;
