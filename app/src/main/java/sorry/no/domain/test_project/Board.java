@@ -17,7 +17,6 @@ public class Board {
     public static final int OWN_CROSS_HIT = 402;
     public static final int OWN_WALL_HIT = 403;
     public static final int WALL_NOT_CONNECTED = 404;
-    public static final int GAME_OVER = 500;
 
 
     public static final int DEFAULT_WIDTH = 10;
@@ -134,7 +133,7 @@ public class Board {
         return movesMap;
     }
 
-    private List<Cell> getMarksList(int player) {
+    public List<Cell> getMarksList(int player) {
         List<Cell> marks = new ArrayList<>();
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {

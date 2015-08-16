@@ -25,6 +25,7 @@ public class Game {
 
     public static final int GAME_FINISH_SURRENDER = 0;
     public static final int GAME_FINISH_NO_MOVES = 1;
+    public static final int GAME_FINISH_NO_MARKS = 2;
 
     private int gameState;
     private GameStats stats;
@@ -116,18 +117,26 @@ public class Game {
         if (activePlayer == playersNumber - 1) {
             currentTurn++;
         }
-        activePlayer = ++activePlayer % playersNumber;
+        activePlayer = getNextPlayer();
         refillNumberOfMoves();
     }
 
-    private boolean checkGameFinish() {
+    private int getNextPlayer() {
+        return (activePlayer + 1) % playersNumber;
+    }
+
+    private int checkGameFinish() {
         Integer[][] map = getBoard().buildMovesMap(activePlayer);
         for (Integer[] row : map) {
             if (Arrays.asList(row).contains(Board.MARK_AVAILABLE) || Arrays.asList(row).contains(Board.WALL_AVAILABLE)) {
-                return false;
+                return GAME_FINISH_NO_MOVES;
             }
         }
-        return true;
+        if (getBoard().getMarksList(getNextPlayer()).size() == 0) {
+            nextActivePlayer();
+            return GAME_FINISH_NO_MARKS;
+        }
+        return -1;
     }
 
     public int makeAMove(int activePlayer, int x, int y) throws InvalidMoveException, InvalidCellException {
@@ -138,8 +147,9 @@ public class Game {
         switch (moveState) {
             case Board.MARK_PLACED:
             case Board.WALL_PLACED:
-                if (decNumberOfMovesAndCheckFinished()) {
-                    return Board.GAME_OVER;
+                int finishedState = decNumberOfMovesAndCheckFinished();
+                if (finishedState >= 0) {
+                    return finishedState;
                 } else {
                     return moveState;
                 }
@@ -148,7 +158,7 @@ public class Game {
         }
     }
 
-    private boolean decNumberOfMovesAndCheckFinished() throws InvalidMoveException {
+    private int decNumberOfMovesAndCheckFinished() throws InvalidMoveException {
         decNumberOfMoves();
         if (getNumberOfMoves() == 0) {
             nextActivePlayer();
