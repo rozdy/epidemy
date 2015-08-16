@@ -137,16 +137,11 @@ public class Game {
         int moveState = getBoard().markCell(activePlayer, x, y);
         switch (moveState) {
             case Board.MARK_PLACED:
-                if (decNumberOfMovesAndCheckFinished()) {
-                    return Board.GAME_OVER;
-                } else {
-                    return Board.MARK_PLACED;
-                }
             case Board.WALL_PLACED:
                 if (decNumberOfMovesAndCheckFinished()) {
                     return Board.GAME_OVER;
                 } else {
-                    return Board.WALL_PLACED;
+                    return moveState;
                 }
             default:
                 return moveState;
