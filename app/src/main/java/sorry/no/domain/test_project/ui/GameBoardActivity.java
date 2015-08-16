@@ -48,6 +48,7 @@ public class GameBoardActivity extends ActionBarActivity {
                         case Game.GAME_FINISH_NO_MARKS:
                             Game.finish(Game.GAME_FINISH_NO_MARKS);
                             showFinalStats();
+                            break;
                         case Board.UNREACHABLE_CELL:
                         case Board.ENEMY_WALL_HIT:
                         case Board.OWN_CROSS_HIT:
