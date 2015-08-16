@@ -26,6 +26,7 @@ public class Game {
     public static final int GAME_FINISH_SURRENDER = 0;
     public static final int GAME_FINISH_NO_MOVES = 1;
     public static final int GAME_FINISH_NO_MARKS = 2;
+    public static final int GAME_NOT_FINISHED = -1;
 
     private int gameState;
     private GameStats stats;
@@ -136,7 +137,7 @@ public class Game {
             nextActivePlayer();
             return GAME_FINISH_NO_MARKS;
         }
-        return -1;
+        return GAME_NOT_FINISHED;
     }
 
     public int makeAMove(int activePlayer, int x, int y) throws InvalidMoveException, InvalidCellException {
@@ -148,7 +149,7 @@ public class Game {
             case Board.MARK_PLACED:
             case Board.WALL_PLACED:
                 int finishedState = decNumberOfMovesAndCheckFinished();
-                if (finishedState >= 0) {
+                if (finishedState != GAME_NOT_FINISHED) {
                     return finishedState;
                 } else {
                     return moveState;
