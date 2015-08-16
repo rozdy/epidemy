@@ -14,8 +14,8 @@ public class BoardTest {
         Game.getInstance().setCurrentTurn(5);
         Board board = new Board();
         board.getCells()[0][0].mark(1);
-        int[][] actual = board.buildMovesMap(1);
-        int[][] expected = board.getMovesMapTemplate();
+        Integer[][] actual = board.buildMovesMap(1);
+        Integer[][] expected = board.getMovesMapTemplate();
         expected[0][0] = Board.OWN_CROSS_HIT;
         expected[0][1] = Board.MARK_AVAILABLE;
         expected[1][1] = Board.MARK_AVAILABLE;
@@ -33,8 +33,8 @@ public class BoardTest {
         board.getCells()[0][0].mark(1);
         board.getCells()[0][1].setState(Cell.WALL_CELL);
         board.getCells()[0][1].setOwnerId(1);
-        int[][] actual = board.buildMovesMap(1);
-        int[][] expected = board.getMovesMapTemplate();
+        Integer[][] actual = board.buildMovesMap(1);
+        Integer[][] expected = board.getMovesMapTemplate();
         expected[0][0] = Board.OWN_CROSS_HIT;
         expected[0][1] = Board.OWN_WALL_HIT;
         expected[1][1] = Board.MARK_AVAILABLE;

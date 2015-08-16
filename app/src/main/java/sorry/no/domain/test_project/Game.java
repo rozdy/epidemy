@@ -3,6 +3,7 @@ package sorry.no.domain.test_project;
 import android.graphics.Color;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,6 +24,9 @@ public class Game {
     public static final int GAME_STATE_FINISHED = 2;
 
     public static final int GAME_FINISH_SURRENDER = 0;
+    public static final int GAME_FINISH_NO_MOVES = 1;
+    public static final int GAME_FINISH_NO_MARKS = 2;
+    public static final int GAME_NOT_FINISHED = -1;
 
     private int gameState;
     private GameStats stats;
@@ -111,12 +115,29 @@ public class Game {
     }
 
     private void nextActivePlayer() {
-        activePlayer = ++activePlayer % playersNumber;
+        if (activePlayer == playersNumber - 1) {
+            currentTurn++;
+        }
+        activePlayer = getNextPlayer();
         refillNumberOfMoves();
     }
 
-    private void checkGameFinish() {
-        //Todo check is game can't be continued and run gameFinish if so.
+    private int getNextPlayer() {
+        return (activePlayer + 1) % playersNumber;
+    }
+
+    private int checkGameFinish() {
+        Integer[][] map = getBoard().buildMovesMap(activePlayer);
+        for (Integer[] row : map) {
+            if (Arrays.asList(row).contains(Board.MARK_AVAILABLE) || Arrays.asList(row).contains(Board.WALL_AVAILABLE)) {
+                return GAME_FINISH_NO_MOVES;
+            }
+        }
+        if (getBoard().getMarksList(getNextPlayer()).size() == 0) {
+            nextActivePlayer();
+            return GAME_FINISH_NO_MARKS;
+        }
+        return GAME_NOT_FINISHED;
     }
 
     public int makeAMove(int activePlayer, int x, int y) throws InvalidMoveException, InvalidCellException {
@@ -126,22 +147,24 @@ public class Game {
         int moveState = getBoard().markCell(activePlayer, x, y);
         switch (moveState) {
             case Board.MARK_PLACED:
-                decNumberOfMoves();
-                checkGameFinish();
-                if (getNumberOfMoves() == 0) {
-                    nextActivePlayer();
-                }
-                return Board.MARK_PLACED;
             case Board.WALL_PLACED:
-                decNumberOfMoves();
-                checkGameFinish();
-                if (getNumberOfMoves() == 0) {
-                    nextActivePlayer();
+                int finishedState = decNumberOfMovesAndCheckFinished();
+                if (finishedState != GAME_NOT_FINISHED) {
+                    return finishedState;
+                } else {
+                    return moveState;
                 }
-                return Board.WALL_PLACED;
             default:
                 return moveState;
         }
+    }
+
+    private int decNumberOfMovesAndCheckFinished() throws InvalidMoveException {
+        decNumberOfMoves();
+        if (getNumberOfMoves() == 0) {
+            nextActivePlayer();
+        }
+        return checkGameFinish();
     }
 
     public static void finish(int reason) {
