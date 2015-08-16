@@ -28,9 +28,18 @@ public class Board {
     public Board() {
         width = DEFAULT_WIDTH;
         height = DEFAULT_HEIGHT;
-
         cells = new Cell[width][height];
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                cells[i][j] = new Cell(i, j);
+            }
+        }
+    }
 
+    public Board(BoardOptions boardOptions) {
+        width = boardOptions.getWidth();
+        height = boardOptions.getHeight();
+        cells = new Cell[width][height];
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 cells[i][j] = new Cell(i, j);

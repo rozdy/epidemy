@@ -42,12 +42,13 @@ public class Game {
     private int activePlayer, numberOfMoves, playersNumber, maxNumberOfMoves;
 
     private Game() {
-        board = new Board();
+        Options options = Options.getInstance();
+        board = new Board(options.getBoardOptions());
         players = new ArrayList<>();
-        playersNumber = DEFAULT_PLAYERS_NUMBER;
-        maxNumberOfMoves = DEFAULT_MOVES_NUMBER;
+        playersNumber = options.getGameOptions().getNumberOfPlayers();
+        maxNumberOfMoves = options.getGameOptions().getNumberOfMoves();
         for (int i = 0; i < playersNumber; i++) {
-            players.add(new Player(DEFAULT_PLAYER_COLORS[i % DEFAULT_PLAYER_COLORS.length]));
+            players.add(options.getUsersOptions().getPlayer(i)); //Todo change to deep copying here
         }
         activePlayer = 0;
         refillNumberOfMoves();
