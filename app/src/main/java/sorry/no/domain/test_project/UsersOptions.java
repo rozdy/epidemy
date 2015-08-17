@@ -14,6 +14,7 @@ public class UsersOptions {
     public static final int[] DEFAULT_PLAYER_COLORS = {Color.RED, Color.BLUE,
             Color.GREEN, Color.YELLOW};
     public static final int MAX_PLAYERS_NUMBER = 4;
+    public static final int MIN_PLAYERS_NUMBER = 2;
 
     public UsersOptions() {
         players = new ArrayList<Player>();

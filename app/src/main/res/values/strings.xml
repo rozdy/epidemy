@@ -13,4 +13,9 @@
     <string name="options_button">Options</string>
     <string name="title_options_list">Options</string>
     <string name="title_options_detail">Options Detail</string>
+    <string name="game_options">Game</string>
+    <string name="board_options">Board</string>
+    <string name="users_options">Users</string>
+    <string name="number_of_players">Number of players</string>
+    <string name="number_of_moves">Number of moves</string>
 </resources>
