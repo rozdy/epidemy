@@ -24,10 +24,9 @@ public class OptionsContent {
     public static final String BOARD_OPTIONS_ID = "2";
     public static final String USERS_OPTIONS_ID = "3";
 
-    public static ArrayAdapter<OptionsContent.OptionsItem>
-    createOptionsListAdapter(Context context, int resource) {
+    public static ArrayAdapter<OptionsItem> createOptionsListAdapter(Context context, int resource) {
         init(context);
-        ArrayAdapter<OptionsContent.OptionsItem> adapter = new ArrayAdapter<OptionsItem>(context,
+        ArrayAdapter<OptionsItem> adapter = new ArrayAdapter<OptionsItem>(context,
                 android.R.layout.simple_list_item_activated_1,
                 ITEMS);
         return adapter;
