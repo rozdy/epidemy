@@ -128,12 +128,17 @@ public class Game {
 
     private int checkGameFinish() {
         Integer[][] map = getBoard().buildMovesMap(activePlayer);
+        boolean noMoves = true;
         for (Integer[] row : map) {
             if (Arrays.asList(row).contains(Board.MARK_AVAILABLE) || Arrays.asList(row).contains(Board.WALL_AVAILABLE)) {
-                return GAME_FINISH_NO_MOVES;
+                noMoves = false;
+                break;
             }
         }
-        if (getBoard().getMarksList(getNextPlayer()).size() == 0) {
+        if (noMoves) {
+            return GAME_FINISH_NO_MOVES;
+        }
+        if (getCurrentTurn() > 0 && getBoard().getMarksList(getNextPlayer()).size() == 0) {
             nextActivePlayer();
             return GAME_FINISH_NO_MARKS;
         }
