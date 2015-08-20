@@ -11,18 +11,11 @@ import java.util.List;
  */
 public class Game {
 
-    public static final int[] DEFAULT_PLAYER_COLORS = {Color.RED, Color.BLUE,
-            Color.GREEN, Color.YELLOW};
-
     private static Game instance;
-
-    public static final int DEFAULT_MOVES_NUMBER = 3;
-    public static final int DEFAULT_PLAYERS_NUMBER = 2;
 
     public static final int GAME_STATE_NOT_STARTED = 0;
     public static final int GAME_STATE_STARTED = 1;
     public static final int GAME_STATE_FINISHED = 2;
-
     public static final int GAME_FINISH_SURRENDER = 0;
     public static final int GAME_FINISH_NO_MOVES = 1;
     public static final int GAME_FINISH_NO_MARKS = 2;

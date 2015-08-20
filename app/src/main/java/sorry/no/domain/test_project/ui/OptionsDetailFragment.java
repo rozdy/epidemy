@@ -1,13 +1,10 @@
 package sorry.no.domain.test_project.ui;
 
-import android.app.ActionBar;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +17,13 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import sorry.no.domain.test_project.BoardOptions;
 import sorry.no.domain.test_project.GameOptions;
 import sorry.no.domain.test_project.Options;
 import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.UsersOptions;
+import yuku.ambilwarna.AmbilWarnaDialog;
+import yuku.ambilwarna.AmbilWarnaSquare;
 
 public class OptionsDetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
@@ -170,8 +166,41 @@ public class OptionsDetailFragment extends Fragment {
             playerNameEditText.addTextChangedListener(new PlayerNameTextWatcher(playerNameEditText));
             tableRow.addView(playerNameEditText);
             //Todo add color picker
-            ((TableLayout) rootView).addView(tableRow);
+            View colorPicker = new View(rootView.getContext());
+            colorPicker.setLayoutParams(new TableRow.LayoutParams(30, 30)); //Todo fix params
+            colorPicker.setPadding(3, 3, 3, 3);
+            colorPicker.setBackgroundColor(Options.getInstance().getUsersOptions().getPlayer(player).getColor());
+            colorPicker.setTag(player);
+            colorPicker.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showColorPickerDialog(v);
+                }
+            });
+            tableRow.addView(colorPicker);
+
+            ((TableLayout) rootView).
+
+                    addView(tableRow);
         }
+    }
+
+    private void showColorPickerDialog(final View v) {
+        AmbilWarnaDialog dialog = new AmbilWarnaDialog(v.getContext(),
+                Options.getInstance().getUsersOptions().getPlayer((int) v.getTag()).getColor(),
+                new AmbilWarnaDialog.OnAmbilWarnaListener() {
+                    @Override
+                    public void onOk(AmbilWarnaDialog dialog, int color) {
+                        Options.getInstance().getUsersOptions().getPlayer((int) v.getTag()).setColor(color);
+                        v.setBackgroundColor(Options.getInstance().getUsersOptions().getPlayer((int) v.getTag()).getColor());
+                    }
+
+                    @Override
+                    public void onCancel(AmbilWarnaDialog dialog) {
+                    }
+
+                });
+        dialog.show();
     }
 
     public static class PlayerNameTextWatcher implements TextWatcher {
