@@ -165,7 +165,6 @@ public class OptionsDetailFragment extends Fragment {
             playerNameEditText.setText(Options.getInstance().getUsersOptions().getPlayer(player).getName());
             playerNameEditText.addTextChangedListener(new PlayerNameTextWatcher(playerNameEditText));
             tableRow.addView(playerNameEditText);
-            //Todo add color picker
             View colorPicker = new View(rootView.getContext());
             colorPicker.setLayoutParams(new TableRow.LayoutParams(30, 30)); //Todo fix params
             colorPicker.setPadding(3, 3, 3, 3);
@@ -191,6 +190,7 @@ public class OptionsDetailFragment extends Fragment {
                 new AmbilWarnaDialog.OnAmbilWarnaListener() {
                     @Override
                     public void onOk(AmbilWarnaDialog dialog, int color) {
+                        //Todo check user colors compatibility (avoid similar colors)
                         Options.getInstance().getUsersOptions().getPlayer((int) v.getTag()).setColor(color);
                         v.setBackgroundColor(Options.getInstance().getUsersOptions().getPlayer((int) v.getTag()).getColor());
                     }
@@ -220,6 +220,7 @@ public class OptionsDetailFragment extends Fragment {
 
         @Override
         public void afterTextChanged(Editable s) {
+            //Todo check user names compatibility (avoid the same user names)
             Options.getInstance().getUsersOptions().getPlayer((int) editText.getTag())
                     .setName(editText.getText().toString());
         }
