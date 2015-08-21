@@ -13,4 +13,9 @@
     <string name="final_stats_message">is a winner!</string>
     <string name="final_stats_ok">Back to main menu</string>
     <string name="final_stats_revenge">Revenge</string>
+
+    <string name="UNREACHABLE_CELL">Cell is unreachable</string>
+    <string name="ENEMY_WALL_HIT">You can\'t hit an enemy wall</string>
+    <string name="OWN_CROSS_HIT">You can\'t hit your own mark</string>
+    <string name="OWN_WALL_HIT">You can\'t hit your own wall</string>
 </resources>

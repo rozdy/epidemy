@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import sorry.no.domain.test_project.Board;
 import sorry.no.domain.test_project.BoardImageAdapter;
@@ -34,6 +35,7 @@ public class GameBoardActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BoardImageAdapter adapter = (BoardImageAdapter) parent.getAdapter();
                 try {
+                    Toast toast;
                     switch (Game.getInstance().makeAMove(Game.getInstance().getActivePlayer(),
                             adapter.getXByPosition(position), adapter.getYByPosition(position))) {
                         case Board.MARK_PLACED:
@@ -50,17 +52,25 @@ public class GameBoardActivity extends ActionBarActivity {
                             showFinalStats();
                             break;
                         case Board.UNREACHABLE_CELL:
+                            toast = Toast.makeText(parent.getContext(), R.string.UNREACHABLE_CELL, Toast.LENGTH_SHORT);
+                            toast.show();
+                            break;
                         case Board.ENEMY_WALL_HIT:
+                            toast = Toast.makeText(parent.getContext(), R.string.ENEMY_WALL_HIT, Toast.LENGTH_SHORT);
+                            toast.show();
+                            break;
                         case Board.OWN_CROSS_HIT:
+                            toast = Toast.makeText(parent.getContext(), R.string.OWN_CROSS_HIT, Toast.LENGTH_SHORT);
+                            toast.show();
+                            break;
                         case Board.OWN_WALL_HIT:
-                            //Todo alert user about invalid move
+                            toast = Toast.makeText(parent.getContext(), R.string.OWN_WALL_HIT, Toast.LENGTH_SHORT);
+                            toast.show();
+                            break;
                     }
-                } catch (InvalidPositionException e) {
-                    //Todo something here
-                } catch (InvalidCellException e) {
-                    //Todo something here
-                } catch (InvalidMoveException e) {
-                    //Todo something here
+                } catch (InvalidPositionException | InvalidCellException | InvalidMoveException e) {
+                    Toast toast = Toast.makeText(parent.getContext(), e.toString(), Toast.LENGTH_LONG);
+                    toast.show();
                 }
             }
         });
@@ -68,17 +78,12 @@ public class GameBoardActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_game_board, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
         switch (item.getItemId()) {
             case R.id.action_settings:
                 return true;
@@ -94,6 +99,7 @@ public class GameBoardActivity extends ActionBarActivity {
     private void showFinalStats() {
         FragmentManager fm = getSupportFragmentManager();
         FinalStatsDialog finalStatsDialog = new FinalStatsDialog();
+        finalStatsDialog.setCancelable(false);
         finalStatsDialog.show(fm, "final stats dialog");
     }
 }
