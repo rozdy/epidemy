@@ -14,8 +14,8 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import sorry.no.domain.test_project.Board;
-import sorry.no.domain.test_project.BoardImageAdapter;
+import sorry.no.domain.test_project.logic.board.Board;
+import sorry.no.domain.test_project.logic.board.BoardImageAdapter;
 import sorry.no.domain.test_project.Game;
 import sorry.no.domain.test_project.InvalidCellException;
 import sorry.no.domain.test_project.InvalidMoveException;

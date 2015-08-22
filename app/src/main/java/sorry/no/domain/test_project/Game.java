@@ -1,10 +1,10 @@
 package sorry.no.domain.test_project;
 
-import android.graphics.Color;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import sorry.no.domain.test_project.logic.board.Board;
 
 /**
  * The Game class would be a Singletone. It means we have a single instance of a game available through the whole app

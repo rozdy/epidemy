@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +16,12 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import sorry.no.domain.test_project.BoardOptions;
+import sorry.no.domain.test_project.logic.board.BoardOptions;
 import sorry.no.domain.test_project.GameOptions;
 import sorry.no.domain.test_project.Options;
 import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.UsersOptions;
 import yuku.ambilwarna.AmbilWarnaDialog;
-import yuku.ambilwarna.AmbilWarnaSquare;
 
 public class OptionsDetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";

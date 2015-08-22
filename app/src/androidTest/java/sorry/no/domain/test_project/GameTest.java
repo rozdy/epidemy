@@ -2,6 +2,8 @@ package sorry.no.domain.test_project;
 
 import org.testng.annotations.Test;
 
+import sorry.no.domain.test_project.logic.board.Board;
+
 import static org.testng.Assert.assertEquals;
 
 /**
