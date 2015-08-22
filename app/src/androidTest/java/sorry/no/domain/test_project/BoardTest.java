@@ -3,6 +3,8 @@ package sorry.no.domain.test_project;
 import org.testng.annotations.Test;
 
 import sorry.no.domain.test_project.logic.board.Board;
+import sorry.no.domain.test_project.logic.cell.Cell;
+import sorry.no.domain.test_project.logic.cell.InvalidCellException;
 
 import static org.testng.Assert.assertEquals;
 

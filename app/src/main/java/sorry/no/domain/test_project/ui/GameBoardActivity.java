@@ -17,7 +17,7 @@ import android.widget.Toast;
 import sorry.no.domain.test_project.logic.board.Board;
 import sorry.no.domain.test_project.logic.board.BoardImageAdapter;
 import sorry.no.domain.test_project.Game;
-import sorry.no.domain.test_project.InvalidCellException;
+import sorry.no.domain.test_project.logic.cell.InvalidCellException;
 import sorry.no.domain.test_project.InvalidMoveException;
 import sorry.no.domain.test_project.InvalidPositionException;
 import sorry.no.domain.test_project.R;

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import sorry.no.domain.test_project.logic.board.Board;
+import sorry.no.domain.test_project.logic.cell.InvalidCellException;
 
 /**
  * The Game class would be a Singletone. It means we have a single instance of a game available through the whole app

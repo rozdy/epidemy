@@ -6,11 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import sorry.no.domain.test_project.Cell;
-import sorry.no.domain.test_project.CellView;
+import sorry.no.domain.test_project.logic.cell.Cell;
+import sorry.no.domain.test_project.logic.cell.CellView;
 import sorry.no.domain.test_project.Game;
 import sorry.no.domain.test_project.InvalidPositionException;
 import sorry.no.domain.test_project.R;

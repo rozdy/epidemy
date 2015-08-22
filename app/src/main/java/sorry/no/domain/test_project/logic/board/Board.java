@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import sorry.no.domain.test_project.Cell;
+import sorry.no.domain.test_project.logic.cell.Cell;
 import sorry.no.domain.test_project.Game;
-import sorry.no.domain.test_project.InvalidCellException;
+import sorry.no.domain.test_project.logic.cell.InvalidCellException;
 
 /**
  * Created by hex on 7/22/2015.
