@@ -1,4 +1,4 @@
-package sorry.no.domain.test_project;
+package sorry.no.domain.test_project.logic.player;
 
 /**
  * Created by hex on 7/22/2015.

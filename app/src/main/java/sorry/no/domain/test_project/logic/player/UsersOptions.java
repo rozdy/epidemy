@@ -1,4 +1,4 @@
-package sorry.no.domain.test_project;
+package sorry.no.domain.test_project.logic.player;
 
 import android.graphics.Color;
 

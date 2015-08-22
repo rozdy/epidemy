@@ -1,4 +1,4 @@
-package sorry.no.domain.test_project;
+package sorry.no.domain.test_project.logic.board;
 
 import android.content.Context;
 import android.util.AttributeSet;
