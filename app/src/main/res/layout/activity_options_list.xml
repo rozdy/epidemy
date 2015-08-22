@@ -8,11 +8,11 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="sorry.no.domain.test_project.ui.OptionsListActivity">
+    tools:context="sorry.no.domain.test_project.ui.options.OptionsListActivity">
 
     <fragment
         android:id="@+id/options_list"
-        android:name="sorry.no.domain.test_project.ui.OptionsListFragment"
+        android:name="sorry.no.domain.test_project.ui.options.OptionsListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
