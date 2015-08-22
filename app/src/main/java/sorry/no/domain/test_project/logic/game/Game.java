@@ -1,9 +1,11 @@
-package sorry.no.domain.test_project;
+package sorry.no.domain.test_project.logic.game;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import sorry.no.domain.test_project.Options;
+import sorry.no.domain.test_project.Player;
 import sorry.no.domain.test_project.logic.board.Board;
 import sorry.no.domain.test_project.logic.cell.InvalidCellException;
 

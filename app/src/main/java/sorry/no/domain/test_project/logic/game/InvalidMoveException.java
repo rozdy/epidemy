@@ -1,4 +1,4 @@
-package sorry.no.domain.test_project;
+package sorry.no.domain.test_project.logic.game;
 
 /**
  * Created by Sergejj on 01/08/2015 in the name of the Emperor!

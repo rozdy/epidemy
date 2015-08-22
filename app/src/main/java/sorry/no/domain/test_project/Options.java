@@ -1,6 +1,7 @@
 package sorry.no.domain.test_project;
 
 import sorry.no.domain.test_project.logic.board.BoardOptions;
+import sorry.no.domain.test_project.logic.game.GameOptions;
 
 /**
  * The Game class would be a Singletone. It means we have a single instance of a game available through the whole app

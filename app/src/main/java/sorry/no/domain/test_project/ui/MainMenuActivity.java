@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import sorry.no.domain.test_project.Game;
+import sorry.no.domain.test_project.logic.game.Game;
 import sorry.no.domain.test_project.R;
 
 

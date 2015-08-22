@@ -10,8 +10,7 @@ import android.widget.TextView;
 
 import sorry.no.domain.test_project.logic.cell.Cell;
 import sorry.no.domain.test_project.logic.cell.CellView;
-import sorry.no.domain.test_project.Game;
-import sorry.no.domain.test_project.InvalidPositionException;
+import sorry.no.domain.test_project.logic.game.Game;
 import sorry.no.domain.test_project.R;
 
 /**

@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.widget.GridView;
 
 import sorry.no.domain.test_project.logic.board.BoardImageAdapter;
-import sorry.no.domain.test_project.Game;
+import sorry.no.domain.test_project.logic.game.Game;
 import sorry.no.domain.test_project.R;
 
 /**

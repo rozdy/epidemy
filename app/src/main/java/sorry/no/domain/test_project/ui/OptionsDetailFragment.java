@@ -17,7 +17,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import sorry.no.domain.test_project.logic.board.BoardOptions;
-import sorry.no.domain.test_project.GameOptions;
+import sorry.no.domain.test_project.logic.game.GameOptions;
 import sorry.no.domain.test_project.Options;
 import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.UsersOptions;

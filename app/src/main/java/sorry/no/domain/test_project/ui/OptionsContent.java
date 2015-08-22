@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import sorry.no.domain.test_project.Game;
 import sorry.no.domain.test_project.Options;
 import sorry.no.domain.test_project.R;
 
