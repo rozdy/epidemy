@@ -16,7 +16,7 @@ public class OptionsListFragment extends ListFragment {
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
     public interface Callbacks {
-        public void onItemSelected(String id);
+        void onItemSelected(String id);
     }
 
     private static Callbacks sDummyCallbacks = new Callbacks() {
@@ -31,8 +31,7 @@ public class OptionsListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(OptionsContent.createOptionsListAdapter(getActivity(),
-                android.R.layout.simple_list_item_activated_1));
+        setListAdapter(OptionsContent.createOptionsListAdapter(getActivity()));
     }
 
     @Override

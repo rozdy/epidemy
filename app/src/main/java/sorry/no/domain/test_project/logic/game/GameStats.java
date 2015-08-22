@@ -1,9 +1,9 @@
 package sorry.no.domain.test_project.logic.game;
 
-import sorry.no.domain.test_project.Player;
+import sorry.no.domain.test_project.logic.player.Player;
 
 /**
- * Created by hex on 8/1/2015.
+ * Created by hex on 8/1/2015 in the name of the Emperor!
  */
 public class GameStats {
     private Player winner, looser;

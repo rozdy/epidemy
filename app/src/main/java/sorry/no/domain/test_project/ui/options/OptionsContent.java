@@ -12,23 +12,22 @@ import sorry.no.domain.test_project.Options;
 import sorry.no.domain.test_project.R;
 
 /**
- * Created by hex on 8/16/2015.
+ * Created by hex on 8/16/2015 in the name of the Emperor!
  */
 public class OptionsContent {
-    public static List<OptionsItem> ITEMS = new ArrayList<OptionsItem>();
+    public static List<OptionsItem> ITEMS = new ArrayList<>();
 
-    public static Map<String, OptionsItem> ITEM_MAP = new HashMap<String, OptionsItem>();
+    public static Map<String, OptionsItem> ITEM_MAP = new HashMap<>();
 
     public static final String GAME_OPTIONS_ID = "1";
     public static final String BOARD_OPTIONS_ID = "2";
     public static final String USERS_OPTIONS_ID = "3";
 
-    public static ArrayAdapter<OptionsItem> createOptionsListAdapter(Context context, int resource) {
+    public static ArrayAdapter<OptionsItem> createOptionsListAdapter(Context context) {
         init(context);
-        ArrayAdapter<OptionsItem> adapter = new ArrayAdapter<OptionsItem>(context,
+        return new ArrayAdapter<>(context,
                 android.R.layout.simple_list_item_activated_1,
                 ITEMS);
-        return adapter;
     }
 
     private static void init(Context context) {

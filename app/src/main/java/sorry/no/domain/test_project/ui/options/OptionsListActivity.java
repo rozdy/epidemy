@@ -3,7 +3,6 @@ package sorry.no.domain.test_project.ui.options;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
-
 import sorry.no.domain.test_project.R;
 
 public class OptionsListActivity extends ActionBarActivity

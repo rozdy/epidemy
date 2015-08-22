@@ -5,9 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import sorry.no.domain.test_project.Options;
-import sorry.no.domain.test_project.Player;
 import sorry.no.domain.test_project.logic.board.Board;
 import sorry.no.domain.test_project.logic.cell.InvalidCellException;
+import sorry.no.domain.test_project.logic.player.Player;
 
 /**
  * The Game class would be a Singletone. It means we have a single instance of a game available through the whole app

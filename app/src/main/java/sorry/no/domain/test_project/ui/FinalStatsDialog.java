@@ -2,22 +2,24 @@ package sorry.no.domain.test_project.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
 import android.widget.GridView;
 
+import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.logic.board.BoardImageAdapter;
 import sorry.no.domain.test_project.logic.game.Game;
-import sorry.no.domain.test_project.R;
 
 /**
- * Created by hex on 8/1/2015.
+ * Created by hex on 8/1/2015 in the name of the Emperor!
  */
 public class FinalStatsDialog extends DialogFragment {
     public FinalStatsDialog() {
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

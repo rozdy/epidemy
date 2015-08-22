@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by hex on 8/16/2015.
+ * Created by hex on 8/16/2015 in the name of the Emperor!
  */
 public class UsersOptions {
     private List<Player> players;
@@ -17,7 +17,7 @@ public class UsersOptions {
     public static final int MIN_PLAYERS_NUMBER = 2;
 
     public UsersOptions() {
-        players = new ArrayList<Player>();
+        players = new ArrayList<>();
         for (int i = 0; i < MAX_PLAYERS_NUMBER; i++) {
             players.add(new Player(DEFAULT_PLAYER_COLORS[i % DEFAULT_PLAYER_COLORS.length]));
         }

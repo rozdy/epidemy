@@ -6,7 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * Created by hex on 8/21/2015.
+ * Created by hex on 8/21/2015 in the name of the Emperor!
  */
 public class StatusBarView extends LinearLayout {
     private TextView activePlayerName, numberOfMoves, currentTurn;

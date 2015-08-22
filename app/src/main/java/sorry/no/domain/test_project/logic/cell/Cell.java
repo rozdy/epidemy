@@ -1,7 +1,7 @@
 package sorry.no.domain.test_project.logic.cell;
 
 /**
- * Created by hex on 7/22/2015.
+ * Created by hex on 7/22/2015 in the name of the Emperor!
  */
 public class Cell {
 
@@ -28,10 +28,6 @@ public class Cell {
 
     public boolean isMarked() {
         return (state == MARK_CELL);
-    }
-
-    public boolean isWall() {
-        return (state == WALL_CELL);
     }
 
     public int getOwnerId() {

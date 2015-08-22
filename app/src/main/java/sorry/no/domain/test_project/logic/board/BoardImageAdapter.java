@@ -8,13 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.logic.cell.Cell;
 import sorry.no.domain.test_project.logic.cell.CellView;
 import sorry.no.domain.test_project.logic.game.Game;
-import sorry.no.domain.test_project.R;
 
 /**
- * Created by hex on 7/28/2015.
+ * Created by hex on 7/28/2015 in the name of the Emperor!
  */
 public class BoardImageAdapter extends BaseAdapter {
     private Context mContext;
@@ -93,13 +93,9 @@ public class BoardImageAdapter extends BaseAdapter {
     }
 
     private boolean isPositionOnBoard(int position) {
-        if (position < (Game.getInstance().getBoard().getWidth() + 1) ||
+        return !(position < (Game.getInstance().getBoard().getWidth() + 1) ||
                 position % (Game.getInstance().getBoard().getWidth() + 1) == 0 ||
-                position > getCount()) {
-            return false;
-        } else {
-            return true;
-        }
+                position > getCount());
     }
 
     public int getXByPosition(int position) throws InvalidPositionException {

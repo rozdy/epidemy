@@ -16,11 +16,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import sorry.no.domain.test_project.logic.board.BoardOptions;
-import sorry.no.domain.test_project.logic.game.GameOptions;
 import sorry.no.domain.test_project.Options;
 import sorry.no.domain.test_project.R;
-import sorry.no.domain.test_project.UsersOptions;
+import sorry.no.domain.test_project.logic.board.BoardOptions;
+import sorry.no.domain.test_project.logic.game.GameOptions;
+import sorry.no.domain.test_project.logic.player.UsersOptions;
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class OptionsDetailFragment extends Fragment {
@@ -43,20 +43,25 @@ public class OptionsDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView;
-        if (mItem.id.equals(OptionsContent.GAME_OPTIONS_ID)) {
-            rootView = inflater.inflate(R.layout.fragment_game_options_detail, container, false);
-            initGameOptions(rootView);
-        } else if (mItem.id.equals(OptionsContent.BOARD_OPTIONS_ID)) {
-            rootView = inflater.inflate(R.layout.fragment_board_options_detail, container, false);
-            initBoardOptions(rootView);
-        } else if (mItem.id.equals(OptionsContent.USERS_OPTIONS_ID)) {
-            rootView = new TableLayout(getActivity());
-            rootView.setLayoutParams(new TableLayout.LayoutParams(
-                    TableLayout.LayoutParams.MATCH_PARENT,
-                    TableLayout.LayoutParams.MATCH_PARENT));
-            initUsersOptions(rootView);
-        } else { //Todo fix this case
-            rootView = inflater.inflate(R.layout.fragment_users_options_detail, container, false);
+        switch (mItem.id) {
+            case OptionsContent.GAME_OPTIONS_ID:
+                rootView = inflater.inflate(R.layout.fragment_game_options_detail, container, false);
+                initGameOptions(rootView);
+                break;
+            case OptionsContent.BOARD_OPTIONS_ID:
+                rootView = inflater.inflate(R.layout.fragment_board_options_detail, container, false);
+                initBoardOptions(rootView);
+                break;
+            case OptionsContent.USERS_OPTIONS_ID:
+                rootView = new TableLayout(getActivity());
+                rootView.setLayoutParams(new TableLayout.LayoutParams(
+                        TableLayout.LayoutParams.MATCH_PARENT,
+                        TableLayout.LayoutParams.MATCH_PARENT));
+                initUsersOptions(rootView);
+                break;
+            default:  //Todo fix this case
+                rootView = inflater.inflate(R.layout.fragment_users_options_detail, container, false);
+                break;
         }
         return rootView;
     }

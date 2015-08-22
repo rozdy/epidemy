@@ -12,7 +12,7 @@ import android.view.View;
 import sorry.no.domain.test_project.R;
 
 /**
- * Created by hex on 8/13/2015.
+ * Created by hex on 8/13/2015 in the name of the Emperor!
  */
 public class CellView extends View {
     private int color, state;
@@ -30,10 +30,6 @@ public class CellView extends View {
 
     public int getColor() {
         return color;
-    }
-
-    public int getState() {
-        return state;
     }
 
     public void setColor(int color) {

@@ -1,7 +1,7 @@
 package sorry.no.domain.test_project.logic.game;
 
 /**
- * Created by hex on 8/16/2015.
+ * Created by hex on 8/16/2015 in the name of the Emperor!
  */
 public class GameOptions {
     private int numberOfMoves, numberOfPlayers;

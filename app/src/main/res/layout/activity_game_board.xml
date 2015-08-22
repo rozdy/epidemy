@@ -20,7 +20,7 @@
         android:stretchMode="none"
         android:verticalSpacing="@dimen/cell_spacing" />
 
-    <sorry.no.domain.test_project.StatusBarView
+    <sorry.no.domain.test_project.logic.board.StatusBarView
         android:id="@+id/status_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,6 +67,6 @@
             android:id="@+id/current_turn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </sorry.no.domain.test_project.StatusBarView>
+    </sorry.no.domain.test_project.logic.board.StatusBarView>
 
 </RelativeLayout>

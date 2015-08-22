@@ -5,11 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import sorry.no.domain.test_project.logic.cell.Cell;
-import sorry.no.domain.test_project.logic.game.Game;
 import sorry.no.domain.test_project.logic.cell.InvalidCellException;
+import sorry.no.domain.test_project.logic.game.Game;
 
 /**
- * Created by hex on 7/22/2015.
+ * Created by hex on 7/22/2015 in the name of the Emperor!
  */
 public class Board {
     public static final int MARK_AVAILABLE = 100;

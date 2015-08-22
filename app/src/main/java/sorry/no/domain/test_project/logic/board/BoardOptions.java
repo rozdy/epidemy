@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by hex on 8/16/2015.
+ * Created by hex on 8/16/2015 in the name of the Emperor!
  */
 public class BoardOptions {
     private int width, height;

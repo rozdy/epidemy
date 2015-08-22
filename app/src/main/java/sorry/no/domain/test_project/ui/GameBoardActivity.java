@@ -1,10 +1,9 @@
 package sorry.no.domain.test_project.ui;
 
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
-
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,14 +13,14 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.logic.board.Board;
 import sorry.no.domain.test_project.logic.board.BoardImageAdapter;
-import sorry.no.domain.test_project.logic.game.Game;
-import sorry.no.domain.test_project.logic.cell.InvalidCellException;
-import sorry.no.domain.test_project.logic.game.InvalidMoveException;
 import sorry.no.domain.test_project.logic.board.InvalidPositionException;
-import sorry.no.domain.test_project.R;
-import sorry.no.domain.test_project.StatusBarView;
+import sorry.no.domain.test_project.logic.board.StatusBarView;
+import sorry.no.domain.test_project.logic.cell.InvalidCellException;
+import sorry.no.domain.test_project.logic.game.Game;
+import sorry.no.domain.test_project.logic.game.InvalidMoveException;
 
 public class GameBoardActivity extends ActionBarActivity {
     private StatusBarView statusBar;
@@ -59,7 +58,7 @@ public class GameBoardActivity extends ActionBarActivity {
                             updateStatusBar();
                             if (Game.getInstance().getNumberOfMoves() == Game.getInstance().getMaxNumberOfMoves()) {
                                 toast = Toast.makeText(parent.getContext(), getString(R.string.next_player) +
-                                        Game.getInstance().getPlayer(Game.getInstance().getActivePlayer()).getName(),
+                                                Game.getInstance().getPlayer(Game.getInstance().getActivePlayer()).getName(),
                                         Toast.LENGTH_LONG);
                                 toast.show();
                             }
