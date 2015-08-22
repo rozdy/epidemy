@@ -10,6 +10,19 @@
     <string name="final_stats_message">is a winner!</string>
     <string name="final_stats_ok">Back to main menu</string>
     <string name="final_stats_revenge">Revenge</string>
+
+    <string name="UNREACHABLE_CELL">Cell is unreachable</string>
+    <string name="ENEMY_WALL_HIT">You can\'t hit an enemy wall</string>
+    <string name="OWN_CROSS_HIT">You can\'t hit your own mark</string>
+    <string name="OWN_WALL_HIT">You can\'t hit your own wall</string>
+
+    <string name="status_bar_active_player">"Active player: "</string>
+    <string name="status_bar_number_of_moves">"Number of moves: "</string>
+    <string name="status_bar_current_turn">"Turn: "</string>
+    <string name="status_bar_separator">" | "</string>
+
+
+    <string name="next_player">"Next player is "</string>
     <string name="options_button">Options</string>
     <string name="title_options_list">Options</string>
     <string name="title_options_detail">Options Detail</string>
