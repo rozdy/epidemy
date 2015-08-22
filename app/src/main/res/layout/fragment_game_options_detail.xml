@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/number_of_players_caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/number_of_players"
+        android:textIsSelectable="false" />
+
+    <SeekBar
+        android:id="@+id/number_of_players_seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/number_of_players_caption" />
+
+    <TextView
+        android:id="@+id/number_of_players"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/number_of_players_seek_bar" />
+
+    <TextView
+        android:id="@+id/number_of_moves_caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/number_of_players"
+        android:text="@string/number_of_moves" />
+
+    <SeekBar
+        android:id="@+id/number_of_moves_seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/number_of_moves_caption" />
+
+    <TextView
+        android:id="@+id/number_of_moves"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/number_of_moves_seek_bar" />
+
+</RelativeLayout>

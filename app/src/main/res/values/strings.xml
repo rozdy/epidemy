@@ -1,16 +1,22 @@
 <resources>
     <string name="app_name">Test-project</string>
-
     <string name="start_game_button">Start Game</string>
     <string name="fullscreen_content">Background content</string>
     <string name="title_activity_game_board">GameBoardActivity</string>
-
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="action_surrender">Surrender</string>
-
     <string name="final_stats_congrats">Congrats!</string>
     <string name="final_stats_message">is a winner!</string>
     <string name="final_stats_ok">Back to main menu</string>
     <string name="final_stats_revenge">Revenge</string>
+    <string name="options_button">Options</string>
+    <string name="title_options_list">Options</string>
+    <string name="title_options_detail">Options Detail</string>
+    <string name="game_options">Game</string>
+    <string name="board_options">Board</string>
+    <string name="users_options">Users</string>
+    <string name="number_of_players">Number of players</string>
+    <string name="number_of_moves">Number of moves</string>
+    <string name="board_size">Board size</string>
 </resources>
