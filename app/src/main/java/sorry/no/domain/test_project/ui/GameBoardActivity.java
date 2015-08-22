@@ -121,7 +121,6 @@ public class GameBoardActivity extends ActionBarActivity {
                 showFinalStats();
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

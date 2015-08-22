@@ -25,6 +25,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainMenuActivity" />
         </activity>
+        <activity
+            android:name=".ui.OptionsListActivity"
+            android:label="@string/title_options_list">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainMenuActivity" />
+        </activity>
     </application>
-</manifest>
 
+</manifest>

@@ -21,11 +21,19 @@ public class Player {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public static void resetIdCounter() {
         nextId = 0;
     }
 
     public int getColor() {
         return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }
