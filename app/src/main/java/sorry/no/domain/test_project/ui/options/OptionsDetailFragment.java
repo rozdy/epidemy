@@ -3,6 +3,8 @@ package sorry.no.domain.test_project.ui.options;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -150,9 +152,9 @@ public class OptionsDetailFragment extends Fragment {
         //Todo add custom board sizes
     }
 
-    public void initUsersOptions(View rootView) {
+    public void initUsersOptions(final View rootView) {
         for (int player = 0; player < UsersOptions.MAX_PLAYERS_NUMBER; player++) {
-            TableRow tableRow = new TableRow(rootView.getContext());
+            final TableRow tableRow = new TableRow(rootView.getContext());
             tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
             TextView playerNumberTextView = new TextView(rootView.getContext());
@@ -161,6 +163,18 @@ public class OptionsDetailFragment extends Fragment {
             playerNumberTextView.setText((player + 1) + ".");
             tableRow.addView(playerNumberTextView);
             EditText playerNameEditText = new EditText(rootView.getContext());
+            InputFilter filter = new InputFilter() {
+                public CharSequence filter(CharSequence source, int start, int end,
+                                           Spanned dest, int dstart, int dend) {
+                    for (int i = start; i < end; i++) {
+                        if (source.charAt(i) == '\n') {
+                            return "";
+                        }
+                    }
+                    return null;
+                }
+            };
+            playerNameEditText.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(20)});
             playerNameEditText.setLayoutParams(
                     new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                             TableRow.LayoutParams.WRAP_CONTENT));
@@ -181,9 +195,7 @@ public class OptionsDetailFragment extends Fragment {
             });
             tableRow.addView(colorPicker);
 
-            ((TableLayout) rootView).
-
-                    addView(tableRow);
+            ((TableLayout) rootView).addView(tableRow);
         }
     }
 
