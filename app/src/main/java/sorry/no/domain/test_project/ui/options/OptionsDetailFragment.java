@@ -180,7 +180,7 @@ public class OptionsDetailFragment extends Fragment {
                             TableRow.LayoutParams.WRAP_CONTENT));
             playerNameEditText.setTag(player);
             playerNameEditText.setText(Options.getInstance().getUsersOptions().getPlayer(player).getName());
-            playerNameEditText.addTextChangedListener(new PlayerNameTextWatcher(playerNameEditText));
+            playerNameEditText.addTextChangedListener(new PlayerNameTextWatcher(playerNameEditText)); //Todo: rethink validation. maybe save button?
             tableRow.addView(playerNameEditText);
             View colorPicker = new View(rootView.getContext());
             colorPicker.setLayoutParams(new TableRow.LayoutParams(30, 30)); //Todo fix params
@@ -220,6 +220,8 @@ public class OptionsDetailFragment extends Fragment {
 
     public static class PlayerNameTextWatcher implements TextWatcher {
         private EditText editText;
+        private String oldName;
+        private int justInCase = 0;
 
         public PlayerNameTextWatcher(EditText editText) {
             this.editText = editText;
@@ -227,6 +229,7 @@ public class OptionsDetailFragment extends Fragment {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            oldName = editText.getText().toString().trim();
         }
 
         @Override
@@ -235,9 +238,24 @@ public class OptionsDetailFragment extends Fragment {
 
         @Override
         public void afterTextChanged(Editable s) {
-            //Todo check user names compatibility (avoid the same user names)
+            String newName = editText.getText().toString().trim();
+            for (int index = 0; index < UsersOptions.MAX_PLAYERS_NUMBER; index++) {
+                if (index == (int) editText.getTag()) {
+                    continue;
+                }
+                if (Options.getInstance().getUsersOptions().getPlayer(index).getName().equals(newName)) {
+                    if (justInCase++ > 5) {
+                        justInCase = 0;
+                        return;
+                    }
+
+                    editText.setText(oldName);
+                    return;
+                }
+            }
+            justInCase = 0;
             Options.getInstance().getUsersOptions().getPlayer((int) editText.getTag())
-                    .setName(editText.getText().toString());
+                    .setName(newName);
         }
     }
 }
