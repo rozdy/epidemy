@@ -36,7 +36,6 @@ public class BoardImageAdapter extends BaseAdapter {
         return 0;
     }
 
-    // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
 
         int cellWidth = (int) mContext.getResources().getDimension(R.dimen.cell_width);
@@ -71,11 +70,16 @@ public class BoardImageAdapter extends BaseAdapter {
             return textView;
         }
 
-        // Board cells
-        CellView cellView = new CellView(mContext);
-        cellView.setLayoutParams(new GridView.LayoutParams(cellWidth, cellWidth));
-        cellView.setPadding(0, 0, 0, 0);
-        cellView.setBackgroundColor(Color.WHITE);
+        CellView cellView;
+        if (!(convertView instanceof CellView)) {
+            // Board cells
+            cellView = new CellView(mContext);
+            cellView.setLayoutParams(new GridView.LayoutParams(cellWidth, cellWidth));
+            cellView.setPadding(0, 0, 0, 0);
+            cellView.setBackgroundColor(Color.WHITE);
+        } else {
+            cellView = (CellView) convertView;
+        }
         try {
             int x = getXByPosition(position);
             int y = getYByPosition(position);
