@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -145,6 +147,14 @@ public class OptionsDetailFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        Switch showCellNumbers = (Switch) rootView.findViewById(R.id.show_cell_numbers);
+        showCellNumbers.setChecked(Options.getInstance().getBoardOptions().getShowCellNumeration());
+        showCellNumbers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Options.getInstance().getBoardOptions().setShowCellNumeration(isChecked);
             }
         });
         //Todo add custom board sizes

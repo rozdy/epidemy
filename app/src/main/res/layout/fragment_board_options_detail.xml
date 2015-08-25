@@ -15,4 +15,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/board_size_caption" />
 
+    <TextView
+        android:id="@+id/show_cell_numbers_caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/board_size_spinner"
+        android:text="@string/show_cell_numbers" />
+
+    <Switch
+        android:id="@+id/show_cell_numbers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/show_cell_numbers_caption"
+        android:layout_below="@id/board_size_spinner"/>
 </RelativeLayout>

@@ -13,10 +13,13 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import sorry.no.domain.test_project.Options;
 import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.logic.board.Board;
+import sorry.no.domain.test_project.logic.board.BoardAdapter;
 import sorry.no.domain.test_project.logic.board.BoardImageAdapter;
 import sorry.no.domain.test_project.logic.board.InvalidPositionException;
+import sorry.no.domain.test_project.logic.board.PureBoardAdapter;
 import sorry.no.domain.test_project.logic.board.StatusBarView;
 import sorry.no.domain.test_project.logic.cell.InvalidCellException;
 import sorry.no.domain.test_project.logic.game.Game;
@@ -31,8 +34,13 @@ public class GameBoardActivity extends ActionBarActivity {
         setContentView(R.layout.activity_game_board);
 
         GridView gridview = (GridView) findViewById(R.id.grid_view);
-        gridview.setNumColumns(Game.getInstance().getBoard().getWidth() + 1);
-        gridview.setAdapter(new BoardImageAdapter(this));
+        if (Options.getInstance().getBoardOptions().getShowCellNumeration()) {
+            gridview.setNumColumns(Game.getInstance().getBoard().getWidth() + 1);
+            gridview.setAdapter(new BoardImageAdapter(this));
+        } else {
+            gridview.setNumColumns(Game.getInstance().getBoard().getWidth());
+            gridview.setAdapter(new PureBoardAdapter(this));
+        }
         gridview.setOnItemClickListener(getOnItemClickListener());
 
         statusBar = (StatusBarView) findViewById(R.id.status_bar);
@@ -46,7 +54,7 @@ public class GameBoardActivity extends ActionBarActivity {
         return new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                BoardImageAdapter adapter = (BoardImageAdapter) parent.getAdapter();
+                BoardAdapter adapter = (BoardAdapter) parent.getAdapter();
                 try {
                     Toast toast;
                     switch (Game.getInstance().makeAMove(Game.getInstance().getActivePlayer(),

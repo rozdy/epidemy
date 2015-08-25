@@ -23,8 +23,8 @@ public class Board {
     public static final int WALL_NOT_CONNECTED = 404;
 
 
-    public static final int DEFAULT_WIDTH = 10;
-    public static final int DEFAULT_HEIGHT = 10;
+    public static final int DEFAULT_WIDTH = 8;
+    public static final int DEFAULT_HEIGHT = 8;
 
     private int width, height;
     private Cell[][] cells;
