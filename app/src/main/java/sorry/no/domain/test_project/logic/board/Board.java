@@ -22,23 +22,8 @@ public class Board {
     public static final int OWN_WALL_HIT = 403;
     public static final int WALL_NOT_CONNECTED = 404;
 
-
-    public static final int DEFAULT_WIDTH = 8;
-    public static final int DEFAULT_HEIGHT = 8;
-
     private int width, height;
     private Cell[][] cells;
-
-    public Board() {
-        width = DEFAULT_WIDTH;
-        height = DEFAULT_HEIGHT;
-        cells = new Cell[width][height];
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                cells[i][j] = new Cell(i, j);
-            }
-        }
-    }
 
     public Board(BoardOptions boardOptions) {
         width = boardOptions.getWidth();

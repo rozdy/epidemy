@@ -5,7 +5,7 @@ import android.widget.BaseAdapter;
 /**
  * Created by hex on 8/25/2015 in the name of the Emperor!
  */
-abstract public class BoardAdapter extends BaseAdapter {
+public abstract class BoardAdapter extends BaseAdapter {
     abstract protected boolean isPositionOnBoard(int position);
 
     abstract public int getXByPosition(int position) throws InvalidPositionException;

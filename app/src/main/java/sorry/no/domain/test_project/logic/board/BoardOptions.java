@@ -14,12 +14,6 @@ public class BoardOptions {
             Arrays.asList(new BoardOptions(8, 8), new BoardOptions(10, 10),
                     new BoardOptions(14, 14), new BoardOptions(20, 20));
 
-    public BoardOptions() {
-        width = standardBoardSizes.get(0).getWidth();
-        height = standardBoardSizes.get(0).getWidth();
-        showCellNumeration = false;
-    }
-
     public BoardOptions(int width, int height) {
         this.width = width;
         this.height = height;
@@ -61,6 +55,7 @@ public class BoardOptions {
         BoardOptions boardOptions = (BoardOptions) o;
 
         if (boardOptions.getWidth() != this.getWidth()) return false;
-        return (boardOptions.getHeight() == this.getHeight());
+        if (boardOptions.getHeight() == this.getHeight()) return false;
+        return (boardOptions.getShowCellNumeration() == this.getShowCellNumeration());
     }
 }

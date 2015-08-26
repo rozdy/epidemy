@@ -60,10 +60,12 @@ public class PureBoardAdapter extends BoardAdapter {
         return cellView;
     }
 
+    @Override
     protected boolean isPositionOnBoard(int position) {
         return (position >= 0 || position <= getCount());
     }
 
+    @Override
     public int getXByPosition(int position) throws InvalidPositionException {
         if (isPositionOnBoard(position)) {
             return position / Game.getInstance().getBoard().getWidth();
@@ -72,6 +74,7 @@ public class PureBoardAdapter extends BoardAdapter {
         }
     }
 
+    @Override
     public int getYByPosition(int position) throws InvalidPositionException {
         if (isPositionOnBoard(position)) {
             return position % Game.getInstance().getBoard().getWidth();

@@ -95,12 +95,14 @@ public class BoardImageAdapter extends BoardAdapter {
         return cellView;
     }
 
+    @Override
     protected boolean isPositionOnBoard(int position) {
         return !(position < (Game.getInstance().getBoard().getWidth() + 1) ||
                 position % (Game.getInstance().getBoard().getWidth() + 1) == 0 ||
                 position > getCount());
     }
 
+    @Override
     public int getXByPosition(int position) throws InvalidPositionException {
         if (isPositionOnBoard(position)) {
             return position / (Game.getInstance().getBoard().getWidth() + 1) - 1;
@@ -109,6 +111,7 @@ public class BoardImageAdapter extends BoardAdapter {
         }
     }
 
+    @Override
     public int getYByPosition(int position) throws InvalidPositionException {
         if (isPositionOnBoard(position)) {
             return position % (Game.getInstance().getBoard().getWidth() + 1) - 1;
