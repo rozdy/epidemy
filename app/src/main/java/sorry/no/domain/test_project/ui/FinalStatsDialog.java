@@ -10,6 +10,7 @@ import android.widget.GridView;
 
 import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.logic.board.BoardImageAdapter;
+import sorry.no.domain.test_project.logic.board.BoardView;
 import sorry.no.domain.test_project.logic.game.Game;
 
 /**
@@ -34,9 +35,9 @@ public class FinalStatsDialog extends DialogFragment {
         builder.setNegativeButton(R.string.final_stats_revenge, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Game.init();
-                GridView gridview = (GridView) getActivity().findViewById(R.id.grid_view);
-                ((BoardImageAdapter) gridview.getAdapter()).notifyDataSetChanged();
-                gridview.invalidate();
+                BoardView boardView = (BoardView) getActivity().findViewById(R.id.board_view);
+                ((BoardImageAdapter) boardView.getAdapter()).notifyDataSetChanged();
+                boardView.invalidate();
             }
         });
         return builder.create();

@@ -16,16 +16,35 @@ import sorry.no.domain.test_project.R;
  */
 public class CellView extends View {
     private int color, state;
-    Paint paint;
-    private Bitmap background;
+    private Paint paint;
+    private float scaleFactor = 1.0f;
+
+    private static Bitmap background;
+
+    public static void initCellViewBackground(Context context) {
+        Resources resources = context.getResources();
+        background = BitmapFactory.decodeResource(resources, R.drawable.empty);
+    }
+
+    public static int getCellWidth() {
+        if (background != null) {
+            return background.getWidth();
+        } else {
+            return 0;
+        }
+    }
+
+    public void setScaleFactor(float scale) {
+        scaleFactor = scale;
+    }
+
+    public float getScaleFactor() {
+        return scaleFactor;
+    }
 
     public CellView(Context context) {
         super(context);
         paint = new Paint();
-        Resources resources = getResources();
-        int width = (int) resources.getDimension(R.dimen.cell_width);
-        Bitmap backgroundSrc = BitmapFactory.decodeResource(resources, R.drawable.empty);
-        background = Bitmap.createScaledBitmap(backgroundSrc, width, width, false);
     }
 
     public int getColor() {
@@ -42,6 +61,9 @@ public class CellView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        canvas.save();
+        canvas.scale(scaleFactor, scaleFactor);
         paint.setColor(color);
         canvas.drawBitmap(background, 0, 0, paint);
         switch (state) {
@@ -59,11 +81,12 @@ public class CellView extends View {
                 canvas.drawText("!", 0, 0, paint);
                 break;
         }
+        canvas.restore();
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        this.setMeasuredDimension((int) getResources().getDimension(R.dimen.cell_width),
-                (int) getResources().getDimension(R.dimen.cell_width));
+        setMeasuredDimension((int) (CellView.getCellWidth() * getScaleFactor()),
+                (int) (CellView.getCellWidth() * getScaleFactor()));
     }
 }

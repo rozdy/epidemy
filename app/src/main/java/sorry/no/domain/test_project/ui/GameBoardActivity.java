@@ -16,8 +16,10 @@ import android.widget.Toast;
 import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.logic.board.Board;
 import sorry.no.domain.test_project.logic.board.BoardImageAdapter;
+import sorry.no.domain.test_project.logic.board.BoardView;
 import sorry.no.domain.test_project.logic.board.InvalidPositionException;
 import sorry.no.domain.test_project.logic.board.StatusBarView;
+import sorry.no.domain.test_project.logic.cell.CellView;
 import sorry.no.domain.test_project.logic.cell.InvalidCellException;
 import sorry.no.domain.test_project.logic.game.Game;
 import sorry.no.domain.test_project.logic.game.InvalidMoveException;
@@ -30,10 +32,13 @@ public class GameBoardActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_board);
 
-        GridView gridview = (GridView) findViewById(R.id.grid_view);
-        gridview.setNumColumns(Game.getInstance().getBoard().getWidth() + 1);
-        gridview.setAdapter(new BoardImageAdapter(this));
-        gridview.setOnItemClickListener(getOnItemClickListener());
+        CellView.initCellViewBackground(this);
+
+        BoardView boardView = (BoardView) findViewById(R.id.board_view);
+        boardView.setColumnWidth(CellView.getCellWidth());
+        boardView.setNumColumns(Game.getInstance().getBoard().getWidth() + 1);
+        boardView.setAdapter(new BoardImageAdapter(this));
+        boardView.setOnItemClickListener(getOnItemClickListener());
 
         statusBar = (StatusBarView) findViewById(R.id.status_bar);
         statusBar.setActivePlayerName((TextView) findViewById(R.id.active_player));

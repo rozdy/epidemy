@@ -38,12 +38,11 @@ public class BoardImageAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        int cellWidth = (int) mContext.getResources().getDimension(R.dimen.cell_width);
-
         // Top-left corner: blank cell
         if (position == 0) {
             TextView textView = new TextView(mContext);
-            textView.setLayoutParams(new GridView.LayoutParams(cellWidth, cellWidth));
+            textView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
             textView.setPadding(0, 0, 0, 0);
             textView.setBackgroundColor(Color.WHITE);
             textView.setText("");
@@ -53,7 +52,8 @@ public class BoardImageAdapter extends BaseAdapter {
         // Top row: a, b, c ...
         if (position > 0 && position <= Game.getInstance().getBoard().getWidth()) {
             TextView textView = new TextView(mContext);
-            textView.setLayoutParams(new GridView.LayoutParams(cellWidth, cellWidth));
+            textView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
             textView.setPadding(0, 0, 0, 0);
             textView.setBackgroundColor(Color.WHITE);
             textView.setText("" + (char) ((int) 'a' + position - 1));
@@ -63,7 +63,8 @@ public class BoardImageAdapter extends BaseAdapter {
         // left column: 1, 2 ,3 ...
         if (position % (Game.getInstance().getBoard().getWidth() + 1) == 0) {
             TextView textView = new TextView(mContext);
-            textView.setLayoutParams(new GridView.LayoutParams(cellWidth, cellWidth));
+            textView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
             textView.setPadding(0, 0, 0, 0);
             textView.setBackgroundColor(Color.WHITE);
             textView.setText("" + position / (Game.getInstance().getBoard().getWidth() + 1));
@@ -74,12 +75,14 @@ public class BoardImageAdapter extends BaseAdapter {
         if (!(convertView instanceof CellView)) {
             // Board cells
             cellView = new CellView(mContext);
-            cellView.setLayoutParams(new GridView.LayoutParams(cellWidth, cellWidth));
-            cellView.setPadding(0, 0, 0, 0);
-            cellView.setBackgroundColor(Color.WHITE);
+            cellView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            cellView.setPadding(1, 1, 1, 1);
+            cellView.setBackgroundColor(Color.BLACK);
         } else {
             cellView = (CellView) convertView;
         }
+        cellView.setScaleFactor(((BoardView) parent).getScaleFactor());
         try {
             int x = getXByPosition(position);
             int y = getYByPosition(position);
@@ -97,9 +100,9 @@ public class BoardImageAdapter extends BaseAdapter {
     }
 
     private boolean isPositionOnBoard(int position) {
-        return !(position < (Game.getInstance().getBoard().getWidth() + 1) ||
-                position % (Game.getInstance().getBoard().getWidth() + 1) == 0 ||
-                position > getCount());
+        return (position > (Game.getInstance().getBoard().getWidth() + 1) ||
+                position % (Game.getInstance().getBoard().getWidth() + 1) != 0 ||
+                position <= getCount());
     }
 
     public int getXByPosition(int position) throws InvalidPositionException {
