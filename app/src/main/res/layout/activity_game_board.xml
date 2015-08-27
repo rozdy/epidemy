@@ -16,6 +16,7 @@
         android:background="@color/black_overlay"
         android:gravity="center"
         android:numColumns="auto_fit"
+        android:padding="@dimen/cell_spacing"
         android:stretchMode="none"
         android:layout_weight="1"/>
 

@@ -43,9 +43,6 @@ public class BoardImageAdapter extends BaseAdapter {
             TextView textView = new TextView(mContext);
             textView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
-            textView.setPadding(0, 0, 0, 0);
-            textView.setBackgroundColor(Color.WHITE);
-            textView.setText("");
             return textView;
         }
 
@@ -54,8 +51,6 @@ public class BoardImageAdapter extends BaseAdapter {
             TextView textView = new TextView(mContext);
             textView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
-            textView.setPadding(0, 0, 0, 0);
-            textView.setBackgroundColor(Color.WHITE);
             textView.setText("" + (char) ((int) 'a' + position - 1));
             return textView;
         }
@@ -65,8 +60,6 @@ public class BoardImageAdapter extends BaseAdapter {
             TextView textView = new TextView(mContext);
             textView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
-            textView.setPadding(0, 0, 0, 0);
-            textView.setBackgroundColor(Color.WHITE);
             textView.setText("" + position / (Game.getInstance().getBoard().getWidth() + 1));
             return textView;
         }
@@ -77,7 +70,6 @@ public class BoardImageAdapter extends BaseAdapter {
             cellView = new CellView(mContext);
             cellView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
-            cellView.setPadding(1, 1, 1, 1);
             cellView.setBackgroundColor(Color.BLACK);
         } else {
             cellView = (CellView) convertView;

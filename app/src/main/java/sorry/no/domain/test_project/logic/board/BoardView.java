@@ -45,7 +45,7 @@ public class BoardView extends GridView {
             scaleFactor *= detector.getScaleFactor();
             scaleFactor = Math.max(0.3f, Math.min(scaleFactor, 3.0f));
 
-            setColumnWidth((int) (CellView.getCellWidth() * scaleFactor));
+            setColumnWidth((int) (CellView.getCellWidth() * scaleFactor) + 2 * CellView.getCellPadding());
             BaseAdapter adapter = (BaseAdapter) getAdapter();
             adapter.notifyDataSetChanged();
             invalidate();

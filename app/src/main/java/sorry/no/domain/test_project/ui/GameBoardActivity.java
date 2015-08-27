@@ -35,7 +35,7 @@ public class GameBoardActivity extends ActionBarActivity {
         CellView.initCellViewBackground(this);
 
         BoardView boardView = (BoardView) findViewById(R.id.board_view);
-        boardView.setColumnWidth(CellView.getCellWidth());
+        boardView.setColumnWidth(CellView.getCellWidth() + 2 * CellView.getCellPadding());
         boardView.setNumColumns(Game.getInstance().getBoard().getWidth() + 1);
         boardView.setAdapter(new BoardImageAdapter(this));
         boardView.setOnItemClickListener(getOnItemClickListener());
