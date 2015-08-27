@@ -92,8 +92,8 @@ public class BoardImageAdapter extends BaseAdapter {
     }
 
     private boolean isPositionOnBoard(int position) {
-        return (position > (Game.getInstance().getBoard().getWidth() + 1) ||
-                position % (Game.getInstance().getBoard().getWidth() + 1) != 0 ||
+        return (position > (Game.getInstance().getBoard().getWidth() + 1) &&
+                position % (Game.getInstance().getBoard().getWidth() + 1) != 0 &&
                 position <= getCount());
     }
 

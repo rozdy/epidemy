@@ -70,24 +70,37 @@ public class CellView extends View {
         canvas.save();
         canvas.scale(scaleFactor, scaleFactor);
         paint.setColor(color);
-        paint.setStrokeWidth(w / 10);
-        canvas.drawBitmap(background, p, p, paint);
+        canvas.drawBitmap(background, CellView.getCellPadding(), CellView.getCellPadding(), paint);
         switch (state) {
             case Cell.EMPTY_CELL:
                 break;
             case Cell.MARK_CELL:
-                canvas.drawLine(p, p, w + p, w + p, paint);
-                canvas.drawLine(p, w + p, w + p, p, paint);
+                drawMark(canvas, CellView.getCellWidth(), CellView.getCellPadding(), paint);
                 break;
             case Cell.WALL_CELL:
-                canvas.drawRect(p, p, w + p, w + p, paint);
+                drawWall(canvas, CellView.getCellWidth(), CellView.getCellPadding(), paint);
                 break;
             default:
-                paint.setColor(Color.RED);
-                canvas.drawText("!", p, p, paint);
+                drawErrorCell(canvas, CellView.getCellWidth(), CellView.getCellPadding(), paint);
                 break;
         }
         canvas.restore();
+    }
+
+    private void drawMark(Canvas canvas, int width, int padding, Paint paint) {
+        paint.setStrokeWidth(width / 10);
+        int shift = width / 8;
+        canvas.drawLine(padding + shift, padding + shift, width + padding - shift, width + padding - shift, paint);
+        canvas.drawLine(padding + shift, width + padding - shift, width + padding - shift, padding + shift, paint);
+    }
+
+    private void drawWall(Canvas canvas, int width, int padding, Paint paint) {
+        canvas.drawRect(padding, padding, width + padding, width + padding, paint);
+    }
+
+    private void drawErrorCell(Canvas canvas, int width, int padding, Paint paint) {
+        paint.setColor(Color.RED);
+        canvas.drawText("!", padding, padding, paint);
     }
 
     @Override
