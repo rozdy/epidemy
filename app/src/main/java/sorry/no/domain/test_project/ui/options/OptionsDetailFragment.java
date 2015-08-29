@@ -2,10 +2,8 @@ package sorry.no.domain.test_project.ui.options;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -210,7 +208,28 @@ public class OptionsDetailFragment extends Fragment {
                             TableRow.LayoutParams.WRAP_CONTENT));
             playerNameEditText.setTag(player);
             playerNameEditText.setText(Options.getInstance().getUsersOptions().getPlayer(player).getName());
-            playerNameEditText.addTextChangedListener(new PlayerNameTextWatcher(playerNameEditText)); //Todo: rethink validation. maybe save button?
+            playerNameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        return; // doing nothing when getting focus
+                    }
+                    EditText editText = ((EditText) v);
+                    String newName = editText.getText().toString().trim();
+                    for (int index = 0; index < UsersOptions.MAX_PLAYERS_NUMBER; index++) {
+                        if (index == (int) editText.getTag()) {
+                            continue;
+                        }
+                        if (Options.getInstance().getUsersOptions().getPlayer(index).getName().equals(newName)) {
+                            editText.setText(Options.getInstance().getUsersOptions().getPlayer((int) editText.getTag()).getName());
+                            editText.setError("Player name is already in use");
+                            return;
+                        }
+                    }
+                    Options.getInstance().getUsersOptions().getPlayer((int) editText.getTag())
+                            .setName(newName);
+                }
+            });
             tableRow.addView(playerNameEditText);
             View colorPicker = new View(rootView.getContext());
             colorPicker.setLayoutParams(new TableRow.LayoutParams(30, 30)); //Todo fix params
@@ -245,46 +264,5 @@ public class OptionsDetailFragment extends Fragment {
 
                 });
         dialog.show();
-    }
-
-    public static class PlayerNameTextWatcher implements TextWatcher {
-        private EditText editText;
-        private String oldName;
-        private int justInCase = 0;
-
-        public PlayerNameTextWatcher(EditText editText) {
-            this.editText = editText;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            oldName = editText.getText().toString().trim();
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            String newName = editText.getText().toString().trim();
-            for (int index = 0; index < UsersOptions.MAX_PLAYERS_NUMBER; index++) {
-                if (index == (int) editText.getTag()) {
-                    continue;
-                }
-                if (Options.getInstance().getUsersOptions().getPlayer(index).getName().equals(newName)) {
-                    if (justInCase++ > 5) {
-                        justInCase = 0;
-                        return;
-                    }
-
-                    editText.setText(oldName);
-                    return;
-                }
-            }
-            justInCase = 0;
-            Options.getInstance().getUsersOptions().getPlayer((int) editText.getTag())
-                    .setName(newName);
-        }
     }
 }
