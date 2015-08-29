@@ -11,9 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -69,12 +71,15 @@ public class OptionsDetailFragment extends Fragment {
     }
 
     private void initGameOptions(View rootView) {
+        final TextView numberOfPlayersCaption = (TextView) rootView.findViewById(R.id.number_of_players_caption);
+        numberOfPlayersCaption.setText(getString(R.string.number_of_players)
+                + Options.getInstance().getGameOptions().getNumberOfPlayers());
         SeekBar numberOfPlayersSeekBar =
                 (SeekBar) rootView.findViewById(R.id.number_of_players_seek_bar);
         numberOfPlayersSeekBar.setMax(UsersOptions.MAX_PLAYERS_NUMBER);
         numberOfPlayersSeekBar.setProgress(Options.getInstance().getGameOptions().getNumberOfPlayers());
         final TextView numberOfPlayers = (TextView) rootView.findViewById(R.id.number_of_players);
-        numberOfPlayers.setText(Options.getInstance().getGameOptions().getNumberOfPlayers() + "");
+        numberOfPlayers.setVisibility(View.INVISIBLE);
         numberOfPlayersSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -84,23 +89,33 @@ public class OptionsDetailFragment extends Fragment {
                     Options.getInstance().getGameOptions().setNumberOfPlayers(UsersOptions.MIN_PLAYERS_NUMBER);
                     seekBar.setProgress(UsersOptions.MIN_PLAYERS_NUMBER);
                 }
+                numberOfPlayers.setText(Options.getInstance().getGameOptions().getNumberOfPlayers() + "");
+                int xPos = (seekBar.getWidth() - seekBar.getPaddingLeft() - seekBar.getPaddingRight())
+                        * seekBar.getProgress() / seekBar.getMax() + seekBar.getThumbOffset();
+                numberOfPlayers.setPadding(xPos, 0, 0, 0); //Todo align to the center of thumb
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                numberOfPlayers.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                numberOfPlayers.setText(Options.getInstance().getGameOptions().getNumberOfPlayers() + "");
+                numberOfPlayers.setVisibility(View.INVISIBLE);
+                numberOfPlayersCaption.setText(getString(R.string.number_of_players)
+                        + Options.getInstance().getGameOptions().getNumberOfPlayers());
             }
         });
+        final TextView numberOfMovesCaption = (TextView) rootView.findViewById(R.id.number_of_moves_caption);
+        numberOfMovesCaption.setText(getString(R.string.number_of_moves)
+                + Options.getInstance().getGameOptions().getNumberOfMoves());
         SeekBar numberOfMovesSeekBar =
                 (SeekBar) rootView.findViewById(R.id.number_of_moves_seek_bar);
         numberOfMovesSeekBar.setMax(GameOptions.MAX_NUMBER_OF_MOVES);
         numberOfMovesSeekBar.setProgress(Options.getInstance().getGameOptions().getNumberOfMoves());
         final TextView numberOfMoves = (TextView) rootView.findViewById(R.id.number_of_moves);
-        numberOfMoves.setText(Options.getInstance().getGameOptions().getNumberOfMoves() + "");
+        numberOfMoves.setVisibility(View.INVISIBLE);
         numberOfMovesSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -110,15 +125,22 @@ public class OptionsDetailFragment extends Fragment {
                     Options.getInstance().getGameOptions().setNumberOfMoves(GameOptions.MIN_NUMBER_OF_MOVES);
                     seekBar.setProgress(GameOptions.MIN_NUMBER_OF_MOVES);
                 }
+                numberOfMoves.setText(Options.getInstance().getGameOptions().getNumberOfMoves() + "");
+                int xPos = (seekBar.getWidth() - seekBar.getPaddingLeft() - seekBar.getPaddingRight())
+                        * seekBar.getProgress() / seekBar.getMax() + seekBar.getThumbOffset();
+                numberOfMoves.setPadding(xPos, 0, 0, 0); //Todo align to the center of thumb
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                numberOfMoves.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                numberOfMoves.setText(Options.getInstance().getGameOptions().getNumberOfMoves() + "");
+                numberOfMoves.setVisibility(View.INVISIBLE);
+                numberOfMovesCaption.setText(getString(R.string.number_of_moves)
+                        + Options.getInstance().getGameOptions().getNumberOfMoves());
             }
         });
     }
@@ -147,6 +169,14 @@ public class OptionsDetailFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        Switch showCellNumbers = (Switch) rootView.findViewById(R.id.show_cell_numbers);
+        showCellNumbers.setChecked(Options.getInstance().getBoardOptions().getShowCellNumeration());
+        showCellNumbers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Options.getInstance().getBoardOptions().setShowCellNumeration(isChecked);
             }
         });
         //Todo add custom board sizes
@@ -194,7 +224,6 @@ public class OptionsDetailFragment extends Fragment {
                 }
             });
             tableRow.addView(colorPicker);
-
             ((TableLayout) rootView).addView(tableRow);
         }
     }

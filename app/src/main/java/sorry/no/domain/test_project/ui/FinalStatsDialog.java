@@ -9,7 +9,7 @@ import android.support.v4.app.DialogFragment;
 import android.widget.GridView;
 
 import sorry.no.domain.test_project.R;
-import sorry.no.domain.test_project.logic.board.BoardImageAdapter;
+import sorry.no.domain.test_project.logic.board.BoardAdapter;
 import sorry.no.domain.test_project.logic.game.Game;
 
 /**
@@ -35,7 +35,7 @@ public class FinalStatsDialog extends DialogFragment {
             public void onClick(DialogInterface dialog, int id) {
                 Game.init();
                 GridView gridview = (GridView) getActivity().findViewById(R.id.grid_view);
-                ((BoardImageAdapter) gridview.getAdapter()).notifyDataSetChanged();
+                ((BoardAdapter) gridview.getAdapter()).notifyDataSetChanged();
                 gridview.invalidate();
             }
         });

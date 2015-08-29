@@ -15,7 +15,7 @@ public class Options {
 
     private Options() {
         usersOptions = new UsersOptions();
-        boardOptions = new BoardOptions();
+        boardOptions = BoardOptions.standardBoardSizes.get(0);
         gameOptions = new GameOptions();
     }
 
