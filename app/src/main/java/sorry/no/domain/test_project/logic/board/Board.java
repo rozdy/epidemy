@@ -124,12 +124,32 @@ public class Board {
         //Modify moves map for the first move
         if (Game.getInstance().getCurrentTurn() == 0 &&
                 Game.getInstance().getNumberOfMoves() == Game.getInstance().getMaxNumberOfMoves()) {
-            switch (Game.getInstance().getActivePlayer()) {
-                case 0:
-                    movesMap[0][0] = MARK_AVAILABLE;
+            switch (Game.getInstance().getPlayersNumber()) {
+                case 2:
+                    switch (Game.getInstance().getActivePlayer()) {
+                        case 0:
+                            movesMap[0][0] = MARK_AVAILABLE;
+                            break;
+                        case 1:
+                            movesMap[width - 1][height - 1] = MARK_AVAILABLE;
+                            break;
+                    }
                     break;
-                case 1:
-                    movesMap[width - 1][height - 1] = MARK_AVAILABLE;
+                case 3:
+                case 4:
+                    switch (Game.getInstance().getActivePlayer()) {
+                        case 0:
+                            movesMap[0][0] = MARK_AVAILABLE;
+                            break;
+                        case 1:
+                            movesMap[0][height - 1] = MARK_AVAILABLE;
+                            break;
+                        case 2:
+                            movesMap[width - 1][height - 1] = MARK_AVAILABLE;
+                            break;
+                        case 3:
+                            movesMap[width - 1][0] = MARK_AVAILABLE;
+                    }
                     break;
             }
         }
