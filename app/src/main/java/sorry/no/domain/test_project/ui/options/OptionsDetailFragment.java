@@ -2,8 +2,8 @@ package sorry.no.domain.test_project.ui.options;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -180,9 +180,9 @@ public class OptionsDetailFragment extends Fragment {
         //Todo add custom board sizes
     }
 
-    public void initUsersOptions(View rootView) {
+    public void initUsersOptions(final View rootView) {
         for (int player = 0; player < UsersOptions.MAX_PLAYERS_NUMBER; player++) {
-            TableRow tableRow = new TableRow(rootView.getContext());
+            final TableRow tableRow = new TableRow(rootView.getContext());
             tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
             TextView playerNumberTextView = new TextView(rootView.getContext());
@@ -191,12 +191,45 @@ public class OptionsDetailFragment extends Fragment {
             playerNumberTextView.setText((player + 1) + ".");
             tableRow.addView(playerNumberTextView);
             EditText playerNameEditText = new EditText(rootView.getContext());
+            InputFilter filter = new InputFilter() {
+                public CharSequence filter(CharSequence source, int start, int end,
+                                           Spanned dest, int dstart, int dend) {
+                    for (int i = start; i < end; i++) {
+                        if (source.charAt(i) == '\n') {
+                            return "";
+                        }
+                    }
+                    return null;
+                }
+            };
+            playerNameEditText.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(20)});
             playerNameEditText.setLayoutParams(
                     new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                             TableRow.LayoutParams.WRAP_CONTENT));
             playerNameEditText.setTag(player);
             playerNameEditText.setText(Options.getInstance().getUsersOptions().getPlayer(player).getName());
-            playerNameEditText.addTextChangedListener(new PlayerNameTextWatcher(playerNameEditText));
+            playerNameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        return; // doing nothing when getting focus
+                    }
+                    EditText editText = ((EditText) v);
+                    String newName = editText.getText().toString().trim();
+                    for (int index = 0; index < UsersOptions.MAX_PLAYERS_NUMBER; index++) {
+                        if (index == (int) editText.getTag()) {
+                            continue;
+                        }
+                        if (Options.getInstance().getUsersOptions().getPlayer(index).getName().equals(newName)) {
+                            editText.setText(Options.getInstance().getUsersOptions().getPlayer((int) editText.getTag()).getName());
+                            editText.setError("Player name is already in use");
+                            return;
+                        }
+                    }
+                    Options.getInstance().getUsersOptions().getPlayer((int) editText.getTag())
+                            .setName(newName);
+                }
+            });
             tableRow.addView(playerNameEditText);
             View colorPicker = new View(rootView.getContext());
             colorPicker.setLayoutParams(new TableRow.LayoutParams(30, 30)); //Todo fix params
@@ -231,28 +264,5 @@ public class OptionsDetailFragment extends Fragment {
 
                 });
         dialog.show();
-    }
-
-    public static class PlayerNameTextWatcher implements TextWatcher {
-        private EditText editText;
-
-        public PlayerNameTextWatcher(EditText editText) {
-            this.editText = editText;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            //Todo check user names compatibility (avoid the same user names)
-            Options.getInstance().getUsersOptions().getPlayer((int) editText.getTag())
-                    .setName(editText.getText().toString());
-        }
     }
 }
