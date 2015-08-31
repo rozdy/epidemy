@@ -125,6 +125,8 @@ public class GameBoardActivity extends ActionBarActivity {
             case R.id.action_surrender:
                 Game.getInstance().getPlayer(Game.getInstance().getActivePlayer()).
                         lose(Game.getInstance().getCurrentTurn(), Player.PLAYER_SURRENDER);
+                Game.getInstance().nextActivePlayer();
+                updateStatusBar();
                 return true;
         }
         return super.onOptionsItemSelected(item);

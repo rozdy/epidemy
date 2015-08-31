@@ -98,7 +98,7 @@ public class Game {
         }
     }
 
-    private void nextActivePlayer() {
+    public void nextActivePlayer() {
         if (getActivePlayer() == getPlayersNumber() - 1) {
             currentTurn++;
         }
