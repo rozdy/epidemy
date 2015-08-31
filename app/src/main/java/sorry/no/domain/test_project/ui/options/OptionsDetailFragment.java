@@ -2,16 +2,18 @@ package sorry.no.domain.test_project.ui.options;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -67,12 +69,15 @@ public class OptionsDetailFragment extends Fragment {
     }
 
     private void initGameOptions(View rootView) {
+        final TextView numberOfPlayersCaption = (TextView) rootView.findViewById(R.id.number_of_players_caption);
+        numberOfPlayersCaption.setText(getString(R.string.number_of_players)
+                + Options.getInstance().getGameOptions().getNumberOfPlayers());
         SeekBar numberOfPlayersSeekBar =
                 (SeekBar) rootView.findViewById(R.id.number_of_players_seek_bar);
         numberOfPlayersSeekBar.setMax(UsersOptions.MAX_PLAYERS_NUMBER);
         numberOfPlayersSeekBar.setProgress(Options.getInstance().getGameOptions().getNumberOfPlayers());
         final TextView numberOfPlayers = (TextView) rootView.findViewById(R.id.number_of_players);
-        numberOfPlayers.setText(Options.getInstance().getGameOptions().getNumberOfPlayers() + "");
+        numberOfPlayers.setVisibility(View.INVISIBLE);
         numberOfPlayersSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -82,23 +87,33 @@ public class OptionsDetailFragment extends Fragment {
                     Options.getInstance().getGameOptions().setNumberOfPlayers(UsersOptions.MIN_PLAYERS_NUMBER);
                     seekBar.setProgress(UsersOptions.MIN_PLAYERS_NUMBER);
                 }
+                numberOfPlayers.setText(Options.getInstance().getGameOptions().getNumberOfPlayers() + "");
+                int xPos = (seekBar.getWidth() - seekBar.getPaddingLeft() - seekBar.getPaddingRight())
+                        * seekBar.getProgress() / seekBar.getMax() + seekBar.getThumbOffset();
+                numberOfPlayers.setPadding(xPos, 0, 0, 0); //Todo align to the center of thumb
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                numberOfPlayers.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                numberOfPlayers.setText(Options.getInstance().getGameOptions().getNumberOfPlayers() + "");
+                numberOfPlayers.setVisibility(View.INVISIBLE);
+                numberOfPlayersCaption.setText(getString(R.string.number_of_players)
+                        + Options.getInstance().getGameOptions().getNumberOfPlayers());
             }
         });
+        final TextView numberOfMovesCaption = (TextView) rootView.findViewById(R.id.number_of_moves_caption);
+        numberOfMovesCaption.setText(getString(R.string.number_of_moves)
+                + Options.getInstance().getGameOptions().getNumberOfMoves());
         SeekBar numberOfMovesSeekBar =
                 (SeekBar) rootView.findViewById(R.id.number_of_moves_seek_bar);
         numberOfMovesSeekBar.setMax(GameOptions.MAX_NUMBER_OF_MOVES);
         numberOfMovesSeekBar.setProgress(Options.getInstance().getGameOptions().getNumberOfMoves());
         final TextView numberOfMoves = (TextView) rootView.findViewById(R.id.number_of_moves);
-        numberOfMoves.setText(Options.getInstance().getGameOptions().getNumberOfMoves() + "");
+        numberOfMoves.setVisibility(View.INVISIBLE);
         numberOfMovesSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -108,15 +123,22 @@ public class OptionsDetailFragment extends Fragment {
                     Options.getInstance().getGameOptions().setNumberOfMoves(GameOptions.MIN_NUMBER_OF_MOVES);
                     seekBar.setProgress(GameOptions.MIN_NUMBER_OF_MOVES);
                 }
+                numberOfMoves.setText(Options.getInstance().getGameOptions().getNumberOfMoves() + "");
+                int xPos = (seekBar.getWidth() - seekBar.getPaddingLeft() - seekBar.getPaddingRight())
+                        * seekBar.getProgress() / seekBar.getMax() + seekBar.getThumbOffset();
+                numberOfMoves.setPadding(xPos, 0, 0, 0); //Todo align to the center of thumb
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                numberOfMoves.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                numberOfMoves.setText(Options.getInstance().getGameOptions().getNumberOfMoves() + "");
+                numberOfMoves.setVisibility(View.INVISIBLE);
+                numberOfMovesCaption.setText(getString(R.string.number_of_moves)
+                        + Options.getInstance().getGameOptions().getNumberOfMoves());
             }
         });
     }
@@ -147,12 +169,20 @@ public class OptionsDetailFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+        Switch showCellNumbers = (Switch) rootView.findViewById(R.id.show_cell_numbers);
+        showCellNumbers.setChecked(Options.getInstance().getBoardOptions().getShowCellNumeration());
+        showCellNumbers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Options.getInstance().getBoardOptions().setShowCellNumeration(isChecked);
+            }
+        });
         //Todo add custom board sizes
     }
 
-    public void initUsersOptions(View rootView) {
+    public void initUsersOptions(final View rootView) {
         for (int player = 0; player < UsersOptions.MAX_PLAYERS_NUMBER; player++) {
-            TableRow tableRow = new TableRow(rootView.getContext());
+            final TableRow tableRow = new TableRow(rootView.getContext());
             tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
             TextView playerNumberTextView = new TextView(rootView.getContext());
@@ -161,12 +191,45 @@ public class OptionsDetailFragment extends Fragment {
             playerNumberTextView.setText((player + 1) + ".");
             tableRow.addView(playerNumberTextView);
             EditText playerNameEditText = new EditText(rootView.getContext());
+            InputFilter filter = new InputFilter() {
+                public CharSequence filter(CharSequence source, int start, int end,
+                                           Spanned dest, int dstart, int dend) {
+                    for (int i = start; i < end; i++) {
+                        if (source.charAt(i) == '\n') {
+                            return "";
+                        }
+                    }
+                    return null;
+                }
+            };
+            playerNameEditText.setFilters(new InputFilter[]{filter, new InputFilter.LengthFilter(20)});
             playerNameEditText.setLayoutParams(
                     new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                             TableRow.LayoutParams.WRAP_CONTENT));
             playerNameEditText.setTag(player);
             playerNameEditText.setText(Options.getInstance().getUsersOptions().getPlayer(player).getName());
-            playerNameEditText.addTextChangedListener(new PlayerNameTextWatcher(playerNameEditText));
+            playerNameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        return; // doing nothing when getting focus
+                    }
+                    EditText editText = ((EditText) v);
+                    String newName = editText.getText().toString().trim();
+                    for (int index = 0; index < UsersOptions.MAX_PLAYERS_NUMBER; index++) {
+                        if (index == (int) editText.getTag()) {
+                            continue;
+                        }
+                        if (Options.getInstance().getUsersOptions().getPlayer(index).getName().equals(newName)) {
+                            editText.setText(Options.getInstance().getUsersOptions().getPlayer((int) editText.getTag()).getName());
+                            editText.setError("Player name is already in use");
+                            return;
+                        }
+                    }
+                    Options.getInstance().getUsersOptions().getPlayer((int) editText.getTag())
+                            .setName(newName);
+                }
+            });
             tableRow.addView(playerNameEditText);
             View colorPicker = new View(rootView.getContext());
             colorPicker.setLayoutParams(new TableRow.LayoutParams(30, 30)); //Todo fix params
@@ -180,10 +243,7 @@ public class OptionsDetailFragment extends Fragment {
                 }
             });
             tableRow.addView(colorPicker);
-
-            ((TableLayout) rootView).
-
-                    addView(tableRow);
+            ((TableLayout) rootView).addView(tableRow);
         }
     }
 
@@ -204,28 +264,5 @@ public class OptionsDetailFragment extends Fragment {
 
                 });
         dialog.show();
-    }
-
-    public static class PlayerNameTextWatcher implements TextWatcher {
-        private EditText editText;
-
-        public PlayerNameTextWatcher(EditText editText) {
-            this.editText = editText;
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            //Todo check user names compatibility (avoid the same user names)
-            Options.getInstance().getUsersOptions().getPlayer((int) editText.getTag())
-                    .setName(editText.getText().toString());
-        }
     }
 }

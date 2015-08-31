@@ -29,7 +29,8 @@
     <string name="game_options">Game</string>
     <string name="board_options">Board</string>
     <string name="users_options">Users</string>
-    <string name="number_of_players">Number of players</string>
-    <string name="number_of_moves">Number of moves</string>
+    <string name="number_of_players">"Number of players: "</string>
+    <string name="number_of_moves">"Number of moves: "</string>
     <string name="board_size">Board size</string>
+    <string name="show_cell_numbers">Show cell numbers</string>
 </resources>

@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.widget.GridView;
 
 import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.logic.board.BoardImageAdapter;

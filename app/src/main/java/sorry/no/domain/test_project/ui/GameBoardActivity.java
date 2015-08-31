@@ -9,15 +9,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import sorry.no.domain.test_project.Options;
 import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.logic.board.Board;
+import sorry.no.domain.test_project.logic.board.BoardAdapter;
 import sorry.no.domain.test_project.logic.board.BoardImageAdapter;
 import sorry.no.domain.test_project.logic.board.BoardView;
 import sorry.no.domain.test_project.logic.board.InvalidPositionException;
+import sorry.no.domain.test_project.logic.board.PureBoardAdapter;
 import sorry.no.domain.test_project.logic.board.StatusBarView;
 import sorry.no.domain.test_project.logic.cell.CellView;
 import sorry.no.domain.test_project.logic.cell.InvalidCellException;
@@ -36,8 +38,13 @@ public class GameBoardActivity extends ActionBarActivity {
 
         BoardView boardView = (BoardView) findViewById(R.id.board_view);
         boardView.setColumnWidth(CellView.getCellWidth() + 2 * CellView.getCellPadding());
-        boardView.setNumColumns(Game.getInstance().getBoard().getWidth() + 1);
-        boardView.setAdapter(new BoardImageAdapter(this));
+        if (Options.getInstance().getBoardOptions().getShowCellNumeration()) {
+            boardView.setNumColumns(Game.getInstance().getBoard().getWidth() + 1);
+            boardView.setAdapter(new BoardImageAdapter(this));
+        } else {
+            boardView.setNumColumns(Game.getInstance().getBoard().getWidth());
+            boardView.setAdapter(new PureBoardAdapter(this));
+        }
         boardView.setOnItemClickListener(getOnItemClickListener());
 
         statusBar = (StatusBarView) findViewById(R.id.status_bar);
@@ -51,7 +58,7 @@ public class GameBoardActivity extends ActionBarActivity {
         return new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                BoardImageAdapter adapter = (BoardImageAdapter) parent.getAdapter();
+                BoardAdapter adapter = (BoardAdapter) parent.getAdapter();
                 try {
                     Toast toast;
                     switch (Game.getInstance().makeAMove(Game.getInstance().getActivePlayer(),
