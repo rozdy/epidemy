@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,9 +17,11 @@ import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.logic.board.Board;
 import sorry.no.domain.test_project.logic.board.BoardAdapter;
 import sorry.no.domain.test_project.logic.board.BoardImageAdapter;
+import sorry.no.domain.test_project.logic.board.BoardView;
 import sorry.no.domain.test_project.logic.board.InvalidPositionException;
 import sorry.no.domain.test_project.logic.board.PureBoardAdapter;
 import sorry.no.domain.test_project.logic.board.StatusBarView;
+import sorry.no.domain.test_project.logic.cell.CellView;
 import sorry.no.domain.test_project.logic.cell.InvalidCellException;
 import sorry.no.domain.test_project.logic.game.Game;
 import sorry.no.domain.test_project.logic.game.InvalidMoveException;
@@ -33,15 +34,18 @@ public class GameBoardActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_board);
 
-        GridView gridview = (GridView) findViewById(R.id.grid_view);
+        CellView.initCellViewBackground(this);
+
+        BoardView boardView = (BoardView) findViewById(R.id.board_view);
+        boardView.setColumnWidth(CellView.getCellWidth() + 2 * CellView.getCellPadding());
         if (Options.getInstance().getBoardOptions().getShowCellNumeration()) {
-            gridview.setNumColumns(Game.getInstance().getBoard().getWidth() + 1);
-            gridview.setAdapter(new BoardImageAdapter(this));
+            boardView.setNumColumns(Game.getInstance().getBoard().getWidth() + 1);
+            boardView.setAdapter(new BoardImageAdapter(this));
         } else {
-            gridview.setNumColumns(Game.getInstance().getBoard().getWidth());
-            gridview.setAdapter(new PureBoardAdapter(this));
+            boardView.setNumColumns(Game.getInstance().getBoard().getWidth());
+            boardView.setAdapter(new PureBoardAdapter(this));
         }
-        gridview.setOnItemClickListener(getOnItemClickListener());
+        boardView.setOnItemClickListener(getOnItemClickListener());
 
         statusBar = (StatusBarView) findViewById(R.id.status_bar);
         statusBar.setActivePlayerName((TextView) findViewById(R.id.active_player));
