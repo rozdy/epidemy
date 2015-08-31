@@ -10,6 +10,7 @@ import android.widget.GridView;
 
 import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.logic.board.BoardAdapter;
+import sorry.no.domain.test_project.logic.bus.EventBus;
 import sorry.no.domain.test_project.logic.game.Game;
 
 /**

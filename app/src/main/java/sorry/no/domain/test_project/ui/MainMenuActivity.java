@@ -23,7 +23,6 @@ public class MainMenuActivity extends Activity {
     }
 
     public void startGame(View view) {
-        EventBus.init();
         Game.init();
         Intent intent = new Intent(this, GameBoardActivity.class);
         startActivity(intent);

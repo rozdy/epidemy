@@ -10,12 +10,8 @@ public class EventBus {
 
     public static Bus getInstance() {
         if (instance == null) {
-            init();
+            instance = new Bus();
         }
         return instance;
-    }
-
-    public static void init() {
-        instance = new Bus();
     }
 }

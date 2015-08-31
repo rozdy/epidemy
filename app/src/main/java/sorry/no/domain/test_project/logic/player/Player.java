@@ -13,20 +13,26 @@ public class Player {
     public static final int PLAYER_HAS_NO_MOVES = 2;
     public static final int PLAYER_SURRENDER = 3;
 
-
     private static int nextId = 0;
 
     private String name;
-    private int color, id;
+    private int color;
     private int loseTurn = -1;
     private int loseReason = -1;
     private boolean inGame;
 
     public Player(int color) {
-        id = nextId++;
-        name = "Player " + (id + 1);
+        name = "Player " + ++nextId;
         this.color = color;
         inGame = true;
+    }
+
+    public Player(Player player) {
+        this.name = player.name;
+        this.color = player.color;
+        this.loseTurn = player.loseTurn;
+        this.loseReason = player.loseReason;
+        this.inGame = player.inGame;
     }
 
     public boolean isInGame() {
@@ -38,7 +44,7 @@ public class Player {
         loseTurn = currentTurn;
         loseReason = reason;
         EventBus.getInstance().post(new PlayerLoseEvent(this));
-        if (Game.getInstance().gameFinished()) {
+        if (Game.getInstance().isGameFinished()) {
             EventBus.getInstance().post(new GameFinishEvent());
         }
     }

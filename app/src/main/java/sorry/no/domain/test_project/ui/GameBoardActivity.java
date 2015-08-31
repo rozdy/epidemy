@@ -11,9 +11,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.squareup.otto.Subscribe;
-
 import sorry.no.domain.test_project.Options;
 import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.logic.board.Board;
@@ -142,7 +140,7 @@ public class GameBoardActivity extends ActionBarActivity {
     @Subscribe
     public void playerLoseAction(PlayerLoseEvent event) {
         Toast toast = Toast.makeText(this, event.getPlayer().getName()
-                + getString(R.string.player_lose), Toast.LENGTH_LONG);
+                + getString(R.string.is_defeated), Toast.LENGTH_LONG);
         toast.show();
     }
 

@@ -23,7 +23,7 @@
 
 
     <string name="next_player">"Next player is "</string>
-    <string name="player_lose">" is defeated!"</string>
+    <string name="is_defeated">" is defeated!"</string>
     <string name="options_button">Options</string>
     <string name="title_options_list">Options</string>
     <string name="title_options_detail">Options Detail</string>

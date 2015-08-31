@@ -31,7 +31,7 @@ public class Game {
         playersNumber = options.getGameOptions().getNumberOfPlayers();
         maxNumberOfMoves = options.getGameOptions().getNumberOfMoves();
         for (int i = 0; i < playersNumber; i++) {
-            players.add(options.getUsersOptions().getPlayer(i)); //Todo change to deep copy
+            players.add(new Player(options.getUsersOptions().getPlayer(i)));
         }
         activePlayer = 0;
         refillNumberOfMoves();
@@ -47,7 +47,6 @@ public class Game {
 
     public static void init() {
         instance = new Game();
-        //EventBus.getInstance().register(instance);
     }
 
     public List<Player> getPlayers() {
@@ -113,7 +112,7 @@ public class Game {
         return (getActivePlayer() + 1) % getPlayersNumber();
     }
 
-    public boolean gameFinished() {
+    public boolean isGameFinished() {
         int inGamePlayers = 0;
         for (int player = 0; player < getPlayersNumber(); player++) {
             if (getPlayer(player).isInGame()) {
@@ -154,7 +153,6 @@ public class Game {
     }
 
     public void finish() {
-        EventBus.init();
         Player.resetIdCounter();
     }
 
