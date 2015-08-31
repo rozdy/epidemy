@@ -3,6 +3,7 @@ package sorry.no.domain.test_project;
 import org.testng.annotations.Test;
 
 import sorry.no.domain.test_project.logic.board.Board;
+import sorry.no.domain.test_project.logic.board.BoardOptions;
 import sorry.no.domain.test_project.logic.cell.Cell;
 import sorry.no.domain.test_project.logic.cell.InvalidCellException;
 import sorry.no.domain.test_project.logic.game.Game;
@@ -17,7 +18,7 @@ public class BoardTest {
     public void testOneCross() throws InvalidCellException {
         Game.init();
         Game.getInstance().setCurrentTurn(5);
-        Board board = new Board();
+        Board board = new Board(new BoardOptions(8, 8));
         board.getCells()[0][0].mark(1);
         Integer[][] actual = board.buildMovesMap(1);
         Integer[][] expected = board.getMovesMapTemplate();
@@ -34,7 +35,7 @@ public class BoardTest {
     public void testOneCrossAndWall() throws InvalidCellException {
         Game.init();
         Game.getInstance().setCurrentTurn(5);
-        Board board = new Board();
+        Board board = new Board(new BoardOptions(8, 8));
         board.getCells()[0][0].mark(1);
         board.getCells()[0][1].setState(Cell.WALL_CELL);
         board.getCells()[0][1].setOwnerId(1);
@@ -53,7 +54,7 @@ public class BoardTest {
 
     @Test
     public void testMarkCell() throws InvalidCellException {
-        Board board = new Board();
+        Board board = new Board(new BoardOptions(8, 8));
         board.markCell(0, 0, 0);
         Cell actual = board.getCells()[0][0];
         Cell expected = new Cell(0, 0);
@@ -67,7 +68,7 @@ public class BoardTest {
     public void testMarkCellOnTheWall() throws InvalidCellException {
         Game.init();
         Game.getInstance().setCurrentTurn(5);
-        Board board = new Board();
+        Board board = new Board(new BoardOptions(8, 8));
         board.getCells()[0][0].setState(Cell.MARK_CELL);
         board.getCells()[0][0].setOwnerId(0);
         board.getCells()[1][1].setState(Cell.MARK_CELL);

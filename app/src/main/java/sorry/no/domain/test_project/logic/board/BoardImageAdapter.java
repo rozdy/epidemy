@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -16,7 +15,7 @@ import sorry.no.domain.test_project.logic.game.Game;
 /**
  * Created by hex on 7/28/2015 in the name of the Emperor!
  */
-public class BoardImageAdapter extends BaseAdapter {
+public class BoardImageAdapter extends BoardAdapter {
     private Context mContext;
 
     public BoardImageAdapter(Context c) {
@@ -96,12 +95,14 @@ public class BoardImageAdapter extends BaseAdapter {
         return cellView;
     }
 
-    private boolean isPositionOnBoard(int position) {
+    @Override
+    protected boolean isPositionOnBoard(int position) {
         return !(position < (Game.getInstance().getBoard().getWidth() + 1) ||
                 position % (Game.getInstance().getBoard().getWidth() + 1) == 0 ||
                 position > getCount());
     }
 
+    @Override
     public int getXByPosition(int position) throws InvalidPositionException {
         if (isPositionOnBoard(position)) {
             return position / (Game.getInstance().getBoard().getWidth() + 1) - 1;
@@ -110,6 +111,7 @@ public class BoardImageAdapter extends BaseAdapter {
         }
     }
 
+    @Override
     public int getYByPosition(int position) throws InvalidPositionException {
         if (isPositionOnBoard(position)) {
             return position % (Game.getInstance().getBoard().getWidth() + 1) - 1;
@@ -117,6 +119,4 @@ public class BoardImageAdapter extends BaseAdapter {
             throw new InvalidPositionException(position);
         }
     }
-
-
 }

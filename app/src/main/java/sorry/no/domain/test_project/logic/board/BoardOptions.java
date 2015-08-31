@@ -8,17 +8,11 @@ import java.util.List;
  */
 public class BoardOptions {
     private int width, height;
-
-    public static final int DEFAULT_WIDTH = 10;
-    public static final int DEFAULT_HEIGHT = 10;
+    private boolean showCellNumeration;
 
     public static final List<BoardOptions> standardBoardSizes =
-            Arrays.asList(new BoardOptions(10, 10), new BoardOptions(20, 20));
-
-    public BoardOptions() {
-        width = DEFAULT_WIDTH;
-        height = DEFAULT_HEIGHT;
-    }
+            Arrays.asList(new BoardOptions(8, 8), new BoardOptions(10, 10),
+                    new BoardOptions(14, 14), new BoardOptions(20, 20));
 
     public BoardOptions(int width, int height) {
         this.width = width;
@@ -45,6 +39,14 @@ public class BoardOptions {
         this.height = height;
     }
 
+    public boolean getShowCellNumeration() {
+        return showCellNumeration;
+    }
+
+    public void setShowCellNumeration(boolean showCellNumeration) {
+        this.showCellNumeration = showCellNumeration;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,6 +55,7 @@ public class BoardOptions {
         BoardOptions boardOptions = (BoardOptions) o;
 
         if (boardOptions.getWidth() != this.getWidth()) return false;
-        return (boardOptions.getHeight() == this.getHeight());
+        if (boardOptions.getHeight() == this.getHeight()) return false;
+        return (boardOptions.getShowCellNumeration() == this.getShowCellNumeration());
     }
 }
