@@ -13,6 +13,12 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
+
+import sorry.no.domain.test_project.logic.bus.EventBus;
+import sorry.no.domain.test_project.logic.bus.GameFinishEvent;
+import sorry.no.domain.test_project.logic.bus.PlayerLoseEvent;
 import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.logic.board.Board;
 import sorry.no.domain.test_project.logic.board.BoardImageAdapter;
@@ -21,6 +27,7 @@ import sorry.no.domain.test_project.logic.board.StatusBarView;
 import sorry.no.domain.test_project.logic.cell.InvalidCellException;
 import sorry.no.domain.test_project.logic.game.Game;
 import sorry.no.domain.test_project.logic.game.InvalidMoveException;
+import sorry.no.domain.test_project.logic.player.Player;
 
 public class GameBoardActivity extends ActionBarActivity {
     private StatusBarView statusBar;
@@ -29,6 +36,8 @@ public class GameBoardActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_board);
+
+        EventBus.getInstance().register(this);
 
         GridView gridview = (GridView) findViewById(R.id.grid_view);
         gridview.setNumColumns(Game.getInstance().getBoard().getWidth() + 1);
@@ -62,14 +71,6 @@ public class GameBoardActivity extends ActionBarActivity {
                                         Toast.LENGTH_LONG);
                                 toast.show();
                             }
-                            break;
-                        case Game.GAME_FINISH_NO_MOVES:
-                            Game.finish(Game.GAME_FINISH_NO_MOVES);
-                            showFinalStats();
-                            break;
-                        case Game.GAME_FINISH_NO_MARKS:
-                            Game.finish(Game.GAME_FINISH_NO_MARKS);
-                            showFinalStats();
                             break;
                         case Board.UNREACHABLE_CELL:
                             toast = Toast.makeText(parent.getContext(), R.string.UNREACHABLE_CELL, Toast.LENGTH_SHORT);
@@ -116,8 +117,8 @@ public class GameBoardActivity extends ActionBarActivity {
             case R.id.action_settings:
                 return true;
             case R.id.action_surrender:
-                Game.finish(Game.GAME_FINISH_SURRENDER);
-                showFinalStats();
+                Game.getInstance().getPlayer(Game.getInstance().getActivePlayer()).
+                        lose(Game.getInstance().getCurrentTurn(), Player.PLAYER_SURRENDER);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -128,5 +129,18 @@ public class GameBoardActivity extends ActionBarActivity {
         FinalStatsDialog finalStatsDialog = new FinalStatsDialog();
         finalStatsDialog.setCancelable(false);
         finalStatsDialog.show(fm, "final stats dialog");
+    }
+
+    @Subscribe
+    public void playerLoseAction(PlayerLoseEvent event) {
+        Toast toast = Toast.makeText(this, event.getPlayer().getName()
+                + getString(R.string.player_lose), Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    @Subscribe
+    public void gameFinishAction(GameFinishEvent event) {
+        Game.getInstance().finish();
+        showFinalStats();
     }
 }

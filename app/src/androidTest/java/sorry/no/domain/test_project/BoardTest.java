@@ -81,4 +81,21 @@ public class BoardTest {
 
         assertEquals(actual, expected);
     }
+
+    @Test
+    public void testStartPositions() {
+        Game.init();
+        Board board = Game.getInstance().getBoard();
+        Integer[][] actual = board.buildMovesMap(0);
+        Integer[][] expected = board.getMovesMapTemplate();
+        expected[0][0] = Board.MARK_AVAILABLE;
+
+        assertEquals(actual, expected);
+
+        actual = board.buildMovesMap(1);
+        expected = board.getMovesMapTemplate();
+        expected[board.getWidth() - 1][board.getHeight() - 1] = Board.MARK_AVAILABLE;
+
+        assertEquals(actual, expected);
+    }
 }

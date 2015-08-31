@@ -6,6 +6,8 @@ import java.util.List;
 
 import sorry.no.domain.test_project.Options;
 import sorry.no.domain.test_project.logic.board.Board;
+import sorry.no.domain.test_project.logic.bus.EventBus;
+import sorry.no.domain.test_project.logic.bus.GameFinishEvent;
 import sorry.no.domain.test_project.logic.cell.InvalidCellException;
 import sorry.no.domain.test_project.logic.player.Player;
 
@@ -15,21 +17,6 @@ import sorry.no.domain.test_project.logic.player.Player;
 public class Game {
 
     private static Game instance;
-
-    public static final int GAME_STATE_NOT_STARTED = 0;
-    public static final int GAME_STATE_STARTED = 1;
-    public static final int GAME_STATE_FINISHED = 2;
-    public static final int GAME_FINISH_SURRENDER = 0;
-    public static final int GAME_FINISH_NO_MOVES = 1;
-    public static final int GAME_FINISH_NO_MARKS = 2;
-    public static final int GAME_NOT_FINISHED = -1;
-
-    private int gameState;
-    private GameStats stats;
-
-    {
-        gameState = GAME_STATE_NOT_STARTED;
-    }
 
     private List<Player> players;
     private Board board;
@@ -44,23 +31,23 @@ public class Game {
         playersNumber = options.getGameOptions().getNumberOfPlayers();
         maxNumberOfMoves = options.getGameOptions().getNumberOfMoves();
         for (int i = 0; i < playersNumber; i++) {
-            players.add(options.getUsersOptions().getPlayer(i)); //Todo change to deep copying here
+            players.add(options.getUsersOptions().getPlayer(i)); //Todo change to deep copy
         }
         activePlayer = 0;
         refillNumberOfMoves();
         currentTurn = 0;
-        gameState = GAME_STATE_STARTED;
     }
 
     public static Game getInstance() {
         if (instance == null) {
-            instance = new Game();
+            init();
         }
         return instance;
     }
 
     public static void init() {
         instance = new Game();
+        //EventBus.getInstance().register(instance);
     }
 
     public List<Player> getPlayers() {
@@ -112,34 +99,28 @@ public class Game {
     }
 
     private void nextActivePlayer() {
-        if (activePlayer == playersNumber - 1) {
+        if (getActivePlayer() == getPlayersNumber() - 1) {
             currentTurn++;
         }
         activePlayer = getNextPlayer();
         refillNumberOfMoves();
+        if (activePlayerHasNoMoves()) {
+            nextActivePlayer();
+        }
     }
 
     private int getNextPlayer() {
-        return (activePlayer + 1) % playersNumber;
+        return (getActivePlayer() + 1) % getPlayersNumber();
     }
 
-    private int checkGameFinish() {
-        Integer[][] map = getBoard().buildMovesMap(activePlayer);
-        boolean noMoves = true;
-        for (Integer[] row : map) {
-            if (Arrays.asList(row).contains(Board.MARK_AVAILABLE) || Arrays.asList(row).contains(Board.WALL_AVAILABLE)) {
-                noMoves = false;
-                break;
+    public boolean gameFinished() {
+        int inGamePlayers = 0;
+        for (int player = 0; player < getPlayersNumber(); player++) {
+            if (getPlayer(player).isInGame()) {
+                inGamePlayers++;
             }
         }
-        if (noMoves) {
-            return GAME_FINISH_NO_MOVES;
-        }
-        if (getCurrentTurn() > 0 && getBoard().getMarksList(getNextPlayer()).size() == 0) {
-            nextActivePlayer();
-            return GAME_FINISH_NO_MARKS;
-        }
-        return GAME_NOT_FINISHED;
+        return (inGamePlayers == 1);
     }
 
     public int makeAMove(int activePlayer, int x, int y) throws InvalidMoveException, InvalidCellException {
@@ -150,36 +131,76 @@ public class Game {
         switch (moveState) {
             case Board.MARK_PLACED:
             case Board.WALL_PLACED:
-                int finishedState = decNumberOfMovesAndCheckFinished();
-                if (finishedState != GAME_NOT_FINISHED) {
-                    return finishedState;
-                } else {
-                    return moveState;
-                }
+                decNumberOfMovesAndCheckFinished();
+                return moveState;
             default:
                 return moveState;
         }
     }
 
-    private int decNumberOfMovesAndCheckFinished() throws InvalidMoveException {
+    private void decNumberOfMovesAndCheckFinished() throws InvalidMoveException {
         decNumberOfMoves();
+        if (playersHasNoMarks()) {
+            EventBus.getInstance().post(new GameFinishEvent());
+        }
         if (getNumberOfMoves() == 0) {
             nextActivePlayer();
+        } else {
+            if (activePlayerHasNoMoves()) {
+                getPlayer(getActivePlayer()).lose(getCurrentTurn(), Player.PLAYER_HAS_NO_MOVES);
+                nextActivePlayer();
+            }
         }
-        return checkGameFinish();
     }
 
-    public static void finish(int reason) {
-        Game.instance.stats = new GameStats(Game.getInstance(), reason);
-        Game.instance.gameState = GAME_STATE_FINISHED;
+    public void finish() {
+        EventBus.init();
         Player.resetIdCounter();
     }
 
     public GameStats getStats() {
-        return stats;
+        return new GameStats(Game.getInstance());
     }
 
     public static void stop() {
         instance = null;
+    }
+
+    public boolean activePlayerHasNoMoves() {
+        if (!getPlayer(getActivePlayer()).isInGame()) {
+            return true;
+        } else {
+            Integer[][] map = getBoard().buildMovesMap(getActivePlayer());
+            boolean noMoves = true;
+            for (Integer[] row : map) {
+                if (Arrays.asList(row).contains(Board.MARK_AVAILABLE) || Arrays.asList(row).contains(Board.WALL_AVAILABLE)) {
+                    noMoves = false;
+                    break;
+                }
+            }
+            if (noMoves) {
+                getPlayer(getActivePlayer()).lose(currentTurn, Player.PLAYER_HAS_NO_MOVES);
+            }
+            return noMoves;
+        }
+    }
+
+    private boolean playersHasNoMarks() {
+        boolean allPlayersHasNoMarks = true;
+        if (currentTurn == 0) {
+            return false;
+        }
+        for (int player = 0; player < players.size(); player++) {
+            if (player == activePlayer) {
+                continue;
+            }
+            if (getCurrentTurn() > 0 && getPlayer(player).isInGame()
+                    && getBoard().getMarksList(player).size() == 0) {
+                getPlayer(player).lose(currentTurn, Player.PLAYER_HAS_NO_MARKS);
+            } else if (getBoard().getMarksList(player).size() != 0) {
+                allPlayersHasNoMarks = false;
+            }
+        }
+        return allPlayersHasNoMarks;
     }
 }
