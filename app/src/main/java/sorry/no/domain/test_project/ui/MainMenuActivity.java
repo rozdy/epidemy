@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import sorry.no.domain.test_project.Options;
 import sorry.no.domain.test_project.R;
-import sorry.no.domain.test_project.logic.bus.EventBus;
 import sorry.no.domain.test_project.logic.game.Game;
 import sorry.no.domain.test_project.ui.options.OptionsListActivity;
 

@@ -1,4 +1,4 @@
-package sorry.no.domain.test_project.logic.bus;
+package sorry.no.domain.test_project.bus;
 
 import sorry.no.domain.test_project.logic.player.Player;
 

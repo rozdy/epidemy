@@ -6,8 +6,8 @@ import java.util.List;
 
 import sorry.no.domain.test_project.Options;
 import sorry.no.domain.test_project.logic.board.Board;
-import sorry.no.domain.test_project.logic.bus.EventBus;
-import sorry.no.domain.test_project.logic.bus.GameFinishEvent;
+import sorry.no.domain.test_project.bus.EventBus;
+import sorry.no.domain.test_project.bus.GameFinishEvent;
 import sorry.no.domain.test_project.logic.cell.InvalidCellException;
 import sorry.no.domain.test_project.logic.player.Player;
 

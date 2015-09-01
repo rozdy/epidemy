@@ -1,4 +1,4 @@
-package sorry.no.domain.test_project.logic.bus;
+package sorry.no.domain.test_project.bus;
 
 /**
  * Created by hex on 8/31/2015 in the name of the Emperor!

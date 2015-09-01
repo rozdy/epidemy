@@ -1,8 +1,8 @@
 package sorry.no.domain.test_project.logic.player;
 
-import sorry.no.domain.test_project.logic.bus.EventBus;
-import sorry.no.domain.test_project.logic.bus.GameFinishEvent;
-import sorry.no.domain.test_project.logic.bus.PlayerLoseEvent;
+import sorry.no.domain.test_project.bus.EventBus;
+import sorry.no.domain.test_project.bus.GameFinishEvent;
+import sorry.no.domain.test_project.bus.PlayerLoseEvent;
 import sorry.no.domain.test_project.logic.game.Game;
 
 /**

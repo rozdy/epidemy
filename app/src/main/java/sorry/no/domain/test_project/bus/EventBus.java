@@ -1,4 +1,4 @@
-package sorry.no.domain.test_project.logic.bus;
+package sorry.no.domain.test_project.bus;
 
 import com.squareup.otto.Bus;
 

@@ -20,9 +20,9 @@ import sorry.no.domain.test_project.logic.board.BoardImageAdapter;
 import sorry.no.domain.test_project.logic.board.InvalidPositionException;
 import sorry.no.domain.test_project.logic.board.PureBoardAdapter;
 import sorry.no.domain.test_project.logic.board.StatusBarView;
-import sorry.no.domain.test_project.logic.bus.EventBus;
-import sorry.no.domain.test_project.logic.bus.GameFinishEvent;
-import sorry.no.domain.test_project.logic.bus.PlayerLoseEvent;
+import sorry.no.domain.test_project.bus.EventBus;
+import sorry.no.domain.test_project.bus.GameFinishEvent;
+import sorry.no.domain.test_project.bus.PlayerLoseEvent;
 import sorry.no.domain.test_project.logic.cell.InvalidCellException;
 import sorry.no.domain.test_project.logic.game.Game;
 import sorry.no.domain.test_project.logic.game.InvalidMoveException;
@@ -53,6 +53,12 @@ public class GameBoardActivity extends ActionBarActivity {
         statusBar.setNumberOfMoves((TextView) findViewById(R.id.number_of_moves));
         statusBar.setCurrentTurn((TextView) findViewById(R.id.current_turn));
         updateStatusBar();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getInstance().unregister(this);
     }
 
     public OnItemClickListener getOnItemClickListener() {
