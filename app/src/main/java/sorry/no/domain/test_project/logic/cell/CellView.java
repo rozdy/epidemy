@@ -16,16 +16,38 @@ import sorry.no.domain.test_project.R;
  */
 public class CellView extends View {
     private int color, state;
-    Paint paint;
-    private Bitmap background;
+    private Paint paint;
+
+    private static float scaleFactor = 1.0f;
+    private static Bitmap background;
+    private static int cellWidth, cellPadding;
+
+    public static void initCellViewBackground(Context context) {
+        Resources resources = context.getResources();
+        background = BitmapFactory.decodeResource(resources, R.drawable.empty);
+        cellPadding = (int) resources.getDimension(R.dimen.cell_spacing);
+        cellWidth = background.getWidth();
+    }
+
+    public static int getCellWidth() {
+        return cellWidth;
+    }
+
+    public static int getCellPadding() {
+        return cellPadding;
+    }
+
+    public static void setScaleFactor(float scale) {
+        scaleFactor = scale;
+    }
+
+    public static float getScaleFactor() {
+        return scaleFactor;
+    }
 
     public CellView(Context context) {
         super(context);
         paint = new Paint();
-        Resources resources = getResources();
-        int width = (int) resources.getDimension(R.dimen.cell_width);
-        Bitmap backgroundSrc = BitmapFactory.decodeResource(resources, R.drawable.empty);
-        background = Bitmap.createScaledBitmap(backgroundSrc, width, width, false);
     }
 
     public int getColor() {
@@ -42,28 +64,48 @@ public class CellView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        int p = CellView.getCellPadding();
+        int w = CellView.getCellWidth();
+        canvas.save();
+        canvas.scale(scaleFactor, scaleFactor);
         paint.setColor(color);
-        canvas.drawBitmap(background, 0, 0, paint);
+        canvas.drawBitmap(background, CellView.getCellPadding(), CellView.getCellPadding(), paint);
         switch (state) {
             case Cell.EMPTY_CELL:
                 break;
             case Cell.MARK_CELL:
-                canvas.drawLine(0, 0, background.getWidth(), background.getHeight(), paint);
-                canvas.drawLine(0, background.getWidth(), background.getHeight(), 0, paint);
+                drawMark(canvas, CellView.getCellWidth(), CellView.getCellPadding(), paint);
                 break;
             case Cell.WALL_CELL:
-                canvas.drawRect(0, 0, background.getWidth(), background.getHeight(), paint);
+                drawWall(canvas, CellView.getCellWidth(), CellView.getCellPadding(), paint);
                 break;
             default:
-                paint.setColor(Color.RED);
-                canvas.drawText("!", 0, 0, paint);
+                drawErrorCell(canvas, CellView.getCellWidth(), CellView.getCellPadding(), paint);
                 break;
         }
+        canvas.restore();
+    }
+
+    private void drawMark(Canvas canvas, int width, int padding, Paint paint) {
+        paint.setStrokeWidth(width / 10);
+        int shift = width / 8;
+        canvas.drawLine(padding + shift, padding + shift, width + padding - shift, width + padding - shift, paint);
+        canvas.drawLine(padding + shift, width + padding - shift, width + padding - shift, padding + shift, paint);
+    }
+
+    private void drawWall(Canvas canvas, int width, int padding, Paint paint) {
+        canvas.drawRect(padding, padding, width + padding, width + padding, paint);
+    }
+
+    private void drawErrorCell(Canvas canvas, int width, int padding, Paint paint) {
+        paint.setColor(Color.RED);
+        canvas.drawText("!", padding, padding, paint);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        this.setMeasuredDimension((int) getResources().getDimension(R.dimen.cell_width),
-                (int) getResources().getDimension(R.dimen.cell_width));
+        setMeasuredDimension((int) (CellView.getCellWidth() * getScaleFactor() + CellView.getCellPadding() * 2),
+                (int) (CellView.getCellWidth() * getScaleFactor() + CellView.getCellPadding() * 2));
     }
 }
