@@ -3,5 +3,5 @@
     android:id="@+id/options_detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="sorry.no.domain.test_project.ui.OptionsDetailActivity"
+    tools:context="com.rozdy.epidemy.ui.OptionsDetailActivity"
     tools:ignore="MergeRootFrame" />

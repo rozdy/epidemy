@@ -7,9 +7,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="sorry.no.domain.test_project.ui.GameBoardActivity">
+    tools:context="com.rozdy.epidemy.ui.GameBoardActivity">
 
-    <sorry.no.domain.test_project.logic.board.BoardView xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.rozdy.epidemy.logic.board.BoardView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/board_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,7 +20,7 @@
         android:stretchMode="none"
         android:layout_weight="1"/>
 
-    <sorry.no.domain.test_project.logic.board.StatusBarView
+    <com.rozdy.epidemy.logic.board.StatusBarView
         android:id="@+id/status_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -67,6 +67,6 @@
             android:id="@+id/current_turn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </sorry.no.domain.test_project.logic.board.StatusBarView>
+    </com.rozdy.epidemy.logic.board.StatusBarView>
 
 </LinearLayout>

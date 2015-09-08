@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Test-project</string>
+    <string name="app_name">Epidemy</string>
     <string name="start_game_button">Start Game</string>
     <string name="fullscreen_content">Background content</string>
     <string name="title_activity_game_board">GameBoardActivity</string>
