@@ -5,8 +5,6 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-
-import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.logic.cell.Cell;
 import sorry.no.domain.test_project.logic.cell.CellView;
 import sorry.no.domain.test_project.logic.game.Game;
@@ -34,16 +32,16 @@ public class PureBoardAdapter extends BoardAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        int cellWidth = (int) mContext.getResources().getDimension(R.dimen.cell_width);
         CellView cellView;
         if (!(convertView instanceof CellView)) {
             cellView = new CellView(mContext);
-            cellView.setLayoutParams(new GridView.LayoutParams(cellWidth, cellWidth));
-            cellView.setPadding(0, 0, 0, 0);
-            cellView.setBackgroundColor(Color.WHITE);
+            cellView.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            cellView.setBackgroundColor(Color.BLACK);
         } else {
             cellView = (CellView) convertView;
         }
+        CellView.setScaleFactor(((BoardView) parent).getScaleFactor());
         try {
             int x = getXByPosition(position);
             int y = getYByPosition(position);

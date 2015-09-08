@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.TextView;
-
-import sorry.no.domain.test_project.R;
 import sorry.no.domain.test_project.logic.cell.Cell;
 import sorry.no.domain.test_project.logic.cell.CellView;
 import sorry.no.domain.test_project.logic.game.Game;
@@ -73,7 +71,7 @@ public class BoardImageAdapter extends BoardAdapter {
         } else {
             cellView = (CellView) convertView;
         }
-        cellView.setScaleFactor(((BoardView) parent).getScaleFactor());
+        CellView.setScaleFactor(((BoardView) parent).getScaleFactor());
         try {
             int x = getXByPosition(position);
             int y = getYByPosition(position);
