@@ -28,9 +28,9 @@ public class Board {
     public Board(BoardOptions boardOptions) {
         width = boardOptions.getWidth();
         height = boardOptions.getHeight();
-        cells = new Cell[width][height];
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 cells[i][j] = new Cell(i, j);
             }
         }
@@ -72,7 +72,7 @@ public class Board {
             for (Cell activeCell : activeCells) {
                 for (int i = activeCell.getX() - 1; i <= activeCell.getX() + 1; i++) {
                     for (int j = activeCell.getY() - 1; j <= activeCell.getY() + 1; j++) {
-                        if (i < 0 || i >= width || j < 0 || j >= width) {
+                        if (i < 0 || i >= getHeight() || j < 0 || j >= getWidth()) {
                             continue; //border marks
                         }
                         Cell neighbour = getCells()[i][j];
@@ -122,7 +122,7 @@ public class Board {
                 if (activePlayer == 0) {
                     return 0;
                 } else {
-                    return (getWidth() - 1);
+                    return (getHeight() - 1);
                 }
             case 3:
             case 4:
@@ -132,7 +132,7 @@ public class Board {
                         return 0;
                     case 2:
                     case 3:
-                        return getWidth() - 1;
+                        return getHeight() - 1;
                 }
             default:
                 return 0;
@@ -145,7 +145,7 @@ public class Board {
                 if (activePlayer == 0) {
                     return 0;
                 } else {
-                    return (getHeight() - 1);
+                    return (getWidth() - 1);
                 }
             case 3:
             case 4:
@@ -155,7 +155,7 @@ public class Board {
                         return 0;
                     case 1:
                     case 2:
-                        return getHeight() - 1;
+                        return getWidth() - 1;
                 }
             default:
                 return 0;
@@ -163,9 +163,9 @@ public class Board {
     }
 
     public Integer[][] getMovesMapTemplate() {
-        Integer[][] movesMap = new Integer[width][height];
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        Integer[][] movesMap = new Integer[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 movesMap[i][j] = UNREACHABLE_CELL;
             }
         }
@@ -174,8 +174,8 @@ public class Board {
 
     public List<Cell> getMarksList(int player) {
         List<Cell> marks = new ArrayList<>();
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 if (getCells()[i][j].getOwnerId() == player && getCells()[i][j].isMarked()) {
                     marks.add(getCells()[i][j]);
                 }
