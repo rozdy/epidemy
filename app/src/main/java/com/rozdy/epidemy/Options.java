@@ -1,5 +1,9 @@
 package com.rozdy.epidemy;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.rozdy.epidemy.logic.board.BoardOptions;
 import com.rozdy.epidemy.logic.game.GameOptions;
 import com.rozdy.epidemy.logic.player.UsersOptions;
@@ -15,7 +19,7 @@ public class Options {
 
     private Options() {
         usersOptions = new UsersOptions();
-        boardOptions = BoardOptions.standardBoardSizes.get(0);
+        boardOptions = new BoardOptions();
         gameOptions = new GameOptions();
     }
 
@@ -24,6 +28,20 @@ public class Options {
             instance = new Options();
         }
         return instance;
+    }
+
+    public static void load(Activity activity) {
+        SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+        Options.getInstance().getGameOptions().load(activity, sharedPref);
+        Options.getInstance().getBoardOptions().load(activity, sharedPref);
+        Options.getInstance().getUsersOptions().load(activity, sharedPref);
+    }
+
+    public static void save(Activity activity) {
+        SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+        Options.getInstance().getGameOptions().save(activity, sharedPref);
+        Options.getInstance().getBoardOptions().save(activity, sharedPref);
+        Options.getInstance().getUsersOptions().save(activity, sharedPref);
     }
 
     public static void init() {

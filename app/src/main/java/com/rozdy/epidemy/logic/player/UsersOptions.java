@@ -1,6 +1,10 @@
 package com.rozdy.epidemy.logic.player;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+
+import com.rozdy.epidemy.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,5 +29,23 @@ public class UsersOptions {
 
     public Player getPlayer(int number) {
         return players.get(number);
+    }
+
+    public void load(Activity activity, SharedPreferences sharedPref) {
+        for (Player player : players) {
+            int id = player.getId();
+            player.setName(sharedPref.getString(activity.getString(R.string.sharedPrefs_player_name) + id, player.getName()));
+            player.setColor(sharedPref.getInt(activity.getString(R.string.sharedPrefs_player_color) + id, player.getColor()));
+        }
+    }
+
+    public void save(Activity activity, SharedPreferences sharedPref) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        for (Player player : players) {
+            int id = player.getId();
+            editor.putString(activity.getString(R.string.sharedPrefs_player_name) + id, player.getName());
+            editor.putInt(activity.getString(R.string.sharedPrefs_player_color) + id, player.getColor());
+        }
+        editor.apply();
     }
 }

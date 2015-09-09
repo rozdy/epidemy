@@ -7,12 +7,10 @@ import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -22,7 +20,9 @@ import com.rozdy.epidemy.Options;
 import com.rozdy.epidemy.R;
 import com.rozdy.epidemy.logic.board.BoardOptions;
 import com.rozdy.epidemy.logic.game.GameOptions;
+import com.rozdy.epidemy.logic.player.Player;
 import com.rozdy.epidemy.logic.player.UsersOptions;
+
 import yuku.ambilwarna.AmbilWarnaDialog;
 
 public class OptionsDetailFragment extends Fragment {
@@ -60,6 +60,10 @@ public class OptionsDetailFragment extends Fragment {
                         TableLayout.LayoutParams.MATCH_PARENT,
                         TableLayout.LayoutParams.MATCH_PARENT));
                 initUsersOptions(rootView);
+                break;
+            case OptionsContent.DEFAULTS_OPTIONS_ID:
+                rootView = inflater.inflate(R.layout.fragment_defaults_options_detail, container, false);
+                initDefaultsOptions(rootView);
                 break;
             default:  //Todo fix this case
                 rootView = inflater.inflate(R.layout.fragment_users_options_detail, container, false);
@@ -143,32 +147,91 @@ public class OptionsDetailFragment extends Fragment {
         });
     }
 
-    public void initBoardOptions(View rootView) {
-        Spinner boardSizeSpinner = (Spinner) rootView.findViewById(R.id.board_size_spinner);
-        ArrayAdapter<BoardOptions> adapter = new ArrayAdapter<>(rootView.getContext(),
-                android.R.layout.simple_spinner_item, BoardOptions.standardBoardSizes);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        boardSizeSpinner.setAdapter(adapter);
-        int position = 0;
-        while (!adapter.getItem(position).equals(Options.getInstance().getBoardOptions()) ||
-                position == adapter.getCount()) {
-            position++;
-        }
-        if (adapter.getItem(position).equals(Options.getInstance().getBoardOptions())) {
-            boardSizeSpinner.setSelection(position);
-        }
-        boardSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    private void initBoardOptions(View rootView) {
+
+        final TextView boardWidthCaption = (TextView) rootView.findViewById(R.id.board_width_caption);
+        boardWidthCaption.setText(getString(R.string.board_width)
+                + Options.getInstance().getBoardOptions().getWidth());
+        SeekBar boardWidthSeekBar =
+                (SeekBar) rootView.findViewById(R.id.board_width_seek_bar);
+        boardWidthSeekBar.setMax(BoardOptions.MAX_WIDTH);
+        boardWidthSeekBar.setProgress(Options.getInstance().getBoardOptions().getWidth());
+        final TextView boardWidth = (TextView) rootView.findViewById(R.id.board_width);
+        boardWidth.setVisibility(View.INVISIBLE);
+        boardWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                BoardOptions boardSize = (BoardOptions) parent.getItemAtPosition(position);
-                Options.getInstance().getBoardOptions().setWidth(boardSize.getWidth());
-                Options.getInstance().getBoardOptions().setHeight(boardSize.getHeight());
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (progress >= BoardOptions.MIN_WIDTH) {
+                    Options.getInstance().getBoardOptions().setWidth(progress);
+                } else {
+                    Options.getInstance().getBoardOptions().setWidth(BoardOptions.MIN_WIDTH);
+                    seekBar.setProgress(BoardOptions.MIN_WIDTH);
+                }
+                boardWidth.setText(Options.getInstance().getBoardOptions().getWidth() + "");
+                int xPos = (seekBar.getWidth() - seekBar.getPaddingLeft() - seekBar.getPaddingRight())
+                        * seekBar.getProgress() / seekBar.getMax() + seekBar.getThumbOffset();
+                boardWidth.setPadding(xPos, 0, 0, 0); //Todo align to the center of thumb
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                boardWidth.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                boardWidth.setVisibility(View.INVISIBLE);
+                boardWidthCaption.setText(getString(R.string.board_width)
+                        + Options.getInstance().getBoardOptions().getWidth());
             }
         });
+
+        final TextView boardHeightCaption = (TextView) rootView.findViewById(R.id.board_height_caption);
+        boardHeightCaption.setText(getString(R.string.board_height)
+                + Options.getInstance().getBoardOptions().getHeight());
+        SeekBar boardHeightSeekBar =
+                (SeekBar) rootView.findViewById(R.id.board_height_seek_bar);
+        boardHeightSeekBar.setMax(BoardOptions.MAX_HEIGHT);
+        boardHeightSeekBar.setProgress(Options.getInstance().getBoardOptions().getHeight());
+        final TextView boardHeight = (TextView) rootView.findViewById(R.id.board_height);
+        boardHeight.setVisibility(View.INVISIBLE);
+        boardHeightSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (progress >= BoardOptions.MIN_HEIGHT) {
+                    Options.getInstance().getBoardOptions().setHeight(progress);
+                } else {
+                    Options.getInstance().getBoardOptions().setHeight(BoardOptions.MIN_HEIGHT);
+                    seekBar.setProgress(BoardOptions.MIN_HEIGHT);
+                }
+                boardHeight.setText(Options.getInstance().getBoardOptions().getHeight() + "");
+                int xPos = (seekBar.getWidth() - seekBar.getPaddingLeft() - seekBar.getPaddingRight())
+                        * seekBar.getProgress() / seekBar.getMax() + seekBar.getThumbOffset();
+                boardHeight.setPadding(xPos, 0, 0, 0); //Todo align to the center of thumb
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                boardHeight.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                boardHeight.setVisibility(View.INVISIBLE);
+                boardHeightCaption.setText(getString(R.string.board_height)
+                        + Options.getInstance().getBoardOptions().getHeight());
+            }
+        });
+
+        Switch squareBoard = (Switch) rootView.findViewById(R.id.square_board);
+        squareBoard.setChecked(Options.getInstance().getBoardOptions().getSquareBoard());
+        squareBoard.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Options.getInstance().getBoardOptions().setSquareBoard(isChecked);
+            }
+        }); //Todo react on squareBoard flag
+
         Switch showCellNumbers = (Switch) rootView.findViewById(R.id.show_cell_numbers);
         showCellNumbers.setChecked(Options.getInstance().getBoardOptions().getShowCellNumeration());
         showCellNumbers.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -177,10 +240,9 @@ public class OptionsDetailFragment extends Fragment {
                 Options.getInstance().getBoardOptions().setShowCellNumeration(isChecked);
             }
         });
-        //Todo add custom board sizes
     }
 
-    public void initUsersOptions(final View rootView) {
+    private void initUsersOptions(final View rootView) {
         for (int player = 0; player < UsersOptions.MAX_PLAYERS_NUMBER; player++) {
             final TableRow tableRow = new TableRow(rootView.getContext());
             tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
@@ -264,5 +326,17 @@ public class OptionsDetailFragment extends Fragment {
 
                 });
         dialog.show();
+    }
+
+
+    private void initDefaultsOptions(View rootView) {
+        Button resetToDefaults = (Button) rootView.findViewById(R.id.reset_to_defaults_button);
+        resetToDefaults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Player.resetIdCounter();
+                Options.init();
+            }
+        });
     }
 }
