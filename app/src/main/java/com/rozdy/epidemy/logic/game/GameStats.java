@@ -19,4 +19,8 @@ public class GameStats {
         while (!players.get(++counter).isInGame()) {};
         return players.get(counter);
     }
+
+    public List<Player> getPlayers() {
+        return players;
+    }
 }

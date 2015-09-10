@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.rozdy.epidemy.ui.FinalStatsActivity">
+
+    <TextView
+        android:id="@+id/final_stats_congrats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/final_stats_congrats" />
+
+    <TableLayout
+        android:id="@+id/final_stats_table"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/final_stats_congrats">
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/final_stats_player_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/final_stats_player_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/final_stats_player_state" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/final_stats_player_lose_reason" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/final_stats_player_lose_turn" />
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/revenge_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/final_stats_table"
+        android:onClick="revenge"
+        android:text="@string/final_stats_revenge" />
+
+    <Button
+        android:id="@+id/back_to_main_menu_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/final_stats_table"
+        android:layout_toRightOf="@+id/revenge_button"
+        android:onClick="backToMainMenu"
+        android:text="@string/final_stats_back" />
+
+</RelativeLayout>

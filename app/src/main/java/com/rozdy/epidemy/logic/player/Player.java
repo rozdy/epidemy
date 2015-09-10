@@ -68,4 +68,12 @@ public class Player {
     public void setColor(int color) {
         this.color = color;
     }
+
+    public int getLoseReason() {
+        return loseReason;
+    }
+
+    public int getLoseTurn() {
+        return loseTurn;
+    }
 }

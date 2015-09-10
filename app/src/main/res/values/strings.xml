@@ -7,9 +7,18 @@
     <string name="action_settings">Settings</string>
     <string name="action_surrender">Surrender</string>
     <string name="final_stats_congrats">Congrats!</string>
-    <string name="final_stats_message">is a winner!</string>
-    <string name="final_stats_ok">Back to main menu</string>
+    <string name="final_stats_back">Back to main menu</string>
     <string name="final_stats_revenge">Revenge</string>
+    <string name="winner">Winner</string>
+    <string name="loser">Loser</string>
+    <string name="surrender">Surrender</string>
+    <string name="has_no_marks">Has no marks</string>
+    <string name="has_no_moves">Has no moves</string>
+    <string name="final_stats_player_name">Name</string>
+    <string name="final_stats_player_color">Color</string>
+    <string name="final_stats_player_state">State</string>
+    <string name="final_stats_player_lose_reason">Lose reason</string>
+    <string name="final_stats_player_lose_turn">Lose turn</string>
 
     <string name="UNREACHABLE_CELL">Cell is unreachable</string>
     <string name="ENEMY_WALL_HIT">You can\'t hit an enemy wall</string>
@@ -34,4 +43,5 @@
     <string name="number_of_moves">"Number of moves: "</string>
     <string name="board_size">Board size</string>
     <string name="show_cell_numbers">Show cell numbers</string>
+    <string name="title_activity_final_stats">FinalStatsActivity</string>
 </resources>
