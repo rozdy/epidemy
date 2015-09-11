@@ -3,4 +3,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="cell_spacing">1dp</dimen>
     <dimen name="cell_width">30dp</dimen>
+    <dimen name="final_stats_padding">5dp</dimen>
 </resources>

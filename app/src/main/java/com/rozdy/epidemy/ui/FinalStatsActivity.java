@@ -28,6 +28,7 @@ public class FinalStatsActivity extends ActionBarActivity {
 
     private void updateStats() {
         GameStats stats = new GameStats(Game.getInstance());
+        int padding = (int) getResources().getDimension(R.dimen.final_stats_padding);
         TableLayout tableLayout = (TableLayout) findViewById(R.id.final_stats_table);
         for (Player player : stats.getPlayers()) {
             TableRow tableRow = new TableRow(this);
@@ -36,15 +37,18 @@ public class FinalStatsActivity extends ActionBarActivity {
             TextView playerName = new TextView(this);
             playerName.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
+            playerName.setPadding(padding, padding, padding, padding);
             playerName.setText(player.getName());
             tableRow.addView(playerName);
             View playerColor = new View(this);
             playerColor.setLayoutParams(new TableRow.LayoutParams(30, 30)); //Todo fix params
             playerColor.setBackgroundColor(player.getColor());
+            playerColor.setPadding(padding, padding, padding, padding);
             tableRow.addView(playerColor);
             TextView playerState = new TextView(this);
             playerState.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
+            playerState.setPadding(padding, padding, padding, padding);
             if (player.isInGame()) {
                 playerState.setText(getString(R.string.winner));
                 playerState.setTextColor(Color.GREEN);
@@ -56,6 +60,7 @@ public class FinalStatsActivity extends ActionBarActivity {
             TextView playerLoseReason = new TextView(this);
             playerLoseReason.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
+            playerLoseReason.setPadding(padding, padding, padding, padding);
             switch (player.getLoseReason()) {
                 case Player.PLAYER_SURRENDER:
                     playerLoseReason.setText(getString(R.string.surrender));
@@ -71,6 +76,7 @@ public class FinalStatsActivity extends ActionBarActivity {
             TextView playerLoseTurn = new TextView(this);
             playerLoseTurn.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
+            playerLoseTurn.setPadding(padding, padding, padding, padding);
             if (player.getLoseTurn() >= 0) {
                 playerLoseTurn.setText("" + (player.getLoseTurn() + 1));
             }
