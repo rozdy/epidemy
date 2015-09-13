@@ -19,18 +19,14 @@
     <string name="final_stats_player_state">State</string>
     <string name="final_stats_player_lose_reason">Lose reason</string>
     <string name="final_stats_player_lose_turn">Lose turn</string>
-
     <string name="UNREACHABLE_CELL">Cell is unreachable</string>
     <string name="ENEMY_WALL_HIT">You can\'t hit an enemy wall</string>
     <string name="OWN_CROSS_HIT">You can\'t hit your own mark</string>
     <string name="OWN_WALL_HIT">You can\'t hit your own wall</string>
-
     <string name="status_bar_active_player">"Active player: "</string>
     <string name="status_bar_number_of_moves">"Number of moves: "</string>
     <string name="status_bar_current_turn">"Turn: "</string>
     <string name="status_bar_separator">" | "</string>
-
-
     <string name="next_player">"Next player is "</string>
     <string name="is_defeated">" is defeated!"</string>
     <string name="options_button">Options</string>
@@ -39,9 +35,20 @@
     <string name="game_options">Game</string>
     <string name="board_options">Board</string>
     <string name="users_options">Users</string>
+    <string name="defaults_options">Defaults</string>
     <string name="number_of_players">"Number of players: "</string>
     <string name="number_of_moves">"Number of moves: "</string>
-    <string name="board_size">Board size</string>
+    <string name="board_width">"Board width: "</string>
+    <string name="board_height">"Board height: "</string>
     <string name="show_cell_numbers">Show cell numbers</string>
     <string name="title_activity_final_stats">FinalStatsActivity</string>
+    <string name="square_board">Square board</string>
+    <string name="reset_options_to_default">Reset options to default</string>
+    <string name="sharedPrefs_number_of_players">number_of_players</string>
+    <string name="sharedPrefs_number_of_moves">number_of_moves</string>
+    <string name="sharedPrefs_board_width">board_width</string>
+    <string name="sharedPrefs_board_height">board_height</string>
+    <string name="sharedPrefs_show_cell_numbers">show_cell_numbers</string>
+    <string name="sharedPrefs_player_name">name_of_player</string>
+    <string name="sharedPrefs_player_color">color_of_player</string>
 </resources>
