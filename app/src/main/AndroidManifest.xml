@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.rozdy.epidemy.ui.MainMenuActivity"
+            android:name=".ui.MainMenuActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
@@ -19,15 +19,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.rozdy.epidemy.ui.GameBoardActivity"
+            android:name=".ui.GameBoardActivity"
             android:label="@string/title_activity_game_board">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rozdy.epidemy.ui.MainMenuActivity" />
         </activity>
         <activity
-            android:name="com.rozdy.epidemy.ui.options.OptionsListActivity"
+            android:name=".ui.options.OptionsListActivity"
             android:label="@string/title_options_list">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rozdy.epidemy.ui.MainMenuActivity" />
+        </activity>
+        <activity
+            android:name=".ui.FinalStatsActivity"
+            android:label="@string/title_activity_final_stats">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rozdy.epidemy.ui.MainMenuActivity" />

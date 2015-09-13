@@ -1,5 +1,6 @@
 package com.rozdy.epidemy.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
@@ -56,6 +57,16 @@ public class GameBoardActivity extends ActionBarActivity {
         statusBar.setActivePlayerName((TextView) findViewById(R.id.active_player));
         statusBar.setNumberOfMoves((TextView) findViewById(R.id.number_of_moves));
         statusBar.setCurrentTurn((TextView) findViewById(R.id.current_turn));
+        updateStatusBar();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BoardView boardView = (BoardView) findViewById(R.id.board_view);
+        BoardAdapter adapter = (BoardAdapter) boardView.getAdapter();
+        adapter.notifyDataSetChanged();
+        boardView.invalidate();
         updateStatusBar();
     }
 
@@ -141,10 +152,8 @@ public class GameBoardActivity extends ActionBarActivity {
     }
 
     private void showFinalStats() {
-        FragmentManager fm = getSupportFragmentManager();
-        FinalStatsDialog finalStatsDialog = new FinalStatsDialog();
-        finalStatsDialog.setCancelable(false);
-        finalStatsDialog.show(fm, "final stats dialog");
+        Intent intent = new Intent(this, FinalStatsActivity.class);
+        startActivity(intent);
     }
 
     @Subscribe

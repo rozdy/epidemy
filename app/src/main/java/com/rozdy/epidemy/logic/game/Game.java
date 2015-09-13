@@ -156,10 +156,6 @@ public class Game {
         Player.resetIdCounter();
     }
 
-    public GameStats getStats() {
-        return new GameStats(Game.getInstance());
-    }
-
     public static void stop() {
         instance = null;
     }
