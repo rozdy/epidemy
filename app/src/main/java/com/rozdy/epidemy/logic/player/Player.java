@@ -17,12 +17,14 @@ public class Player {
 
     private String name;
     private int color;
+    private int id;
     private int loseTurn = -1;
     private int loseReason = -1;
     private boolean inGame;
 
     public Player(int color) {
-        name = "Player " + ++nextId;
+        id = nextId++;
+        name = "Player " + (id + 1);
         this.color = color;
         inGame = true;
     }
@@ -47,6 +49,10 @@ public class Player {
         if (Game.getInstance().isGameFinished()) {
             EventBus.getInstance().post(new GameFinishEvent());
         }
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

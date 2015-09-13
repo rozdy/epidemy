@@ -22,6 +22,7 @@ public class OptionsContent {
     public static final String GAME_OPTIONS_ID = "1";
     public static final String BOARD_OPTIONS_ID = "2";
     public static final String USERS_OPTIONS_ID = "3";
+    public static final String DEFAULTS_OPTIONS_ID = "4";
 
     public static ArrayAdapter<OptionsItem> createOptionsListAdapter(Context context) {
         init(context);
@@ -41,6 +42,8 @@ public class OptionsContent {
             addItem(new OptionsItem(USERS_OPTIONS_ID,
                     context.getResources().getString(R.string.users_options),
                     Options.getInstance().getUsersOptions()));
+            addItem(new OptionsItem(DEFAULTS_OPTIONS_ID,
+                    context.getResources().getString(R.string.defaults_options), null));
         }
     }
 

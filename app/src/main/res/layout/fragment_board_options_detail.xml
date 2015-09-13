@@ -4,28 +4,67 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/board_size_caption"
+        android:id="@+id/board_width_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/board_size" />
+        android:text="@string/board_width" />
 
-    <Spinner
-        android:id="@+id/board_size_spinner"
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/board_width"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/board_size_caption" />
+        android:layout_below="@+id/board_width_caption" />
+
+    <SeekBar
+        android:id="@+id/board_width_seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/board_width" />
+
+    <TextView
+        android:id="@+id/board_height_caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/board_width_seek_bar"
+        android:text="@string/board_height" />
+
+    <TextView
+        android:id="@+id/board_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/board_height_caption" />
+
+    <SeekBar
+        android:id="@+id/board_height_seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/board_height" />
+
+    <TextView
+        android:id="@+id/square_board_caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/board_height_seek_bar"
+        android:text="@string/square_board" />
+
+    <Switch
+        android:id="@+id/square_board"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/board_height_seek_bar"
+        android:layout_toRightOf="@id/square_board_caption" />
 
     <TextView
         android:id="@+id/show_cell_numbers_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/board_size_spinner"
+        android:layout_below="@id/square_board"
         android:text="@string/show_cell_numbers" />
 
     <Switch
         android:id="@+id/show_cell_numbers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/show_cell_numbers_caption"
-        android:layout_below="@id/board_size_spinner"/>
+        android:layout_below="@id/square_board"
+        android:layout_toRightOf="@id/show_cell_numbers_caption" />
 </RelativeLayout>

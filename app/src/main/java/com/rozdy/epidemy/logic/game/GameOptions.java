@@ -1,5 +1,10 @@
 package com.rozdy.epidemy.logic.game;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
+
+import com.rozdy.epidemy.R;
+
 /**
  * Created by hex on 8/16/2015 in the name of the Emperor!
  */
@@ -30,5 +35,17 @@ public class GameOptions {
 
     public void setNumberOfMoves(int numberOfMoves) {
         this.numberOfMoves = numberOfMoves;
+    }
+
+    public void load(Activity activity, SharedPreferences sharedPref) {
+        setNumberOfPlayers(sharedPref.getInt(activity.getString(R.string.sharedPrefs_number_of_players), getNumberOfPlayers()));
+        setNumberOfMoves(sharedPref.getInt(activity.getString(R.string.sharedPrefs_number_of_moves), getNumberOfMoves()));
+    }
+
+    public void save(Activity activity, SharedPreferences sharedPref) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(activity.getString(R.string.sharedPrefs_number_of_players), getNumberOfPlayers());
+        editor.putInt(activity.getString(R.string.sharedPrefs_number_of_moves), getNumberOfMoves());
+        editor.apply();
     }
 }
