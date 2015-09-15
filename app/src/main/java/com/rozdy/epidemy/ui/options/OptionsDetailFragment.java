@@ -236,7 +236,7 @@ public class OptionsDetailFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Options.getInstance().getBoardOptions().setSquareBoard(isChecked);
             }
-        }); //Todo react on squareBoard flag
+        });
 
         Switch showCellNumbers = (Switch) rootView.findViewById(R.id.show_cell_numbers);
         showCellNumbers.setChecked(Options.getInstance().getBoardOptions().getShowCellNumeration());

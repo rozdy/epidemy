@@ -48,6 +48,7 @@
     <string name="sharedPrefs_number_of_moves">number_of_moves</string>
     <string name="sharedPrefs_board_width">board_width</string>
     <string name="sharedPrefs_board_height">board_height</string>
+    <string name="sharedPrefs_square_board">square_board</string>
     <string name="sharedPrefs_show_cell_numbers">show_cell_numbers</string>
     <string name="sharedPrefs_player_name">name_of_player</string>
     <string name="sharedPrefs_player_color">color_of_player</string>
