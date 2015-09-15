@@ -20,21 +20,24 @@
         </activity>
         <activity
             android:name=".ui.GameBoardActivity"
-            android:label="@string/title_activity_game_board">
+            android:label="@string/title_activity_game_board"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rozdy.epidemy.ui.MainMenuActivity" />
         </activity>
         <activity
             android:name=".ui.options.OptionsListActivity"
-            android:label="@string/title_options_list">
+            android:label="@string/title_options_list"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rozdy.epidemy.ui.MainMenuActivity" />
         </activity>
         <activity
             android:name=".ui.FinalStatsActivity"
-            android:label="@string/title_activity_final_stats">
+            android:label="@string/title_activity_final_stats"
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rozdy.epidemy.ui.MainMenuActivity" />
