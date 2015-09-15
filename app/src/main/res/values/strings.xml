@@ -36,6 +36,7 @@
     <string name="board_options">Board</string>
     <string name="users_options">Users</string>
     <string name="defaults_options">Defaults</string>
+    <string name="error_options_detail">Error options detail!</string>
     <string name="number_of_players">"Number of players: "</string>
     <string name="number_of_moves">"Number of moves: "</string>
     <string name="board_width">"Board width: "</string>

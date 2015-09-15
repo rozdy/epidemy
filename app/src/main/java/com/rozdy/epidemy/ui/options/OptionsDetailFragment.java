@@ -65,8 +65,12 @@ public class OptionsDetailFragment extends Fragment {
                 rootView = inflater.inflate(R.layout.fragment_defaults_options_detail, container, false);
                 initDefaultsOptions(rootView);
                 break;
-            default:  //Todo fix this case
-                rootView = inflater.inflate(R.layout.fragment_users_options_detail, container, false);
+            default:
+                rootView = new TextView(getActivity());
+                rootView.setLayoutParams(new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+                ((TextView) rootView).setText(getString(R.string.error_options_detail));
                 break;
         }
         return rootView;
