@@ -7,64 +7,110 @@
         android:id="@+id/board_width_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="@dimen/padding"
         android:text="@string/board_width" />
 
     <TextView
         android:id="@+id/board_width"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/board_width_caption" />
+        android:layout_below="@id/board_width_caption" />
 
-    <SeekBar
-        android:id="@+id/board_width_seek_bar"
+    <LinearLayout
+        android:id="@+id/board_width_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/board_width" />
+        android:layout_below="@id/board_width"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <SeekBar
+            android:id="@+id/board_width_seek_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:padding="@dimen/padding" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/board_height_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/board_width_seek_bar"
+        android:layout_below="@id/board_width_layout"
+        android:padding="@dimen/padding"
         android:text="@string/board_height" />
 
     <TextView
         android:id="@+id/board_height"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/board_height_caption" />
+        android:layout_below="@id/board_height_caption" />
 
-    <SeekBar
-        android:id="@+id/board_height_seek_bar"
+    <LinearLayout
+        android:id="@+id/board_height_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/board_height" />
+        android:layout_below="@id/board_height"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <SeekBar
+            android:id="@+id/board_height_seek_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:padding="@dimen/padding" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/square_board_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/board_height_seek_bar"
+        android:layout_below="@id/board_height_layout"
+        android:padding="@dimen/padding"
         android:text="@string/square_board" />
 
     <Switch
         android:id="@+id/square_board"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/board_height_seek_bar"
-        android:layout_toRightOf="@id/square_board_caption" />
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/board_height_layout"
+        android:padding="@dimen/padding" />
 
     <TextView
         android:id="@+id/show_cell_numbers_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/square_board"
+        android:padding="@dimen/padding"
         android:text="@string/show_cell_numbers" />
 
     <Switch
         android:id="@+id/show_cell_numbers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_below="@id/square_board"
-        android:layout_toRightOf="@id/show_cell_numbers_caption" />
+        android:padding="@dimen/padding" />
 </RelativeLayout>
