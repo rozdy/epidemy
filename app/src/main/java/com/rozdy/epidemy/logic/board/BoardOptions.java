@@ -68,13 +68,15 @@ public class BoardOptions {
     public void load(Activity activity, SharedPreferences sharedPref) {
         setWidth(sharedPref.getInt(activity.getString(R.string.sharedPrefs_board_width), getWidth()));
         setHeight(sharedPref.getInt(activity.getString(R.string.sharedPrefs_board_height), getHeight()));
-        setShowCellNumeration(sharedPref.getBoolean(activity.getString(R.string.show_cell_numbers), getShowCellNumeration()));
+        setSquareBoard(sharedPref.getBoolean(activity.getString(R.string.sharedPrefs_square_board), getSquareBoard()));
+        setShowCellNumeration(sharedPref.getBoolean(activity.getString(R.string.sharedPrefs_show_cell_numbers), getShowCellNumeration()));
     }
 
     public void save(Activity activity, SharedPreferences sharedPref) {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(activity.getString(R.string.sharedPrefs_board_width), getWidth());
         editor.putInt(activity.getString(R.string.sharedPrefs_board_height), getHeight());
+        editor.putBoolean(activity.getString(R.string.sharedPrefs_square_board), getSquareBoard());
         editor.putBoolean(activity.getString(R.string.sharedPrefs_show_cell_numbers), getShowCellNumeration());
         editor.apply();
     }
@@ -87,7 +89,8 @@ public class BoardOptions {
         BoardOptions boardOptions = (BoardOptions) o;
 
         if (boardOptions.getWidth() != this.getWidth()) return false;
-        if (boardOptions.getHeight() == this.getHeight()) return false;
+        if (boardOptions.getHeight() != this.getHeight()) return false;
+        if (boardOptions.getSquareBoard() != this.getSquareBoard()) return false;
         return (boardOptions.getShowCellNumeration() == this.getShowCellNumeration());
     }
 }
