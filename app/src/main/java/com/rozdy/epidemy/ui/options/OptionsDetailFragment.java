@@ -147,7 +147,7 @@ public class OptionsDetailFragment extends Fragment {
         });
     }
 
-    private void initBoardOptions(View rootView) {
+    private void initBoardOptions(final View rootView) {
 
         final TextView boardWidthCaption = (TextView) rootView.findViewById(R.id.board_width_caption);
         boardWidthCaption.setText(getString(R.string.board_width)
@@ -163,6 +163,9 @@ public class OptionsDetailFragment extends Fragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (progress >= BoardOptions.MIN_WIDTH) {
                     Options.getInstance().getBoardOptions().setWidth(progress);
+                    if (Options.getInstance().getBoardOptions().getSquareBoard()) {
+                        makeSquareBoard(rootView, progress);
+                    }
                 } else {
                     Options.getInstance().getBoardOptions().setWidth(BoardOptions.MIN_WIDTH);
                     seekBar.setProgress(BoardOptions.MIN_WIDTH);
@@ -200,6 +203,9 @@ public class OptionsDetailFragment extends Fragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (progress >= BoardOptions.MIN_HEIGHT) {
                     Options.getInstance().getBoardOptions().setHeight(progress);
+                    if (Options.getInstance().getBoardOptions().getSquareBoard()) {
+                        makeSquareBoard(rootView, progress);
+                    }
                 } else {
                     Options.getInstance().getBoardOptions().setHeight(BoardOptions.MIN_HEIGHT);
                     seekBar.setProgress(BoardOptions.MIN_HEIGHT);
@@ -240,6 +246,21 @@ public class OptionsDetailFragment extends Fragment {
                 Options.getInstance().getBoardOptions().setShowCellNumeration(isChecked);
             }
         });
+    }
+
+    private void makeSquareBoard(View rootView, int progress) {
+        if (progress >= BoardOptions.MIN_WIDTH && progress <= BoardOptions.MAX_WIDTH) {
+            Options.getInstance().getBoardOptions().setWidth(progress);
+        }
+        if (progress >= BoardOptions.MIN_HEIGHT && progress <= BoardOptions.MAX_HEIGHT) {
+            Options.getInstance().getBoardOptions().setHeight(progress);
+        }
+        ((TextView) rootView.findViewById(R.id.board_width_caption)).setText(getString(R.string.board_width)
+                + Options.getInstance().getBoardOptions().getWidth());
+        ((SeekBar) rootView.findViewById(R.id.board_width_seek_bar)).setProgress(Options.getInstance().getBoardOptions().getWidth());
+        ((TextView) rootView.findViewById(R.id.board_height_caption)).setText(getString(R.string.board_height)
+                + Options.getInstance().getBoardOptions().getHeight());
+        ((SeekBar) rootView.findViewById(R.id.board_height_seek_bar)).setProgress(Options.getInstance().getBoardOptions().getHeight());
     }
 
     private void initUsersOptions(final View rootView) {
