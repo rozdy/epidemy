@@ -152,7 +152,6 @@ public class OptionsDetailFragment extends Fragment {
     }
 
     private void initBoardOptions(final View rootView) {
-
         final TextView boardWidthCaption = (TextView) rootView.findViewById(R.id.board_width_caption);
         boardWidthCaption.setText(getString(R.string.board_width)
                 + Options.getInstance().getBoardOptions().getWidth());

@@ -16,37 +16,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/board_width_caption" />
 
-    <LinearLayout
-        android:id="@+id/board_width_layout"
+    <SeekBar
+        android:id="@+id/board_width_seek_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/board_width"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <SeekBar
-            android:id="@+id/board_width_seek_bar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:padding="@dimen/padding" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
+        android:padding="@dimen/padding" />
 
     <TextView
         android:id="@+id/board_height_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/board_width_layout"
+        android:layout_below="@id/board_width_seek_bar"
         android:padding="@dimen/padding"
         android:text="@string/board_height" />
 
@@ -56,37 +37,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/board_height_caption" />
 
-    <LinearLayout
-        android:id="@+id/board_height_layout"
+    <SeekBar
+        android:id="@+id/board_height_seek_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/board_height"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <SeekBar
-            android:id="@+id/board_height_seek_bar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="8"
-            android:padding="@dimen/padding" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
+        android:padding="@dimen/padding" />
 
     <TextView
         android:id="@+id/square_board_caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/board_height_layout"
+        android:layout_below="@id/board_height_seek_bar"
         android:padding="@dimen/padding"
         android:text="@string/square_board" />
 
@@ -95,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/board_height_layout"
+        android:layout_below="@id/board_height_seek_bar"
         android:padding="@dimen/padding" />
 
     <TextView
