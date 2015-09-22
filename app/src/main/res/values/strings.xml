@@ -41,7 +41,7 @@
     <string name="board_width">"Board width: "</string>
     <string name="board_height">"Board height: "</string>
     <string name="show_cell_numbers">Show cell numbers</string>
-    <string name="title_activity_final_stats">Final Statistics</string>
+    <string name="title_activity_final_stats">Score Board</string>
     <string name="square_board">Square board</string>
     <string name="reset_options_to_default">Reset options to default</string>
     <string name="sharedPrefs_number_of_players">number_of_players</string>
