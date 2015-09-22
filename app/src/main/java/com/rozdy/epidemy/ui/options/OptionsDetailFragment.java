@@ -152,7 +152,6 @@ public class OptionsDetailFragment extends Fragment {
     }
 
     private void initBoardOptions(final View rootView) {
-
         final TextView boardWidthCaption = (TextView) rootView.findViewById(R.id.board_width_caption);
         boardWidthCaption.setText(getString(R.string.board_width)
                 + Options.getInstance().getBoardOptions().getWidth());
@@ -268,13 +267,16 @@ public class OptionsDetailFragment extends Fragment {
     }
 
     private void initUsersOptions(final View rootView) {
+        int padding = (int) getResources().getDimension(R.dimen.padding);
         for (int player = 0; player < UsersOptions.MAX_PLAYERS_NUMBER; player++) {
             final TableRow tableRow = new TableRow(rootView.getContext());
             tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
+            tableRow.setPadding(padding, padding, padding, padding);
             TextView playerNumberTextView = new TextView(rootView.getContext());
             playerNumberTextView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT));
+            playerNumberTextView.setPadding(padding, padding, padding, padding);
             playerNumberTextView.setText((player + 1) + ".");
             tableRow.addView(playerNumberTextView);
             EditText playerNameEditText = new EditText(rootView.getContext());
@@ -293,6 +295,7 @@ public class OptionsDetailFragment extends Fragment {
             playerNameEditText.setLayoutParams(
                     new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                             TableRow.LayoutParams.WRAP_CONTENT));
+            playerNameEditText.setPadding(padding, padding, padding, padding);
             playerNameEditText.setTag(player);
             playerNameEditText.setText(Options.getInstance().getUsersOptions().getPlayer(player).getName());
             playerNameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -319,8 +322,9 @@ public class OptionsDetailFragment extends Fragment {
             });
             tableRow.addView(playerNameEditText);
             View colorPicker = new View(rootView.getContext());
-            colorPicker.setLayoutParams(new TableRow.LayoutParams(30, 30)); //Todo fix params
-            colorPicker.setPadding(3, 3, 3, 3);
+            colorPicker.setLayoutParams(new TableRow.LayoutParams((int) getResources().getDimension(R.dimen.color_picker),
+                    (int) getResources().getDimension(R.dimen.color_picker)));
+            colorPicker.setPadding(padding, padding, padding, padding);
             colorPicker.setBackgroundColor(Options.getInstance().getUsersOptions().getPlayer(player).getColor());
             colorPicker.setTag(player);
             colorPicker.setOnClickListener(new View.OnClickListener() {

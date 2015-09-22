@@ -13,58 +13,66 @@
         android:id="@+id/board_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:background="@color/black_overlay"
         android:gravity="center"
         android:numColumns="auto_fit"
         android:padding="@dimen/cell_spacing"
-        android:stretchMode="none"
-        android:layout_weight="1"/>
+        android:stretchMode="none" />
 
     <com.rozdy.epidemy.logic.board.StatusBarView
         android:id="@+id/status_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="12"
         android:background="@drawable/status_bar_background"
-        android:orientation="horizontal"
-        android:layout_weight="9">
+        android:orientation="horizontal">
 
         <TextView
+            style="@style/status_bar_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/status_bar_active_player" />
 
         <TextView
             android:id="@+id/active_player"
+            style="@style/status_bar_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
+            style="@style/status_bar_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/status_bar_separator" />
 
         <TextView
+            style="@style/status_bar_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/status_bar_number_of_moves" />
 
         <TextView
             android:id="@+id/number_of_moves"
+            style="@style/status_bar_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
+            style="@style/status_bar_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/status_bar_separator" />
 
         <TextView
+            style="@style/status_bar_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/status_bar_current_turn" />
 
         <TextView
             android:id="@+id/current_turn"
+            style="@style/status_bar_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </com.rozdy.epidemy.logic.board.StatusBarView>

@@ -4,4 +4,8 @@
     <dimen name="cell_spacing">1dp</dimen>
     <dimen name="cell_width">30dp</dimen>
     <dimen name="final_stats_padding">5dp</dimen>
+    <dimen name="font_size">20sp</dimen>
+    <dimen name="small_font_size">14sp</dimen>
+    <dimen name="padding">4dp</dimen>
+    <dimen name="color_picker">30dp</dimen>
 </resources>
