@@ -1,11 +1,11 @@
 package com.rozdy.epidemy.ui.options;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.rozdy.epidemy.R;
 
-public class OptionsListActivity extends ActionBarActivity
+public class OptionsListActivity extends AppCompatActivity
         implements OptionsListFragment.Callbacks {
 
     @Override

@@ -20,7 +20,6 @@ public class Board {
     public static final int ENEMY_WALL_HIT = 401;
     public static final int OWN_CROSS_HIT = 402;
     public static final int OWN_WALL_HIT = 403;
-    public static final int WALL_NOT_CONNECTED = 404;
 
     private int width, height;
     private Cell[][] cells;

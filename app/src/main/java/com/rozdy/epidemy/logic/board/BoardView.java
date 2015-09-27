@@ -1,6 +1,7 @@
 package com.rozdy.epidemy.logic.board;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -27,7 +28,7 @@ public class BoardView extends GridView {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
+    public boolean onTouchEvent(@NonNull MotionEvent ev) {
         scaleDetector.onTouchEvent(ev);
         return super.onTouchEvent(ev);
     }

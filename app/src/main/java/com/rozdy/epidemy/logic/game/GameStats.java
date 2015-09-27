@@ -14,12 +14,6 @@ public class GameStats {
         players = instance.getPlayers();
     }
 
-    public Player getWinner() {
-        int counter = -1;
-        while (!players.get(++counter).isInGame()) {};
-        return players.get(counter);
-    }
-
     public List<Player> getPlayers() {
         return players;
     }
