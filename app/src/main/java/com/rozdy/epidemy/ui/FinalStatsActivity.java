@@ -3,7 +3,7 @@ package com.rozdy.epidemy.ui;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +16,7 @@ import com.rozdy.epidemy.logic.game.Game;
 import com.rozdy.epidemy.logic.game.GameStats;
 import com.rozdy.epidemy.logic.player.Player;
 
-public class FinalStatsActivity extends ActionBarActivity {
+public class FinalStatsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,10 +94,7 @@ public class FinalStatsActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
     public void revenge(View view) {
