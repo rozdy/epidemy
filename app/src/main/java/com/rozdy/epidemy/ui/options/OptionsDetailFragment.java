@@ -15,6 +15,7 @@ import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rozdy.epidemy.Options;
 import com.rozdy.epidemy.R;
@@ -358,13 +359,15 @@ public class OptionsDetailFragment extends Fragment {
     }
 
 
-    private void initDefaultsOptions(View rootView) {
+    private void initDefaultsOptions(final View rootView) {
         Button resetToDefaults = (Button) rootView.findViewById(R.id.reset_to_defaults_button);
         resetToDefaults.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Player.resetIdCounter();
                 Options.init();
+                Toast toast = Toast.makeText(rootView.getContext(), getString(R.string.options_reset), Toast.LENGTH_LONG);
+                toast.show();
             }
         });
     }
