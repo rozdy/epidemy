@@ -65,8 +65,6 @@ public class CellView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int p = CellView.getCellPadding();
-        int w = CellView.getCellWidth();
         canvas.save();
         canvas.scale(scaleFactor, scaleFactor);
         paint.setColor(color);
@@ -81,7 +79,7 @@ public class CellView extends View {
                 drawWall(canvas, CellView.getCellWidth(), CellView.getCellPadding(), paint);
                 break;
             default:
-                drawErrorCell(canvas, CellView.getCellWidth(), CellView.getCellPadding(), paint);
+                drawErrorCell(canvas, CellView.getCellPadding(), paint);
                 break;
         }
         canvas.restore();
@@ -98,7 +96,7 @@ public class CellView extends View {
         canvas.drawRect(padding, padding, width + padding, width + padding, paint);
     }
 
-    private void drawErrorCell(Canvas canvas, int width, int padding, Paint paint) {
+    private void drawErrorCell(Canvas canvas, int padding, Paint paint) {
         paint.setColor(Color.RED);
         canvas.drawText("!", padding, padding, paint);
     }

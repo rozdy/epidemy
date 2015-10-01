@@ -2,8 +2,7 @@ package com.rozdy.epidemy.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,9 +10,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.squareup.otto.Subscribe;
+
 import com.rozdy.epidemy.Options;
 import com.rozdy.epidemy.R;
+import com.rozdy.epidemy.bus.EventBus;
+import com.rozdy.epidemy.bus.GameFinishEvent;
+import com.rozdy.epidemy.bus.PlayerLoseEvent;
 import com.rozdy.epidemy.logic.board.Board;
 import com.rozdy.epidemy.logic.board.BoardAdapter;
 import com.rozdy.epidemy.logic.board.BoardImageAdapter;
@@ -21,16 +23,14 @@ import com.rozdy.epidemy.logic.board.BoardView;
 import com.rozdy.epidemy.logic.board.InvalidPositionException;
 import com.rozdy.epidemy.logic.board.PureBoardAdapter;
 import com.rozdy.epidemy.logic.board.StatusBarView;
-import com.rozdy.epidemy.bus.EventBus;
-import com.rozdy.epidemy.bus.GameFinishEvent;
-import com.rozdy.epidemy.bus.PlayerLoseEvent;
 import com.rozdy.epidemy.logic.cell.CellView;
 import com.rozdy.epidemy.logic.cell.InvalidCellException;
 import com.rozdy.epidemy.logic.game.Game;
 import com.rozdy.epidemy.logic.game.InvalidMoveException;
 import com.rozdy.epidemy.logic.player.Player;
+import com.squareup.otto.Subscribe;
 
-public class GameBoardActivity extends ActionBarActivity {
+public class GameBoardActivity extends AppCompatActivity {
     private StatusBarView statusBar;
 
     @Override
