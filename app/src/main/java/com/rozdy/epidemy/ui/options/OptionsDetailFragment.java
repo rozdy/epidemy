@@ -160,8 +160,6 @@ public class OptionsDetailFragment extends Fragment {
                 (SeekBar) rootView.findViewById(R.id.board_width_seek_bar);
         boardWidthSeekBar.setMax(BoardOptions.MAX_WIDTH);
         boardWidthSeekBar.setProgress(Options.getInstance().getBoardOptions().getWidth());
-        final TextView boardWidth = (TextView) rootView.findViewById(R.id.board_width);
-        boardWidth.setVisibility(View.INVISIBLE);
         boardWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -174,20 +172,16 @@ public class OptionsDetailFragment extends Fragment {
                     Options.getInstance().getBoardOptions().setWidth(BoardOptions.MIN_WIDTH);
                     seekBar.setProgress(BoardOptions.MIN_WIDTH);
                 }
-                boardWidth.setText(Options.getInstance().getBoardOptions().getWidth() + "");
-                int xPos = (seekBar.getWidth() - seekBar.getPaddingLeft() - seekBar.getPaddingRight())
-                        * seekBar.getProgress() / seekBar.getMax() + seekBar.getThumbOffset();
-                boardWidth.setPadding(xPos, 0, 0, 0); //Todo align to the center of thumb
+                boardWidthCaption.setText(getString(R.string.board_width)
+                        + Options.getInstance().getBoardOptions().getWidth());
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                boardWidth.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                boardWidth.setVisibility(View.INVISIBLE);
                 boardWidthCaption.setText(getString(R.string.board_width)
                         + Options.getInstance().getBoardOptions().getWidth());
             }
@@ -200,8 +194,6 @@ public class OptionsDetailFragment extends Fragment {
                 (SeekBar) rootView.findViewById(R.id.board_height_seek_bar);
         boardHeightSeekBar.setMax(BoardOptions.MAX_HEIGHT);
         boardHeightSeekBar.setProgress(Options.getInstance().getBoardOptions().getHeight());
-        final TextView boardHeight = (TextView) rootView.findViewById(R.id.board_height);
-        boardHeight.setVisibility(View.INVISIBLE);
         boardHeightSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -214,20 +206,16 @@ public class OptionsDetailFragment extends Fragment {
                     Options.getInstance().getBoardOptions().setHeight(BoardOptions.MIN_HEIGHT);
                     seekBar.setProgress(BoardOptions.MIN_HEIGHT);
                 }
-                boardHeight.setText(Options.getInstance().getBoardOptions().getHeight() + "");
-                int xPos = (seekBar.getWidth() - seekBar.getPaddingLeft() - seekBar.getPaddingRight())
-                        * seekBar.getProgress() / seekBar.getMax() + seekBar.getThumbOffset();
-                boardHeight.setPadding(xPos, 0, 0, 0); //Todo align to the center of thumb
+                boardHeightCaption.setText(getString(R.string.board_height)
+                        + Options.getInstance().getBoardOptions().getHeight());
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                boardHeight.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                boardHeight.setVisibility(View.INVISIBLE);
                 boardHeightCaption.setText(getString(R.string.board_height)
                         + Options.getInstance().getBoardOptions().getHeight());
             }
