@@ -10,17 +10,11 @@
         android:padding="@dimen/padding"
         android:textIsSelectable="false" />
 
-    <TextView
-        android:id="@+id/number_of_players"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/number_of_players_caption" />
-
     <SeekBar
         android:id="@+id/number_of_players_seek_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/number_of_players"
+        android:layout_below="@id/number_of_players_caption"
         android:padding="@dimen/padding" />
 
     <TextView
@@ -30,16 +24,10 @@
         android:layout_below="@+id/number_of_players_seek_bar"
         android:padding="@dimen/padding" />
 
-    <TextView
-        android:id="@+id/number_of_moves"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/number_of_moves_caption" />
-
     <SeekBar
         android:id="@+id/number_of_moves_seek_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/number_of_moves"
+        android:layout_below="@id/number_of_moves_caption"
         android:padding="@dimen/padding" />
 </RelativeLayout>
