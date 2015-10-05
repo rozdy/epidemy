@@ -53,4 +53,5 @@
     <string name="sharedPrefs_player_name">name_of_player</string>
     <string name="sharedPrefs_player_color">color_of_player</string>
     <string name="main_screen_logo">logo</string>
+    <string name="options_reset">"Default options were restored"</string>
 </resources>

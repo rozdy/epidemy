@@ -10,17 +10,11 @@
         android:padding="@dimen/padding"
         android:text="@string/board_width" />
 
-    <TextView
-        android:id="@+id/board_width"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/board_width_caption" />
-
     <SeekBar
         android:id="@+id/board_width_seek_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/board_width"
+        android:layout_below="@id/board_width_caption"
         android:padding="@dimen/padding" />
 
     <TextView
@@ -31,17 +25,20 @@
         android:padding="@dimen/padding"
         android:text="@string/board_height" />
 
-    <TextView
-        android:id="@+id/board_height"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/board_height_caption" />
-
     <SeekBar
         android:id="@+id/board_height_seek_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/board_height"
+        android:layout_below="@id/board_height_caption"
+        android:padding="@dimen/padding" />
+
+    <Switch
+        android:id="@+id/square_board"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/board_height_seek_bar"
         android:padding="@dimen/padding" />
 
     <TextView
@@ -49,30 +46,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/board_height_seek_bar"
+        android:layout_toLeftOf="@id/square_board"
+        android:layout_toStartOf="@id/square_board"
         android:padding="@dimen/padding"
         android:text="@string/square_board" />
-
-    <Switch
-        android:id="@+id/square_board"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/board_height_seek_bar"
-        android:padding="@dimen/padding" />
-
-    <TextView
-        android:id="@+id/show_cell_numbers_caption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/square_board"
-        android:padding="@dimen/padding"
-        android:text="@string/show_cell_numbers" />
 
     <Switch
         android:id="@+id/show_cell_numbers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/square_board"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/square_board_caption"
         android:padding="@dimen/padding" />
+
+    <TextView
+        android:id="@+id/show_cell_numbers_caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/square_board_caption"
+        android:layout_toLeftOf="@id/square_board"
+        android:layout_toStartOf="@id/square_board"
+        android:padding="@dimen/padding"
+        android:text="@string/show_cell_numbers" />
+
 </RelativeLayout>

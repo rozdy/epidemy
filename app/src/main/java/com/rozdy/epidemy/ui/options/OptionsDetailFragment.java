@@ -15,6 +15,7 @@ import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rozdy.epidemy.Options;
 import com.rozdy.epidemy.R;
@@ -84,8 +85,6 @@ public class OptionsDetailFragment extends Fragment {
                 (SeekBar) rootView.findViewById(R.id.number_of_players_seek_bar);
         numberOfPlayersSeekBar.setMax(UsersOptions.MAX_PLAYERS_NUMBER);
         numberOfPlayersSeekBar.setProgress(Options.getInstance().getGameOptions().getNumberOfPlayers());
-        final TextView numberOfPlayers = (TextView) rootView.findViewById(R.id.number_of_players);
-        numberOfPlayers.setVisibility(View.INVISIBLE);
         numberOfPlayersSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -95,22 +94,16 @@ public class OptionsDetailFragment extends Fragment {
                     Options.getInstance().getGameOptions().setNumberOfPlayers(UsersOptions.MIN_PLAYERS_NUMBER);
                     seekBar.setProgress(UsersOptions.MIN_PLAYERS_NUMBER);
                 }
-                numberOfPlayers.setText(Options.getInstance().getGameOptions().getNumberOfPlayers() + "");
-                int xPos = (seekBar.getWidth() - seekBar.getPaddingLeft() - seekBar.getPaddingRight())
-                        * seekBar.getProgress() / seekBar.getMax() + seekBar.getThumbOffset();
-                numberOfPlayers.setPadding(xPos, 0, 0, 0); //Todo align to the center of thumb
+                numberOfPlayersCaption.setText(getString(R.string.number_of_players)
+                        + Options.getInstance().getGameOptions().getNumberOfPlayers());
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                numberOfPlayers.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                numberOfPlayers.setVisibility(View.INVISIBLE);
-                numberOfPlayersCaption.setText(getString(R.string.number_of_players)
-                        + Options.getInstance().getGameOptions().getNumberOfPlayers());
             }
         });
         final TextView numberOfMovesCaption = (TextView) rootView.findViewById(R.id.number_of_moves_caption);
@@ -120,8 +113,6 @@ public class OptionsDetailFragment extends Fragment {
                 (SeekBar) rootView.findViewById(R.id.number_of_moves_seek_bar);
         numberOfMovesSeekBar.setMax(GameOptions.MAX_NUMBER_OF_MOVES);
         numberOfMovesSeekBar.setProgress(Options.getInstance().getGameOptions().getNumberOfMoves());
-        final TextView numberOfMoves = (TextView) rootView.findViewById(R.id.number_of_moves);
-        numberOfMoves.setVisibility(View.INVISIBLE);
         numberOfMovesSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -131,22 +122,16 @@ public class OptionsDetailFragment extends Fragment {
                     Options.getInstance().getGameOptions().setNumberOfMoves(GameOptions.MIN_NUMBER_OF_MOVES);
                     seekBar.setProgress(GameOptions.MIN_NUMBER_OF_MOVES);
                 }
-                numberOfMoves.setText(Options.getInstance().getGameOptions().getNumberOfMoves() + "");
-                int xPos = (seekBar.getWidth() - seekBar.getPaddingLeft() - seekBar.getPaddingRight())
-                        * seekBar.getProgress() / seekBar.getMax() + seekBar.getThumbOffset();
-                numberOfMoves.setPadding(xPos, 0, 0, 0); //Todo align to the center of thumb
+                numberOfMovesCaption.setText(getString(R.string.number_of_moves)
+                        + Options.getInstance().getGameOptions().getNumberOfMoves());
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                numberOfMoves.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                numberOfMoves.setVisibility(View.INVISIBLE);
-                numberOfMovesCaption.setText(getString(R.string.number_of_moves)
-                        + Options.getInstance().getGameOptions().getNumberOfMoves());
             }
         });
     }
@@ -159,8 +144,6 @@ public class OptionsDetailFragment extends Fragment {
                 (SeekBar) rootView.findViewById(R.id.board_width_seek_bar);
         boardWidthSeekBar.setMax(BoardOptions.MAX_WIDTH);
         boardWidthSeekBar.setProgress(Options.getInstance().getBoardOptions().getWidth());
-        final TextView boardWidth = (TextView) rootView.findViewById(R.id.board_width);
-        boardWidth.setVisibility(View.INVISIBLE);
         boardWidthSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -173,22 +156,16 @@ public class OptionsDetailFragment extends Fragment {
                     Options.getInstance().getBoardOptions().setWidth(BoardOptions.MIN_WIDTH);
                     seekBar.setProgress(BoardOptions.MIN_WIDTH);
                 }
-                boardWidth.setText(Options.getInstance().getBoardOptions().getWidth() + "");
-                int xPos = (seekBar.getWidth() - seekBar.getPaddingLeft() - seekBar.getPaddingRight())
-                        * seekBar.getProgress() / seekBar.getMax() + seekBar.getThumbOffset();
-                boardWidth.setPadding(xPos, 0, 0, 0); //Todo align to the center of thumb
+                boardWidthCaption.setText(getString(R.string.board_width)
+                        + Options.getInstance().getBoardOptions().getWidth());
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                boardWidth.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                boardWidth.setVisibility(View.INVISIBLE);
-                boardWidthCaption.setText(getString(R.string.board_width)
-                        + Options.getInstance().getBoardOptions().getWidth());
             }
         });
 
@@ -199,8 +176,6 @@ public class OptionsDetailFragment extends Fragment {
                 (SeekBar) rootView.findViewById(R.id.board_height_seek_bar);
         boardHeightSeekBar.setMax(BoardOptions.MAX_HEIGHT);
         boardHeightSeekBar.setProgress(Options.getInstance().getBoardOptions().getHeight());
-        final TextView boardHeight = (TextView) rootView.findViewById(R.id.board_height);
-        boardHeight.setVisibility(View.INVISIBLE);
         boardHeightSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -213,22 +188,16 @@ public class OptionsDetailFragment extends Fragment {
                     Options.getInstance().getBoardOptions().setHeight(BoardOptions.MIN_HEIGHT);
                     seekBar.setProgress(BoardOptions.MIN_HEIGHT);
                 }
-                boardHeight.setText(Options.getInstance().getBoardOptions().getHeight() + "");
-                int xPos = (seekBar.getWidth() - seekBar.getPaddingLeft() - seekBar.getPaddingRight())
-                        * seekBar.getProgress() / seekBar.getMax() + seekBar.getThumbOffset();
-                boardHeight.setPadding(xPos, 0, 0, 0); //Todo align to the center of thumb
+                boardHeightCaption.setText(getString(R.string.board_height)
+                        + Options.getInstance().getBoardOptions().getHeight());
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                boardHeight.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                boardHeight.setVisibility(View.INVISIBLE);
-                boardHeightCaption.setText(getString(R.string.board_height)
-                        + Options.getInstance().getBoardOptions().getHeight());
             }
         });
 
@@ -358,13 +327,15 @@ public class OptionsDetailFragment extends Fragment {
     }
 
 
-    private void initDefaultsOptions(View rootView) {
+    private void initDefaultsOptions(final View rootView) {
         Button resetToDefaults = (Button) rootView.findViewById(R.id.reset_to_defaults_button);
         resetToDefaults.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Player.resetIdCounter();
                 Options.init();
+                Toast toast = Toast.makeText(rootView.getContext(), getString(R.string.options_reset), Toast.LENGTH_LONG);
+                toast.show();
             }
         });
     }
