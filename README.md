@@ -6,4 +6,4 @@ Epidemy is turn-based hotseat multiplayer game.
 Screenshots
 ===========
 
-![ScreenShot](http://s15.postimg.org/jby2qv43f/epidemy_screenshot.png)
+![ScreenShot](http://s27.postimg.org/7zfov3i1v/epidemy_screenshot.png)
