@@ -8,6 +8,7 @@
     <string name="final_stats_congrats">Congrats!</string>
     <string name="final_stats_back">Back to main menu</string>
     <string name="final_stats_revenge">Revenge</string>
+    <string name="final_stats_view_board">View board</string>
     <string name="winner">Winner</string>
     <string name="loser">Loser</string>
     <string name="surrender">Surrender</string>
