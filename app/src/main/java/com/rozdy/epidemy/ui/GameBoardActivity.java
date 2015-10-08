@@ -81,44 +81,46 @@ public class GameBoardActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BoardAdapter adapter = (BoardAdapter) parent.getAdapter();
-                try {
-                    Toast toast;
-                    switch (Game.getInstance().makeAMove(Game.getInstance().getActivePlayer(),
-                            adapter.getXByPosition(position), adapter.getYByPosition(position))) {
-                        case Board.MARK_PLACED:
-                        case Board.WALL_PLACED:
-                            adapter.notifyDataSetChanged();
-                            view.invalidate();
-                            updateStatusBar();
-                            if (Game.getInstance().getNumberOfMoves() == Game.getInstance().getMaxNumberOfMoves()) {
-                                toast = Toast.makeText(parent.getContext(), getString(R.string.next_player) +
-                                                Game.getInstance().getPlayer(Game.getInstance().getActivePlayer()).getName(),
-                                        Toast.LENGTH_LONG);
+                if (!Game.getInstance().isGameFinished()) {
+                    try {
+                        Toast toast;
+                        switch (Game.getInstance().makeAMove(Game.getInstance().getActivePlayer(),
+                                adapter.getXByPosition(position), adapter.getYByPosition(position))) {
+                            case Board.MARK_PLACED:
+                            case Board.WALL_PLACED:
+                                adapter.notifyDataSetChanged();
+                                view.invalidate();
+                                updateStatusBar();
+                                if (Game.getInstance().getNumberOfMoves() == Game.getInstance().getMaxNumberOfMoves()) {
+                                    toast = Toast.makeText(parent.getContext(), getString(R.string.next_player) +
+                                                    Game.getInstance().getPlayer(Game.getInstance().getActivePlayer()).getName(),
+                                            Toast.LENGTH_LONG);
+                                    toast.show();
+                                }
+                                break;
+                            case Board.UNREACHABLE_CELL:
+                                toast = Toast.makeText(parent.getContext(), R.string.UNREACHABLE_CELL, Toast.LENGTH_SHORT);
                                 toast.show();
-                            }
-                            break;
-                        case Board.UNREACHABLE_CELL:
-                            toast = Toast.makeText(parent.getContext(), R.string.UNREACHABLE_CELL, Toast.LENGTH_SHORT);
-                            toast.show();
-                            break;
-                        case Board.ENEMY_WALL_HIT:
-                            toast = Toast.makeText(parent.getContext(), R.string.ENEMY_WALL_HIT, Toast.LENGTH_SHORT);
-                            toast.show();
-                            break;
-                        case Board.OWN_CROSS_HIT:
-                            toast = Toast.makeText(parent.getContext(), R.string.OWN_CROSS_HIT, Toast.LENGTH_SHORT);
-                            toast.show();
-                            break;
-                        case Board.OWN_WALL_HIT:
-                            toast = Toast.makeText(parent.getContext(), R.string.OWN_WALL_HIT, Toast.LENGTH_SHORT);
-                            toast.show();
-                            break;
+                                break;
+                            case Board.ENEMY_WALL_HIT:
+                                toast = Toast.makeText(parent.getContext(), R.string.ENEMY_WALL_HIT, Toast.LENGTH_SHORT);
+                                toast.show();
+                                break;
+                            case Board.OWN_CROSS_HIT:
+                                toast = Toast.makeText(parent.getContext(), R.string.OWN_CROSS_HIT, Toast.LENGTH_SHORT);
+                                toast.show();
+                                break;
+                            case Board.OWN_WALL_HIT:
+                                toast = Toast.makeText(parent.getContext(), R.string.OWN_WALL_HIT, Toast.LENGTH_SHORT);
+                                toast.show();
+                                break;
+                        }
+                    } catch (InvalidCellException | InvalidMoveException e) {
+                        Toast toast = Toast.makeText(parent.getContext(), e.toString(), Toast.LENGTH_LONG);
+                        toast.show();
+                    } catch (InvalidPositionException e) {
+                        //User clicks element on the top row or the left column. Or some strange error.
                     }
-                } catch (InvalidCellException | InvalidMoveException e) {
-                    Toast toast = Toast.makeText(parent.getContext(), e.toString(), Toast.LENGTH_LONG);
-                    toast.show();
-                } catch (InvalidPositionException e) {
-                    //User clicks element on the top row or the left column. Or some strange error.
                 }
             }
         };
@@ -142,10 +144,12 @@ public class GameBoardActivity extends AppCompatActivity {
             case R.id.action_settings:
                 return true;
             case R.id.action_surrender:
-                Game.getInstance().getPlayer(Game.getInstance().getActivePlayer()).
-                        lose(Game.getInstance().getCurrentTurn(), Player.PLAYER_SURRENDER);
-                Game.getInstance().nextActivePlayer();
-                updateStatusBar();
+                if (!Game.getInstance().isGameFinished()) {
+                    Game.getInstance().getPlayer(Game.getInstance().getActivePlayer()).
+                            lose(Game.getInstance().getCurrentTurn(), Player.PLAYER_SURRENDER);
+                    Game.getInstance().nextActivePlayer();
+                    updateStatusBar();
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);

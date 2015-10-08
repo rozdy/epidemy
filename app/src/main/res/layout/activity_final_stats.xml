@@ -66,11 +66,20 @@
         android:text="@string/final_stats_revenge" />
 
     <Button
+        android:id="@+id/view_board_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/final_stats_table"
+        android:layout_toRightOf="@+id/revenge_button"
+        android:onClick="viewBoard"
+        android:text="@string/final_stats_view_board" />
+
+    <Button
         android:id="@+id/back_to_main_menu_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/final_stats_table"
-        android:layout_toRightOf="@+id/revenge_button"
+        android:layout_toRightOf="@+id/view_board_button"
         android:onClick="backToMainMenu"
         android:text="@string/final_stats_back" />
 

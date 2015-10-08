@@ -102,6 +102,10 @@ public class FinalStatsActivity extends AppCompatActivity {
         onBackPressed();
     }
 
+    public void viewBoard(View view) {
+        onBackPressed();
+    }
+
     public void backToMainMenu(View view) {
         NavUtils.navigateUpFromSameTask(this);
     }

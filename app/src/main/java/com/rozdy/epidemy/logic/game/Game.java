@@ -139,7 +139,7 @@ public class Game {
 
     private void decNumberOfMovesAndCheckFinished() throws InvalidMoveException {
         decNumberOfMoves();
-        if (playersHasNoMarks()) {
+        if (playersHasNoMarks() && !isGameFinished()) {
             EventBus.getInstance().post(new GameFinishEvent());
         }
         if (getNumberOfMoves() == 0) {
