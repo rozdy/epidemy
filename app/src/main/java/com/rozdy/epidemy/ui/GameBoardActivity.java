@@ -1,5 +1,7 @@
 package com.rozdy.epidemy.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -169,7 +171,23 @@ public class GameBoardActivity extends AppCompatActivity {
 
     @Subscribe
     public void gameFinishAction(GameFinishEvent event) {
-        Game.getInstance().finish();
-        showFinalStats();
+        for (Player player : Game.getInstance().getPlayers()) {
+            if (player.isInGame()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.behold)
+                        .setMessage(player.getName() + getString(R.string.is_winner))
+                        .setCancelable(false)
+                        .setNegativeButton(R.string.ok,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.dismiss();
+                                        Game.getInstance().finish();
+                                        showFinalStats();
+                                    }
+                                });
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        }
     }
 }
