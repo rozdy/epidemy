@@ -21,6 +21,7 @@ public class Player {
     private int loseTurn = -1;
     private int loseReason = -1;
     private boolean inGame;
+    private boolean ai;
 
     public Player(int color) {
         id = nextId++;
@@ -81,5 +82,55 @@ public class Player {
 
     public int getLoseTurn() {
         return loseTurn;
+    }
+
+    public boolean isAi() {
+        return ai;
+    }
+
+    public void setAi(boolean ai) {
+        this.ai = ai;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Player)) return false;
+
+        Player player = (Player) o;
+
+        if (getColor() != player.getColor()) return false;
+        if (getId() != player.getId()) return false;
+        if (getLoseTurn() != player.getLoseTurn()) return false;
+        if (getLoseReason() != player.getLoseReason()) return false;
+        if (isInGame() != player.isInGame()) return false;
+        if (isAi() != player.isAi()) return false;
+        return !(getName() != null ? !getName().equals(player.getName()) : player.getName() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getName() != null ? getName().hashCode() : 0;
+        result = 31 * result + getColor();
+        result = 31 * result + getId();
+        result = 31 * result + getLoseTurn();
+        result = 31 * result + getLoseReason();
+        result = 31 * result + (isInGame() ? 1 : 0);
+        result = 31 * result + (isAi() ? 1 : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", color=" + color +
+                ", id=" + id +
+                ", loseTurn=" + loseTurn +
+                ", loseReason=" + loseReason +
+                ", inGame=" + inGame +
+                ", ai=" + ai +
+                '}';
     }
 }

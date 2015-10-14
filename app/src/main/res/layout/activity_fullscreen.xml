@@ -34,5 +34,12 @@
             android:layout_height="wrap_content"
             android:onClick="showOptions"
             android:text="@string/options_button" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/play_with_ai"
+            android:id="@+id/play_with_ai"
+            android:onClick="startGameAI" />
     </LinearLayout>
 </FrameLayout>

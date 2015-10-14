@@ -32,6 +32,12 @@ public class MainMenuActivity extends Activity {
         startActivity(intent);
     }
 
+    public void startGameAI(View view) {
+        Game.initWithAI();
+        Intent intent = new Intent(this, GameBoardActivity.class);
+        startActivity(intent);
+    }
+
     public void showOptions(View view) {
         Intent intent = new Intent(this, OptionsListActivity.class);
         startActivity(intent);
