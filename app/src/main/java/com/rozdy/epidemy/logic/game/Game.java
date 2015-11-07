@@ -117,7 +117,11 @@ public class Game {
             nextActivePlayer();
         }
         if (getPlayers().get(activePlayer).isAi()) {
-            AI.makeAIMove(activePlayer);
+            try {
+                AI.makeWeightedAIMove(activePlayer);
+            } catch (Exception e) {
+                nextActivePlayer(); //pass move silently?
+            }
         }
     }
 
