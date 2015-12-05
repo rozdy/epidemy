@@ -3,6 +3,7 @@ package com.rozdy.epidemy.logic;
 import com.rozdy.epidemy.bus.AIMoveEvent;
 import com.rozdy.epidemy.bus.EventBus;
 import com.rozdy.epidemy.logic.board.Board;
+import com.rozdy.epidemy.logic.board.BoardPositionHelper;
 import com.rozdy.epidemy.logic.cell.Cell;
 import com.rozdy.epidemy.logic.game.Game;
 
@@ -20,7 +21,7 @@ public class AI {
                 boolean moveMade = false;
                 for (int j = 0; j < movesMap[i].length; j++) {
                     if (movesMap[i][j] == Board.WALL_AVAILABLE || movesMap[i][j] == Board.MARK_AVAILABLE) {
-                        EventBus.getInstance().post(new AIMoveEvent((i + 1) * (movesMap[i].length + 1) + j + 1)); //numbers/letters row/column
+                        EventBus.getInstance().post(new AIMoveEvent(new BoardPositionHelper().calculatePositionByXY(i, j)));
                         moveMade = true;
                         break;
                     }
@@ -44,7 +45,11 @@ public class AI {
 
             int number = randomize(subMovesToRandomizeFrom.size());
 
-            EventBus.getInstance().post(new AIMoveEvent((subMovesToRandomizeFrom.get(number).getX() + 1) * (Game.getInstance().getBoard().getWidth() + 1) + subMovesToRandomizeFrom.get(number).getY() + 1)); //numbers/letters row/column
+            EventBus.getInstance().post(
+                    new AIMoveEvent(new BoardPositionHelper().
+                            calculatePositionByXY(
+                                    subMovesToRandomizeFrom.get(number).getX(),
+                                    subMovesToRandomizeFrom.get(number).getY())));
         }
     }
 
