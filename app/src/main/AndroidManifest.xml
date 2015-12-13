@@ -42,6 +42,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.rozdy.epidemy.ui.MainMenuActivity" />
         </activity>
+        <activity
+            android:name=".ui.HelpActivity"
+            android:label="@string/title_activity_help">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.rozdy.epidemy.ui.MainMenuActivity" />
+        </activity>
     </application>
 
 </manifest>
