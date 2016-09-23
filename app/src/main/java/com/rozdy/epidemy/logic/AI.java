@@ -114,7 +114,7 @@ public class AI {
     public static class SubMove {
         int x;
         int y;
-        double distance;
+        int distance;
 
         public int getX() {
             return x;
@@ -132,15 +132,15 @@ public class AI {
             this.y = y;
         }
 
-        public double getDistance() {
+        public int getDistance() {
             return distance;
         }
 
-        public void setDistance(double distance) {
+        public void setDistance(int distance) {
             this.distance = distance;
         }
 
-        public SubMove(int x, int y, double distance) {
+        public SubMove(int x, int y, int distance) {
             this.x = x;
             this.y = y;
             this.distance = distance;
