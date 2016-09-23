@@ -16,7 +16,7 @@ public class MainMenuActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fullscreen);
+        setContentView(R.layout.activity_main);
         Options.load(this);
     }
 
@@ -34,6 +34,11 @@ public class MainMenuActivity extends Activity {
 
     public void showOptions(View view) {
         Intent intent = new Intent(this, OptionsListActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToHelp(View view) {
+        Intent intent = new Intent(this, HelpActivity.class);
         startActivity(intent);
     }
 }
