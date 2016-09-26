@@ -1,6 +1,6 @@
 package com.rozdy.epidemy;
 
-import com.rozdy.epidemy.logic.AI;
+import com.rozdy.epidemy.logic.ai.AI;
 import com.rozdy.epidemy.logic.cell.Cell;
 import com.rozdy.epidemy.logic.cell.InvalidCellException;
 import com.rozdy.epidemy.logic.game.Game;

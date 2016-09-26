@@ -1,4 +1,4 @@
-package com.rozdy.epidemy.logic;
+package com.rozdy.epidemy.logic.ai;
 
 import com.rozdy.epidemy.bus.AIMoveEvent;
 import com.rozdy.epidemy.bus.EventBus;

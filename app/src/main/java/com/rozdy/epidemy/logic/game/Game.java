@@ -3,7 +3,7 @@ package com.rozdy.epidemy.logic.game;
 import com.rozdy.epidemy.Options;
 import com.rozdy.epidemy.bus.EventBus;
 import com.rozdy.epidemy.bus.GameFinishEvent;
-import com.rozdy.epidemy.logic.AI;
+import com.rozdy.epidemy.logic.ai.AI;
 import com.rozdy.epidemy.logic.board.Board;
 import com.rozdy.epidemy.logic.cell.InvalidCellException;
 import com.rozdy.epidemy.logic.player.Player;
