@@ -54,7 +54,7 @@ public class AI {
         }
     }
 
-    public static List<SubMove> getSubMovesToRandomizeFrom(int player) {
+    static List<SubMove> getSubMovesToRandomizeFrom(int player) {
         Integer[][] movesMap = Game.getInstance().getBoard().buildMovesMap(player);
 
         int minDistance = Game.getInstance().getBoard().getHeight() + Game.getInstance().getBoard().getWidth(); //just a big number to guarantee being out of the board
@@ -87,7 +87,7 @@ public class AI {
      * @param y      of submove
      * @return lowest distance to the enemy cross
      */
-    public static int getDistanceToClosestEnemyCross(int player, int x, int y) {
+    static int getDistanceToClosestEnemyCross(int player, int x, int y) {
         int distance = Game.getInstance().getBoard().getHeight() + Game.getInstance().getBoard().getWidth(); //just a big number to guarantee being out of the board
         for (int otherPlayer = 0; otherPlayer < Game.getInstance().getPlayersNumber(); otherPlayer++) {
             if (otherPlayer == player) {
@@ -106,7 +106,7 @@ public class AI {
         return distance;
     }
 
-    public static class SubMove {
+    static class SubMove {
         int x;
         int y;
         int distance;

@@ -1,6 +1,5 @@
-package com.rozdy.epidemy;
+package com.rozdy.epidemy.logic.ai;
 
-import com.rozdy.epidemy.logic.ai.AI;
 import com.rozdy.epidemy.logic.cell.Cell;
 import com.rozdy.epidemy.logic.cell.InvalidCellException;
 import com.rozdy.epidemy.logic.game.Game;
@@ -60,7 +59,7 @@ public class AITest {
     }
 
     @Test
-     public void testDistanceToEnemy() throws InvalidCellException {
+    public void testDistanceToEnemy() throws InvalidCellException {
         Game.initWithAI();
         Game.getInstance().setCurrentTurn(10);
         Cell[][] cells = Game.getInstance().getBoard().getCells();
