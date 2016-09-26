@@ -58,6 +58,7 @@
     <string name="sharedPrefs_player_color">color_of_player</string>
     <string name="main_screen_logo">logo</string>
     <string name="options_reset">"Default options were restored"</string>
+    <string name="play_with_ai">Play with Robot Alpha</string>
     <string name="help_button">Help</string>
     <string name="title_activity_help">Help</string>
 

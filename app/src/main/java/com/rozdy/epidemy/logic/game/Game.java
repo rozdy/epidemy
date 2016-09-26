@@ -1,15 +1,16 @@
 package com.rozdy.epidemy.logic.game;
 
+import com.rozdy.epidemy.Options;
+import com.rozdy.epidemy.bus.EventBus;
+import com.rozdy.epidemy.bus.GameFinishEvent;
+import com.rozdy.epidemy.logic.ai.AI;
+import com.rozdy.epidemy.logic.board.Board;
+import com.rozdy.epidemy.logic.cell.InvalidCellException;
+import com.rozdy.epidemy.logic.player.Player;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import com.rozdy.epidemy.Options;
-import com.rozdy.epidemy.logic.board.Board;
-import com.rozdy.epidemy.bus.EventBus;
-import com.rozdy.epidemy.bus.GameFinishEvent;
-import com.rozdy.epidemy.logic.cell.InvalidCellException;
-import com.rozdy.epidemy.logic.player.Player;
 
 /**
  * The Game class would be a Singletone. It means we have a single instance of a game available through the whole app
@@ -24,15 +25,20 @@ public class Game {
 
     private int activePlayer, numberOfMoves, playersNumber, maxNumberOfMoves;
 
-    private Game() {
+    private Game(boolean ai) {
         Options options = Options.getInstance();
         board = new Board(options.getBoardOptions());
         players = new ArrayList<>();
         playersNumber = options.getGameOptions().getNumberOfPlayers();
         maxNumberOfMoves = options.getGameOptions().getNumberOfMoves();
         for (int i = 0; i < playersNumber; i++) {
-            players.add(new Player(options.getUsersOptions().getPlayer(i)));
+            Player player = new Player(options.getUsersOptions().getPlayer(i));
+            if (ai) {
+                player.setAi(true);
+            }
+            players.add(player);
         }
+        players.get(0).setAi(false); //to make 1st player a human
         activePlayer = 0;
         refillNumberOfMoves();
         currentTurn = 0;
@@ -46,7 +52,11 @@ public class Game {
     }
 
     public static void init() {
-        instance = new Game();
+        instance = new Game(false);
+    }
+
+    public static void initWithAI() {
+        instance = new Game(true);
     }
 
     public List<Player> getPlayers() {
@@ -105,6 +115,13 @@ public class Game {
         refillNumberOfMoves();
         if (activePlayerHasNoMoves()) {
             nextActivePlayer();
+        }
+        if (getPlayers().get(activePlayer).isAi()) {
+            try {
+                AI.makeWeightedAIMove(activePlayer);
+            } catch (Exception e) {
+                nextActivePlayer(); //pass move silently?
+            }
         }
     }
 

@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.rozdy.epidemy.Options;
 import com.rozdy.epidemy.R;
+import com.rozdy.epidemy.bus.AIMoveEvent;
 import com.rozdy.epidemy.bus.EventBus;
 import com.rozdy.epidemy.bus.GameFinishEvent;
 import com.rozdy.epidemy.bus.PlayerLoseEvent;
@@ -189,5 +190,12 @@ public class GameBoardActivity extends AppCompatActivity {
                 alert.show();
             }
         }
+    }
+
+    @Subscribe
+    public void aiMoveAction(AIMoveEvent event) {
+        BoardView boardView = (BoardView) findViewById(R.id.board_view);
+
+        boardView.getOnItemClickListener().onItemClick(boardView, boardView.getChildAt(event.getPosition()), event.getPosition(), 0);
     }
 }
