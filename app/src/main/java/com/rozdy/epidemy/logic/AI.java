@@ -9,6 +9,7 @@ import com.rozdy.epidemy.logic.game.Game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Sergejj on 11/10/2015 in the name of the Emperor!
@@ -17,8 +18,8 @@ public class AI {
     public static void makeAIMove(int player) {
         for (int index = 0; index < Game.getInstance().getMaxNumberOfMoves(); index++) {
             Integer[][] movesMap = Game.getInstance().getBoard().buildMovesMap(player);
+            boolean moveMade = false;
             for (int i = 0; i < movesMap.length; i++) {
-                boolean moveMade = false;
                 for (int j = 0; j < movesMap[i].length; j++) {
                     if (movesMap[i][j] == Board.WALL_AVAILABLE || movesMap[i][j] == Board.MARK_AVAILABLE) {
                         EventBus.getInstance().post(new AIMoveEvent(new BoardPositionHelper().calculatePositionByXY(i, j)));
@@ -43,7 +44,7 @@ public class AI {
                 throw new Exception("AI has no moves");
             }
 
-            int number = randomize(subMovesToRandomizeFrom.size());
+            int number = new Random().nextInt(subMovesToRandomizeFrom.size());
 
             EventBus.getInstance().post(
                     new AIMoveEvent(new BoardPositionHelper().
@@ -51,12 +52,6 @@ public class AI {
                                     subMovesToRandomizeFrom.get(number).getX(),
                                     subMovesToRandomizeFrom.get(number).getY())));
         }
-    }
-
-    public static int randomize(double size) {
-        double step = 1 / size;
-
-        return (int) (Math.random() / step);
     }
 
     public static List<SubMove> getSubMovesToRandomizeFrom(int player) {
